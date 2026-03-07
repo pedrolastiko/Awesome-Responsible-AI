@@ -131,6 +131,7 @@ This README follows the **Awesome List** spirit: each section maps to a major Re
 - [ ] Bias and fairness audit tools
 - [ ] Explainability (XAI) tools
 - [ ] AI governance/compliance platforms
+- **[AIR Blackbox](https://github.com/air-blackbox/air-compliance-checker)** — Open-source CLI scanner for EU AI Act compliance (Arts. 9–15). Checks Python AI agent code for risk management, data governance, transparency, logging, human oversight, and robustness. `pip install air-compliance-checker`
 - [ ] Operational control catalogs and checklists
 
 ## Audit, Reporting, and Documentation
