@@ -61,6 +61,7 @@ This README follows the **Awesome List** spirit: each section maps to a major Re
 - [ ] NIST AI RMF and sector profiles
 - [ ] IEEE, CEN/CENELEC, ETSI
 - [ ] Open-source frameworks and institutional guidance
+- [OECD Framework for the Classification of AI Systems (2022) — PDF](https://www.oecd.org/content/dam/oecd/en/publications/reports/2022/02/oecd-framework-for-the-classification-of-ai-systems_336a8b57/cb6d9eca-en.pdf)
 
 ## Fairness, Bias, and Non-Discrimination
 
