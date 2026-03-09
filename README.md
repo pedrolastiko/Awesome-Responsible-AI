@@ -47,6 +47,7 @@ This README follows the **Awesome List** spirit: each section maps to a major Re
 - [ ] AI risk register and mitigation plans
 - [ ] Pre-deployment and post-deployment controls
 - [ ] Incident handling and remediation playbooks
+- [ISO/IEC 23894 — AI risk management guidance](https://www.iso.org/search.html?q=ISO%2FIEC%2023894)
 
 ## Regulatory and Legal Compliance
 
@@ -65,6 +66,10 @@ This README follows the **Awesome List** spirit: each section maps to a major Re
 - [ ] Open-source frameworks and institutional guidance
 - [OECD Framework for the Classification of AI Systems (2022) — PDF](https://www.oecd.org/content/dam/oecd/en/publications/reports/2022/02/oecd-framework-for-the-classification-of-ai-systems_336a8b57/cb6d9eca-en.pdf)
 - [OECD Due Diligence Guidance for Responsible AI](https://www.oecd.org/en/publications/oecd-due-diligence-guidance-for-responsible-ai.html)
+- [ISO/IEC 42001 — AI management systems](https://www.iso.org/search.html?q=ISO%2FIEC%2042001)
+- [ISO/IEC 22989 — AI concepts and terminology](https://www.iso.org/search.html?q=ISO%2FIEC%2022989)
+- [ISO/IEC 5338 — AI system life cycle processes](https://www.iso.org/search.html?q=ISO%2FIEC%205338)
+- [ISO/IEC 23053 — ML framework and architecture for AI systems](https://www.iso.org/search.html?q=ISO%2FIEC%2023053)
 
 ## Fairness, Bias, and Non-Discrimination
 
@@ -72,6 +77,7 @@ This README follows the **Awesome List** spirit: each section maps to a major Re
 - [ ] Fairness metrics and trade-offs
 - [ ] Mitigation methods (pre/in/post-processing)
 - [ ] Non-discrimination audits
+- [ISO/IEC 24027 — Bias in AI systems and AI-aided decision making](https://www.iso.org/search.html?q=ISO%2FIEC%2024027)
 
 ## Explainability, Transparency, and Traceability
 
@@ -100,6 +106,8 @@ This README follows the **Awesome List** spirit: each section maps to a major Re
 - [ ] Responsible benchmarks (beyond accuracy)
 - [ ] AI red teaming
 - [ ] Continuous monitoring (drift, degradation, emerging risks)
+- [ISO/IEC 25059 — Quality model for AI systems](https://www.iso.org/search.html?q=ISO%2FIEC%2025059)
+- [ISO/IEC 5259 series (parts 1 to 4) — Data quality for analytics and machine learning](https://www.iso.org/search.html?q=ISO%2FIEC%205259)
 
 ## Human Oversight and Work Organization
 
