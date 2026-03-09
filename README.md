@@ -150,6 +150,7 @@ This README follows the **Awesome List** spirit: each section maps to a major Re
 - [ ] Technical and legal documentation
 - [ ] Responsible AI KPIs/KRIs
 - [ ] Compliance and transparency reports
+- [Microsoft — Responsible AI Transparency Report 2025 (PDF)](https://cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/microsoft/msc/documents/presentations/CSR/Responsible-AI-Transparency-Report-2025-vertical.pdf)
 
 ## Education, Culture, and Change Management
 
