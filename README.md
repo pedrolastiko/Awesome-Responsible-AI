@@ -54,6 +54,8 @@ This README follows the **Awesome List** spirit: each section maps to a major Re
 - [ ] Sector-specific obligations (healthcare, finance, public sector, HR, etc.)
 - [ ] Legal liability, insurance, and AI-related litigation
 - [ ] DPIA/AIA and regulatory impact assessments
+- [European Commission — AI Pact pledgers' achievements](https://digital-strategy.ec.europa.eu/en/library/ai-pact-pledgers-achievements)
+- [EDPS — Governance and Enforcement structure of the AI Act](https://www.edps.europa.eu/data-protection/our-work/publications/factsheets/governance-and-enforcement-structure-ai-act_en)
 
 ## Standards and Frameworks
 
@@ -62,6 +64,7 @@ This README follows the **Awesome List** spirit: each section maps to a major Re
 - [ ] IEEE, CEN/CENELEC, ETSI
 - [ ] Open-source frameworks and institutional guidance
 - [OECD Framework for the Classification of AI Systems (2022) — PDF](https://www.oecd.org/content/dam/oecd/en/publications/reports/2022/02/oecd-framework-for-the-classification-of-ai-systems_336a8b57/cb6d9eca-en.pdf)
+- [OECD Due Diligence Guidance for Responsible AI](https://www.oecd.org/en/publications/oecd-due-diligence-guidance-for-responsible-ai.html)
 
 ## Fairness, Bias, and Non-Discrimination
 
