@@ -1,0 +1,1811 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Responsible AI — Synthèse des Piliers</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink:     #141414;
+  --paper:   #f8f5f0;
+  --cream:   #f0ebe2;
+  --rule:    #d4cec4;
+  --muted:   #888070;
+  --white:   #ffffff;
+
+  --p1: #b83a1a; /* Transparence — terracotta */
+  --p2: #1a5c9e; /* Équité — cobalt */
+  --p3: #1e6b45; /* Sécurité — forest */
+  --p4: #6b3a8a; /* Vie privée — aubergine */
+  --p5: #c47a10; /* Responsabilité — amber */
+  --p6: #1a7a7a; /* Contrôle humain — teal */
+  --p7: #3a6e2a; /* Durabilité — vert */
+  --p8: #8a3a5a; /* Inclusion — bordeaux */
+  --p9: #2a3a8a; /* Gouvernance — indigo */
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Outfit', sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  min-height: 100vh;
+}
+
+/* ── HEADER ── */
+.masthead {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 3rem 4rem 2.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.masthead::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(255,255,255,0.04) 40px),
+    repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(255,255,255,0.04) 40px);
+}
+
+.masthead-inner { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; }
+
+.masthead-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 3rem;
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid rgba(255,255,255,0.15);
+}
+
+.label-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 1rem;
+}
+
+.masthead h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.2rem, 4vw, 3.6rem);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  color: var(--paper);
+}
+
+.masthead h1 em {
+  font-style: italic;
+  color: #e8c87a;
+}
+
+.masthead-sub {
+  margin-top: 0.8rem;
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.55);
+  font-weight: 300;
+  line-height: 1.65;
+  max-width: 560px;
+}
+
+.masthead-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border: 1px solid rgba(255,255,255,0.15);
+  flex-shrink: 0;
+  min-width: 300px;
+}
+
+.mstat {
+  padding: 1.2rem 1.4rem;
+  border-right: 1px solid rgba(255,255,255,0.1);
+  text-align: center;
+}
+.mstat:last-child { border-right: none; }
+
+.mstat .n {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: #e8c87a;
+  line-height: 1;
+  display: block;
+}
+
+.mstat .l {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.58rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: rgba(255,255,255,0.4);
+  margin-top: 0.3rem;
+  display: block;
+}
+
+/* Pillar legend bar */
+.pillar-legend {
+  display: flex;
+  gap: 0;
+  flex-wrap: nowrap;
+  overflow: hidden;
+}
+
+.legend-dot {
+  flex: 1;
+  height: 4px;
+  cursor: pointer;
+  transition: flex 0.3s ease;
+}
+
+.legend-dot:hover { flex: 3; }
+
+/* ── NAV ── */
+.nav-bar {
+  background: var(--white);
+  border-bottom: 1px solid var(--rule);
+  padding: 0 4rem;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  overflow-x: auto;
+}
+
+.nav-btn {
+  padding: 0.9rem 1.1rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  cursor: pointer;
+  border: none;
+  background: none;
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+.nav-btn:hover { color: var(--ink); }
+.nav-btn.active { color: var(--ink); border-bottom-color: var(--ink); font-weight: 500; }
+
+.nav-sep { width: 1px; background: var(--rule); height: 20px; margin: 0 0.5rem; flex-shrink: 0; }
+
+/* ── MAIN ── */
+main { max-width: 1200px; margin: 0 auto; padding: 3rem 4rem 6rem; }
+
+/* ── SECTION ── */
+.section { display: none; }
+.section.active { display: block; animation: rise 0.35s ease; }
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── INTRO SECTION ── */
+.intro-lead {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  margin-bottom: 3rem;
+  padding-bottom: 3rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+.intro-text {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: #333;
+}
+
+.intro-text p + p { margin-top: 1rem; }
+.intro-text strong { color: var(--ink); font-weight: 600; }
+
+.intro-pull {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 2rem;
+}
+
+.intro-pull blockquote {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem;
+  font-style: italic;
+  line-height: 1.6;
+  color: #e8e0d0;
+}
+
+.intro-pull cite {
+  display: block;
+  margin-top: 1rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: rgba(255,255,255,0.4);
+  font-style: normal;
+}
+
+/* ── CONSENSUS MAP ── */
+.consensus-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+}
+
+.consensus-sub {
+  font-size: 0.82rem;
+  color: var(--muted);
+  margin-bottom: 1.8rem;
+}
+
+.consensus-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 3rem;
+}
+
+.c-card {
+  background: var(--white);
+  border: 1px solid var(--rule);
+  padding: 1.4rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  border-top: 4px solid var(--c-color);
+  position: relative;
+}
+
+.c-card:hover { box-shadow: 0 6px 20px rgba(0,0,0,0.08); transform: translateY(-2px); }
+
+.c-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: var(--c-color);
+  line-height: 1;
+  margin-bottom: 0.3rem;
+}
+
+.c-name {
+  font-weight: 600;
+  font-size: 0.88rem;
+  line-height: 1.3;
+  margin-bottom: 0.6rem;
+}
+
+.c-bar-wrap {
+  height: 4px;
+  background: var(--rule);
+  margin-bottom: 0.5rem;
+}
+
+.c-bar {
+  height: 4px;
+  background: var(--c-color);
+  width: var(--pct);
+}
+
+.c-score {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+}
+
+/* ── PILLAR SECTION ── */
+.pillars-list { display: flex; flex-direction: column; gap: 1.5rem; }
+
+.pillar-card {
+  background: var(--white);
+  border: 1px solid var(--rule);
+  overflow: hidden;
+  border-left: 5px solid var(--p-color);
+}
+
+.pillar-header {
+  display: grid;
+  grid-template-columns: 70px 1fr auto;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.5rem 2rem;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.pillar-header:hover { background: var(--cream); }
+
+.pillar-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--p-color);
+  line-height: 1;
+  opacity: 0.6;
+}
+
+.pillar-title-wrap {}
+
+.pillar-icon { font-size: 1.3rem; margin-bottom: 0.2rem; }
+
+.pillar-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--ink);
+}
+
+.pillar-tagline {
+  font-size: 0.78rem;
+  color: var(--muted);
+  margin-top: 0.25rem;
+  font-weight: 300;
+}
+
+.pillar-meta-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.5rem;
+}
+
+.p-consensus {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.6rem;
+  border: 1px solid var(--p-color);
+  color: var(--p-color);
+}
+
+.p-frameworks-count {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  color: var(--muted);
+}
+
+.p-chevron {
+  font-size: 1rem;
+  color: var(--muted);
+  transition: transform 0.25s;
+}
+
+.pillar-card.open .p-chevron { transform: rotate(180deg); }
+
+.pillar-body {
+  display: none;
+  padding: 0 2rem 2rem;
+  border-top: 1px solid var(--rule);
+}
+
+.pillar-card.open .pillar-body { display: block; }
+
+.pillar-body-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  padding-top: 1.5rem;
+}
+
+.pb-section-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--muted);
+  margin-bottom: 0.8rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+.pb-def {
+  font-size: 0.88rem;
+  line-height: 1.75;
+  color: #3a3a3a;
+  margin-bottom: 1.2rem;
+}
+
+.sub-principles { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+
+.sub-principle {
+  display: flex;
+  gap: 0.6rem;
+  align-items: flex-start;
+  font-size: 0.82rem;
+  color: #444;
+  line-height: 1.5;
+}
+
+.sub-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--p-color);
+  flex-shrink: 0;
+  margin-top: 0.45rem;
+}
+
+/* Frameworks coverage */
+.fw-coverage {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.fw-row {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-size: 0.78rem;
+}
+
+.fw-name { width: 160px; flex-shrink: 0; color: #444; font-weight: 500; }
+
+.fw-bar-bg { flex: 1; height: 6px; background: var(--rule); }
+.fw-bar-fill { height: 6px; background: var(--p-color); transition: width 0.6s ease; }
+
+.fw-level {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.58rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  width: 70px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.lvl-full { color: var(--p-color); }
+.lvl-partial { color: var(--muted); }
+.lvl-emerging { color: #aaa; }
+
+/* Obligations / pratiques */
+.obligations { display: flex; flex-direction: column; gap: 0.6rem; }
+
+.obligation {
+  background: var(--cream);
+  padding: 0.7rem 1rem;
+  border-left: 3px solid var(--p-color);
+  font-size: 0.8rem;
+  color: #333;
+  line-height: 1.5;
+}
+
+.obligation strong { font-weight: 600; color: var(--ink); }
+
+/* Tensions */
+.tensions {
+  background: #fff8f0;
+  border: 1px solid #f0d8b0;
+  padding: 1rem 1.2rem;
+  margin-top: 1.2rem;
+  grid-column: 1 / -1;
+}
+
+.tensions-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.58rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #b07030;
+  margin-bottom: 0.5rem;
+}
+
+.tensions p { font-size: 0.8rem; color: #555; line-height: 1.6; }
+
+/* ── MATRIX VIEW ── */
+.matrix-container { overflow-x: auto; }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.75rem;
+  min-width: 900px;
+}
+
+thead th {
+  padding: 0.65rem 0.8rem;
+  text-align: left;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.58rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  border-bottom: 2px solid var(--ink);
+  background: var(--paper);
+  white-space: nowrap;
+}
+
+thead th:first-child { min-width: 200px; }
+
+tbody tr { border-bottom: 1px solid var(--rule); transition: background 0.1s; }
+tbody tr:hover { background: var(--cream); }
+
+tbody td { padding: 0.75rem 0.8rem; vertical-align: middle; }
+tbody td:first-child { font-weight: 600; font-size: 0.8rem; }
+
+.cell-full   { text-align: center; color: var(--p3); font-size: 1rem; }
+.cell-part   { text-align: center; color: #c8a020; font-size: 0.85rem; }
+.cell-none   { text-align: center; color: var(--rule); font-size: 0.9rem; }
+.cell-emerg  { text-align: center; color: #aaa; font-size: 0.75rem; font-family: 'JetBrains Mono', monospace; }
+
+.row-pillar {
+  width: 10px;
+  padding: 0;
+}
+
+.pillar-stripe {
+  width: 5px;
+  height: 100%;
+  display: block;
+}
+
+/* FOOTER */
+footer {
+  border-top: 1px solid var(--rule);
+  padding: 1.5rem 4rem;
+  display: flex;
+  justify-content: space-between;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+  background: var(--white);
+}
+
+@media (max-width: 900px) {
+  .masthead, main, .nav-bar, footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+  .masthead-top { flex-direction: column; }
+  .masthead-stats { min-width: unset; width: 100%; }
+  .intro-lead { grid-template-columns: 1fr; }
+  .consensus-grid { grid-template-columns: 1fr 1fr; }
+  .pillar-body-grid { grid-template-columns: 1fr; }
+  .pillar-header { grid-template-columns: 50px 1fr; }
+  .pillar-meta-right { display: none; }
+}
+
+body.light {
+  --ink:   #0f1117;
+  --paper: #f4f7fb;
+  --cream: #e8edf5;
+  --rule:  #c8d0e0;
+  --muted: #5a6280;
+  --white: #ffffff;
+}
+body.light .masthead { background: #1a2340; }
+body.light .masthead::before { opacity: 0.3; }
+body.light .nav-bar { background: #fff; box-shadow: 0 1px 6px rgba(0,0,0,0.07); }
+body.light .intro-pull { background: #1a2340; }
+body.light .c-card { background: #fff; }
+body.light .pillar-card { background: #fff; }
+body.light .pillar-header:hover { background: var(--cream); }
+body.light footer { background: #fff; }
+
+/* ─── CONTROL BUTTONS ─── */
+.ctrl-btn {
+  margin-left: 0.5rem;
+  padding: 0.28rem 0.85rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border: 1px solid var(--rule);
+  background: none;
+  color: var(--muted);
+  cursor: pointer;
+  border-radius: 2px;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+.ctrl-btn:hover { border-color: var(--ink); color: var(--ink); }
+.ctrl-btn.active-ctrl { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+
+
+/* ── LUCIDE ICONS ── */
+.pillar-icon svg {
+  display: block;
+  width: 28px;
+  height: 28px;
+  stroke: var(--p-color);
+  stroke-width: 1.6;
+  fill: none;
+  margin-bottom: 0.35rem;
+}
+
+.c-card svg {
+  display: block;
+  width: 32px;
+  height: 32px;
+  stroke: var(--c-color);
+  stroke-width: 1.5;
+  fill: none;
+  margin-bottom: 0.5rem;
+}
+
+</style>
+</head>
+<body>
+
+<!-- ══════════════ MASTHEAD ══════════════ -->
+<div class="masthead">
+  <div class="masthead-inner">
+    <div class="masthead-top">
+      <div>
+        <div class="label-tag">Analyse transversale · 55+ cadres & réglementations · Mars 2026</div>
+        <h1><span id="i18n-h1line1">Les piliers du</span><br><em id="i18n-h1em">Responsible AI</em></h1>
+        <p class="masthead-sub" id="i18n-subtitle">Synthèse structurée des exigences communes issues de l'analyse croisée de 55+ cadres internationaux, réglementations, normes et standards industriels sur l'intelligence artificielle responsable.</p>
+      </div>
+      <div class="masthead-stats">
+        <div class="mstat"><span class="n">9</span><span class="l" id="i18n-stat1">Piliers universels</span></div>
+        <div class="mstat"><span class="n">55+</span><span class="l" id="i18n-stat2">Cadres analysés</span></div>
+        <div class="mstat"><span class="n">100%</span><span class="l" id="i18n-stat3">Consensus sur 5 piliers</span></div>
+      </div>
+    </div>
+    <div class="pillar-legend">
+      <div class="legend-dot" style="background:var(--p1);" title="Transparence"></div>
+      <div class="legend-dot" style="background:var(--p2);" title="Équité"></div>
+      <div class="legend-dot" style="background:var(--p3);" title="Sécurité"></div>
+      <div class="legend-dot" style="background:var(--p4);" title="Vie privée"></div>
+      <div class="legend-dot" style="background:var(--p5);" title="Responsabilité"></div>
+      <div class="legend-dot" style="background:var(--p6);" title="Contrôle humain"></div>
+      <div class="legend-dot" style="background:var(--p7);" title="Durabilité"></div>
+      <div class="legend-dot" style="background:var(--p8);" title="Inclusion"></div>
+      <div class="legend-dot" style="background:var(--p9);" title="Gouvernance"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ NAV ══════════════ -->
+<nav class="nav-bar">
+  <button class="nav-btn active" id="i18n-nav1" onclick="showSection('overview', this)">Vue d'ensemble</button>
+  <div class="nav-sep"></div>
+  <button class="nav-btn" id="i18n-nav2" onclick="showSection('pillars', this)">Les 9 piliers</button>
+  <div class="nav-sep"></div>
+  <button class="nav-btn" id="i18n-nav3" onclick="showSection('matrix', this)">Matrice</button>
+  <div style="margin-left:auto;display:flex;align-items:center;gap:0.3rem;padding:0 0 0 1rem;">
+    <button class="ctrl-btn" id="langBtn" onclick="toggleLang()">🌐 EN</button>
+    <button class="ctrl-btn" id="themeBtn" onclick="toggleTheme()">☀️ Light</button>
+  </div>
+</nav>
+
+<main>
+
+<!-- ══════════════════════════════════════════
+     VUE D'ENSEMBLE
+══════════════════════════════════════════ -->
+<section id="overview" class="section active">
+
+  <div class="intro-lead">
+    <div class="intro-text">
+      <p id="i18n-intro-p1">L'analyse croisée de <strong>55+ cadres de référence</strong> — réglementations contraignantes, normes certifiables, lignes directrices gouvernementales, standards industriels et initiatives multilatérales — révèle une convergence remarquable autour de <strong>9 piliers fondamentaux</strong>.</p>
+      <p id="i18n-intro-p2">Ces piliers ne sont pas simplement des principes éthiques : ils structurent des <strong>exigences opérationnelles concrètes</strong> qui s'imposent aux organisations développant, déployant ou utilisant des systèmes d'intelligence artificielle.</p>
+      <p id="i18n-intro-p3">Le degré de consensus varie : cinq piliers font l'objet d'un accord quasi-universel (présents dans 90–100% des cadres), deux sont en consolidation (70–89%), et deux sont <strong>émergents</strong> — en forte croissance dans les cadres récents de 2024–2025.</p>
+      <p id="i18n-intro-p4">La singularité du paysage actuel est l'articulation entre cadres <strong>volontaires</strong> (qui ont défini le vocabulaire et les concepts) et cadres <strong>contraignants</strong> (qui translatent ces concepts en obligations légales avec sanctions). L'EU AI Act est le pivot de cette transition.</p>
+    </div>
+    <div class="intro-pull">
+      <blockquote id="i18n-pull-quote">« Ces piliers forment un système organique — non une liste à cocher. Négliger l'un d'eux crée des failles qui fragilisent l'ensemble. La gouvernance sans transparence est opaque. La sécurité sans équité protège les forts. La responsabilité sans contrôle humain automatise l'impunité. »</blockquote>
+      <cite id="i18n-pull-cite">Synthèse transversale — Responsible AI Frameworks 2026</cite>
+    </div>
+  </div>
+
+  <div class="consensus-title" id="i18n-ov-title">Niveau de consensus par pilier</div>
+  <div class="consensus-sub" id="i18n-ov-sub">Taux de présence explicite dans les 55+ cadres analysés, pondéré par le caractère contraignant ou volontaire</div>
+
+  <div class="consensus-grid">
+
+    <div class="c-card" style="--c-color: var(--p1);" onclick="goToPillar(1)">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><circle cx="12" cy="12" r="1"/><path d="M5 12s2.5-5 7-5 7 5 7 5-2.5 5-7 5-7-5-7-5"/></svg>
+      <div class="c-num">01</div>
+      <div class="c-name" id="i18n-c1-name">Transparence & Explicabilité</div>
+      <div class="c-bar-wrap"><div class="c-bar" style="--pct: 98%"></div></div>
+      <div class="c-score" id="i18n-c1-score">98% des cadres · Consensus universel</div>
+    </div>
+
+    <div class="c-card" style="--c-color: var(--p2);" onclick="goToPillar(2)">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M7 21H17"/><path d="M12 3v18"/><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/></svg>
+      <div class="c-num">02</div>
+      <div class="c-name" id="i18n-c2-name">Équité & Non-discrimination</div>
+      <div class="c-bar-wrap"><div class="c-bar" style="--pct: 95%"></div></div>
+      <div class="c-score" id="i18n-c2-score">95% des cadres · Consensus universel</div>
+    </div>
+
+    <div class="c-card" style="--c-color: var(--p3);" onclick="goToPillar(3)">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
+      <div class="c-num">03</div>
+      <div class="c-name" id="i18n-c3-name">Sécurité & Robustesse</div>
+      <div class="c-bar-wrap"><div class="c-bar" style="--pct: 96%"></div></div>
+      <div class="c-score" id="i18n-c3-score">96% des cadres · Consensus universel</div>
+    </div>
+
+    <div class="c-card" style="--c-color: var(--p4);" onclick="goToPillar(4)">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="16" r="1"/><rect x="3" y="10" width="18" height="12" rx="2"/><path d="M7 10V7a5 5 0 0 1 10 0v3"/></svg>
+      <div class="c-num">04</div>
+      <div class="c-name" id="i18n-c4-name">Vie privée & Protection des données</div>
+      <div class="c-bar-wrap"><div class="c-bar" style="--pct: 97%"></div></div>
+      <div class="c-score" id="i18n-c4-score">97% des cadres · Consensus universel</div>
+    </div>
+
+    <div class="c-card" style="--c-color: var(--p5);" onclick="goToPillar(5)">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+      <div class="c-num">05</div>
+      <div class="c-name" id="i18n-c5-name">Responsabilité & Imputabilité</div>
+      <div class="c-bar-wrap"><div class="c-bar" style="--pct: 100%"></div></div>
+      <div class="c-score" id="i18n-c5-score">100% des cadres · Consensus absolu</div>
+    </div>
+
+    <div class="c-card" style="--c-color: var(--p6);" onclick="goToPillar(6)">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg>
+      <div class="c-num">06</div>
+      <div class="c-name" id="i18n-c6-name">Contrôle humain & Supervision</div>
+      <div class="c-bar-wrap"><div class="c-bar" style="--pct: 88%"></div></div>
+      <div class="c-score" id="i18n-c6-score">88% des cadres · En consolidation</div>
+    </div>
+
+    <div class="c-card" style="--c-color: var(--p7);" onclick="goToPillar(7)">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 20h10"/><path d="M10 20c5.5-2.5.8-6.4 3-10"/><path d="M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4 0 5.5.8z"/><path d="M14.1 6a7 7 0 0 1 1.1 4.8c-1.6.6-3.2.8-4.6.5.1-1.5.7-3.1 1.9-4.2.9-.8 2.1-1.3 3.5-1.5z"/></svg>
+      <div class="c-num">07</div>
+      <div class="c-name" id="i18n-c7-name">Durabilité & Impact environnemental</div>
+      <div class="c-bar-wrap"><div class="c-bar" style="--pct: 42%"></div></div>
+      <div class="c-score" id="i18n-c7-score">42% des cadres · Pilier émergent ↑</div>
+    </div>
+
+    <div class="c-card" style="--c-color: var(--p8);" onclick="goToPillar(8)">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m11 17 2 2a1 1 0 1 0 3-3"/><path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4"/><path d="m21 3 1 11h-2"/><path d="M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3"/><path d="M3 4h8"/></svg>
+      <div class="c-num">08</div>
+      <div class="c-name" id="i18n-c8-name">Inclusion & Accessibilité</div>
+      <div class="c-bar-wrap"><div class="c-bar" style="--pct: 75%"></div></div>
+      <div class="c-score" id="i18n-c8-score">75% des cadres · En consolidation</div>
+    </div>
+
+    <div class="c-card" style="--c-color: var(--p9);" onclick="goToPillar(9)">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="22" x2="21" y2="22"/><line x1="6" y1="18" x2="6" y2="11"/><line x1="10" y1="18" x2="10" y2="11"/><line x1="14" y1="18" x2="14" y2="11"/><line x1="18" y1="18" x2="18" y2="11"/><polygon points="12 2 20 7 4 7"/></svg>
+      <div class="c-num">09</div>
+      <div class="c-name" id="i18n-c9-name">Gouvernance & Gestion des risques IA</div>
+      <div class="c-bar-wrap"><div class="c-bar" style="--pct: 93%"></div></div>
+      <div class="c-score" id="i18n-c9-score">93% des cadres · Consensus universel</div>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- ══════════════════════════════════════════
+     LES 9 PILIERS
+══════════════════════════════════════════ -->
+<section id="pillars" class="section">
+<div class="pillars-list">
+
+  <!-- PILIER 1 -->
+  <div class="pillar-card" style="--p-color: var(--p1);" id="pillar-1">
+    <div class="pillar-header" onclick="togglePillar(this)">
+      <div class="pillar-num">01</div>
+      <div class="pillar-title-wrap">
+        <div class="pillar-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><circle cx="12" cy="12" r="1"/><path d="M5 12s2.5-5 7-5 7 5 7 5-2.5 5-7 5-7-5-7-5"/></svg></div>
+        <div class="pillar-title" id="i18n-p1-name">Transparence & Explicabilité</div>
+        <div class="pillar-tagline" id="i18n-p1-tag">Les systèmes IA doivent pouvoir être compris, documentés et expliqués</div>
+      </div>
+      <div class="pillar-meta-right">
+        <span class="p-consensus" id="i18n-p1-cons">Consensus universel · 98%</span>
+        <span class="p-frameworks-count" id="i18n-p1-count">Présent dans 54+ cadres</span>
+        <span class="p-chevron">▼</span>
+      </div>
+    </div>
+    <div class="pillar-body">
+      <div class="pillar-body-grid">
+        <div>
+          <div class="pb-section-title" id="i18n-p1-def-lbl">Définition & portée</div>
+          <div class="pb-def" id="i18n-p1-def">La transparence exige que les parties prenantes — utilisateurs, personnes affectées, régulateurs — puissent comprendre comment un système IA fonctionne, sur quelles données il a été entraîné, quels objectifs il poursuit et quelles sont ses limites. L'explicabilité est la dimension technique : la capacité à fournir des explications intelligibles sur les décisions ou prédictions produites.</div>
+          <div class="pb-section-title" id="i18n-p1-sub-lbl">Sous-principes clés</div>
+          <ul class="sub-principles">
+            <li class="sub-principle" id="i18n-p1-s1"><span class="sub-dot"></span><strong>Explicabilité algorithmique (XAI)</strong> — Les décisions automatisées doivent pouvoir être expliquées à un niveau adapté au public (utilisateur final, expert, régulateur).</li>
+            <li class="sub-principle" id="i18n-p1-s2"><span class="sub-dot"></span><strong>Traçabilité & documentation</strong> — Journalisation des décisions, documentation technique (model cards, system cards, datasheets), registres des systèmes IA à haut risque.</li>
+            <li class="sub-principle" id="i18n-p1-s3"><span class="sub-dot"></span><strong>Transparence sur les données</strong> — Divulgation des sources de données d'entraînement, des pratiques de collecte, des limitations connues des jeux de données.</li>
+            <li class="sub-principle" id="i18n-p1-s4"><span class="sub-dot"></span><strong>Étiquetage du contenu IA</strong> — Obligation de signaler qu'un contenu a été généré ou influencé par un système IA (deepfakes, textes génératifs, décisions automatisées).</li>
+            <li class="sub-principle" id="i18n-p1-s5"><span class="sub-dot"></span><strong>Droit à l'explication</strong> — Toute personne affectée par une décision automatisée significative doit pouvoir demander et obtenir une explication compréhensible.</li>
+          </ul>
+        </div>
+        <div>
+          <div class="pb-section-title" id="i18n-p1-cov-lbl">Couverture par cadre de référence</div>
+          <div class="fw-coverage">
+            <div class="fw-row"><span class="fw-name">EU AI Act</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:100%"></div></div><span class="fw-level lvl-full">Obligatoire</span></div>
+            <div class="fw-row"><span class="fw-name">NIST AI RMF</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:95%"></div></div><span class="fw-level lvl-full">Complet</span></div>
+            <div class="fw-row"><span class="fw-name">ISO 42001</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:90%"></div></div><span class="fw-level lvl-full">Complet</span></div>
+            <div class="fw-row"><span class="fw-name">OCDE</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:95%"></div></div><span class="fw-level lvl-full">Complet</span></div>
+            <div class="fw-row"><span class="fw-name">UNESCO</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:90%"></div></div><span class="fw-level lvl-full">Complet</span></div>
+            <div class="fw-row"><span class="fw-name">Canada SAD</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:88%"></div></div><span class="fw-level lvl-full">Obligatoire</span></div>
+            <div class="fw-row"><span class="fw-name">Loi 25 (Québec)</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:85%"></div></div><span class="fw-level lvl-full">Obligatoire</span></div>
+            <div class="fw-row"><span class="fw-name">Microsoft RAI</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:92%"></div></div><span class="fw-level lvl-full">Standard</span></div>
+            <div class="fw-row"><span class="fw-name">Google AI</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:88%"></div></div><span class="fw-level lvl-full">Engagement</span></div>
+          </div>
+          <div class="pb-section-title" style="margin-top:1.5rem;">Exigences pratiques</div>
+          <div class="obligations">
+            <div class="obligation" id="i18n-p1-o1"><strong>Notice d'utilisation IA</strong> — Informer les utilisateurs qu'ils interagissent avec un système IA.</div>
+            <div class="obligation" id="i18n-p1-o2"><strong>Documentation technique</strong> — Maintenir des model cards, system cards et registres d'audit.</div>
+            <div class="obligation" id="i18n-p1-o3"><strong>Explication sur demande</strong> — Fournir une explication des décisions significatives à toute personne affectée.</div>
+          </div>
+        </div>
+        <div class="tensions">
+          <div class="tensions-title">⚡ Tensions & défis d'implémentation</div>
+          <p id="i18n-p1-tens">La transparence totale peut entrer en conflit avec la protection des secrets commerciaux (algorithmes propriétaires) et la sécurité des systèmes (attaques adversariales facilitées par la connaissance du modèle). Les réglementations acceptent généralement des niveaux de transparence graduels selon les parties prenantes.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PILIER 2 -->
+  <div class="pillar-card" style="--p-color: var(--p2);" id="pillar-2">
+    <div class="pillar-header" onclick="togglePillar(this)">
+      <div class="pillar-num">02</div>
+      <div class="pillar-title-wrap">
+        <div class="pillar-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M7 21H17"/><path d="M12 3v18"/><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/></svg></div>
+        <div class="pillar-title" id="i18n-p2-name">Équité & Non-discrimination</div>
+        <div class="pillar-tagline" id="i18n-p2-tag">Les systèmes IA ne doivent pas reproduire ni amplifier les biais discriminatoires</div>
+      </div>
+      <div class="pillar-meta-right">
+        <span class="p-consensus" id="i18n-p2-cons">Consensus universel · 95%</span>
+        <span class="p-frameworks-count" id="i18n-p2-count">Présent dans 52+ cadres</span>
+        <span class="p-chevron">▼</span>
+      </div>
+    </div>
+    <div class="pillar-body">
+      <div class="pillar-body-grid">
+        <div>
+          <div class="pb-section-title" id="i18n-p2-def-lbl">Définition & portée</div>
+          <div class="pb-def" id="i18n-p2-def">L'équité dans les systèmes IA vise à garantir que les décisions, recommandations et prédictions ne désavantagent pas systématiquement certains groupes de personnes en raison de caractéristiques protégées (genre, origine ethnique, âge, handicap, orientation sexuelle, etc.). Elle recouvre à la fois l'équité algorithmique (dans le modèle) et l'équité procédurale (dans le processus).</div>
+          <div class="pb-section-title" id="i18n-p2-sub-lbl">Sous-principes clés</div>
+          <ul class="sub-principles">
+            <li class="sub-principle" id="i18n-p2-s1"><span class="sub-dot"></span><strong>Détection et atténuation des biais</strong> — Tests systématiques de fairness sur les données d'entraînement, les modèles et les sorties, avec mécanismes de correction.</li>
+            <li class="sub-principle" id="i18n-p2-s2"><span class="sub-dot"></span><strong>Représentativité des données</strong> — Jeux de données diversifiés et représentatifs pour éviter les biais de sélection et de sous-représentation.</li>
+            <li class="sub-principle" id="i18n-p2-s3"><span class="sub-dot"></span><strong>Équité de groupe vs individuelle</strong> — Distinguer parité démographique, égalité des chances et calibration selon le contexte d'usage.</li>
+            <li class="sub-principle" id="i18n-p2-s4"><span class="sub-dot"></span><strong>Audits de biais obligatoires</strong> — NYC Local Law 144 impose des audits annuels pour les outils IA en RH. Modèle qui se répand.</li>
+            <li class="sub-principle" id="i18n-p2-s5"><span class="sub-dot"></span><strong>Interdiction de discrimination algorithmique</strong> — EU AI Act interdit les systèmes d'IA exploitant des vulnérabilités pour induire des comportements préjudiciables.</li>
+          </ul>
+        </div>
+        <div>
+          <div class="pb-section-title" id="i18n-p2-cov-lbl">Couverture par cadre de référence</div>
+          <div class="fw-coverage">
+            <div class="fw-row"><span class="fw-name">EU AI Act</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:100%"></div></div><span class="fw-level lvl-full">Obligatoire</span></div>
+            <div class="fw-row"><span class="fw-name">OCDE</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:95%"></div></div><span class="fw-level lvl-full">Complet</span></div>
+            <div class="fw-row"><span class="fw-name">UNESCO</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:95%"></div></div><span class="fw-level lvl-full">Complet</span></div>
+            <div class="fw-row"><span class="fw-name">NIST AI RMF</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:90%"></div></div><span class="fw-level lvl-full">Complet</span></div>
+            <div class="fw-row"><span class="fw-name">Google AI</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:92%"></div></div><span class="fw-level lvl-full">Engagement</span></div>
+            <div class="fw-row"><span class="fw-name">Microsoft RAI</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:92%"></div></div><span class="fw-level lvl-full">Standard</span></div>
+            <div class="fw-row"><span class="fw-name">NYC Local Law 144</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:100%"></div></div><span class="fw-level lvl-full">Obligatoire</span></div>
+            <div class="fw-row"><span class="fw-name">ISO 42001</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:70%"></div></div><span class="fw-level lvl-part">Partiel</span></div>
+            <div class="fw-row"><span class="fw-name">MAS FEAT</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:88%"></div></div><span class="fw-level lvl-full">Complet</span></div>
+          </div>
+          <div class="pb-section-title" style="margin-top:1.5rem;">Exigences pratiques</div>
+          <div class="obligations">
+            <div class="obligation" id="i18n-p2-o1"><strong>Fairness testing</strong> — Tests de performance segmentés par groupes démographiques avant déploiement.</div>
+            <div class="obligation" id="i18n-p2-o2"><strong>Audit de biais</strong> — Évaluation annuelle par un tiers indépendant pour les systèmes à haut risque (RH, crédit, justice).</div>
+            <div class="obligation" id="i18n-p2-o3"><strong>Correction continue</strong> — Mécanismes de surveillance post-déploiement avec processus de remédiation des dérives.</div>
+          </div>
+        </div>
+        <div class="tensions">
+          <div class="tensions-title">⚡ Tensions & défis d'implémentation</div>
+          <p id="i18n-p2-tens">Les définitions de l'équité sont mathématiquement incompatibles entre elles (théorème d'impossibilité de Chouldechova). Le choix d'une métrique d'équité dépend du contexte éthique et juridique. De plus, corriger les biais peut réduire la précision globale du modèle, créant un arbitrage performance/équité.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PILIER 3 -->
+  <div class="pillar-card" style="--p-color: var(--p3);" id="pillar-3">
+    <div class="pillar-header" onclick="togglePillar(this)">
+      <div class="pillar-num">03</div>
+      <div class="pillar-title-wrap">
+        <div class="pillar-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg></div>
+        <div class="pillar-title" id="i18n-p3-name">Sécurité & Robustesse</div>
+        <div class="pillar-tagline" id="i18n-p3-tag">Les systèmes IA doivent fonctionner de manière fiable, sûre et résistante aux défaillances</div>
+      </div>
+      <div class="pillar-meta-right">
+        <span class="p-consensus" id="i18n-p3-cons">Consensus universel · 96%</span>
+        <span class="p-frameworks-count" id="i18n-p3-count">Présent dans 53+ cadres</span>
+        <span class="p-chevron">▼</span>
+      </div>
+    </div>
+    <div class="pillar-body">
+      <div class="pillar-body-grid">
+        <div>
+          <div class="pb-section-title" id="i18n-p3-def-lbl">Définition & portée</div>
+          <div class="pb-def" id="i18n-p3-def">La sécurité des systèmes IA recouvre deux dimensions complémentaires : la <em>safety</em> (absence de comportements dangereux involontaires, fiabilité dans les conditions nominales et dégradées) et la <em>security</em> (résistance aux attaques malveillantes, adversariales ou aux manipulations). La robustesse désigne la capacité à maintenir des performances acceptables face à des données hors-distribution, des environnements changeants ou des perturbations.</div>
+          <div class="pb-section-title" id="i18n-p3-sub-lbl">Sous-principes clés</div>
+          <ul class="sub-principles">
+            <li class="sub-principle" id="i18n-p3-s1"><span class="sub-dot"></span><strong>Safety by design</strong> — Intégration de mécanismes de sécurité dès la conception : fail-safe, kill switches, limites de déploiement.</li>
+            <li class="sub-principle" id="i18n-p3-s2"><span class="sub-dot"></span><strong>Résistance aux attaques adversariales</strong> — Tests de robustesse face aux inputs adversariaux, empoisonnement des données, attaques de prompt injection.</li>
+            <li class="sub-principle" id="i18n-p3-s3"><span class="sub-dot"></span><strong>Gestion des modèles frontières</strong> — Responsible Scaling Policies (Anthropic), Preparedness Framework (OpenAI) pour les modèles à capacités potentiellement catastrophiques.</li>
+            <li class="sub-principle" id="i18n-p3-s4"><span class="sub-dot"></span><strong>Tests de performance et validation</strong> — Benchmarks standardisés (MLCommons AI Safety), évaluations red team avant déploiement.</li>
+            <li class="sub-principle" id="i18n-p3-s5"><span class="sub-dot"></span><strong>Monitoring post-déploiement</strong> — Surveillance continue des performances, détection de dérives (data drift, concept drift), gestion des incidents.</li>
+          </ul>
+        </div>
+        <div>
+          <div class="pb-section-title" id="i18n-p3-cov-lbl">Couverture par cadre de référence</div>
+          <div class="fw-coverage">
+            <div class="fw-row"><span class="fw-name">EU AI Act</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:100%"></div></div><span class="fw-level lvl-full">Obligatoire</span></div>
+            <div class="fw-row"><span class="fw-name">NIST AI RMF</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:95%"></div></div><span class="fw-level lvl-full">Complet</span></div>
+            <div class="fw-row"><span class="fw-name">ISO 42001</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:90%"></div></div><span class="fw-level lvl-full">Complet</span></div>
+            <div class="fw-row"><span class="fw-name">OCDE</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:90%"></div></div><span class="fw-level lvl-full">Complet</span></div>
+            <div class="fw-row"><span class="fw-name">Anthropic RSP</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:100%"></div></div><span class="fw-level lvl-full">Central</span></div>
+            <div class="fw-row"><span class="fw-name">OpenAI Preparedness</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:100%"></div></div><span class="fw-level lvl-full">Central</span></div>
+            <div class="fw-row"><span class="fw-name">CSA Singapore</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:95%"></div></div><span class="fw-level lvl-full">Complet</span></div>
+            <div class="fw-row"><span class="fw-name">DoD AI Ethics</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:95%"></div></div><span class="fw-level lvl-full">Obligatoire</span></div>
+            <div class="fw-row"><span class="fw-name">FDA SaMD</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:98%"></div></div><span class="fw-level lvl-full">Obligatoire</span></div>
+          </div>
+          <div class="pb-section-title" style="margin-top:1.5rem;">Exigences pratiques</div>
+          <div class="obligations">
+            <div class="obligation" id="i18n-p3-o1"><strong>Red teaming</strong> — Tests adversariaux obligatoires avant déploiement des modèles à haut risque.</div>
+            <div class="obligation" id="i18n-p3-o2"><strong>Gestion des incidents IA</strong> — Processus formalisé de détection, notification et remédiation des défaillances.</div>
+            <div class="obligation" id="i18n-p3-o3"><strong>Évaluations de sécurité tiers</strong> — Audits externes pour les modèles de fondation (exigé par EU AI Act pour GPAI à risque systémique).</div>
+          </div>
+        </div>
+        <div class="tensions">
+          <div class="tensions-title">⚡ Tensions & défis d'implémentation</div>
+          <p id="i18n-p3-tens">La sécurité des systèmes IA introduit une nouvelle couche distincte de la cybersécurité classique. Les attaques spécifiques à l'IA (prompt injection, jailbreaking, model inversion, data poisoning) nécessitent des compétences et des outils dédiés qui font encore défaut dans la plupart des organisations. Le domaine de l'AI Safety pour les modèles frontières reste en grande partie non résolu.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PILIER 4 -->
+  <div class="pillar-card" style="--p-color: var(--p4);" id="pillar-4">
+    <div class="pillar-header" onclick="togglePillar(this)">
+      <div class="pillar-num">04</div>
+      <div class="pillar-title-wrap">
+        <div class="pillar-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="16" r="1"/><rect x="3" y="10" width="18" height="12" rx="2"/><path d="M7 10V7a5 5 0 0 1 10 0v3"/></svg></div>
+        <div class="pillar-title" id="i18n-p4-name">Vie privée & Protection des données</div>
+        <div class="pillar-tagline" id="i18n-p4-tag">Respecter les droits à la vie privée tout au long du cycle de vie des systèmes IA</div>
+      </div>
+      <div class="pillar-meta-right">
+        <span class="p-consensus" id="i18n-p4-cons">Consensus universel · 97%</span>
+        <span class="p-frameworks-count" id="i18n-p4-count">Présent dans 53+ cadres</span>
+        <span class="p-chevron">▼</span>
+      </div>
+    </div>
+    <div class="pillar-body">
+      <div class="pillar-body-grid">
+        <div>
+          <div class="pb-section-title" id="i18n-p4-def-lbl">Définition & portée</div>
+          <div class="pb-def" id="i18n-p4-def">Ce pilier recouvre le respect des droits fondamentaux à la vie privée à toutes les étapes du cycle de vie d'un système IA : collecte et préparation des données, entraînement des modèles, inférence et déploiement. Il impose l'application des principes de <em>Privacy by Design</em> à l'écosystème IA, avec des considérations spécifiques liées à la mémorisation des données d'entraînement et aux risques de ré-identification.</div>
+          <div class="pb-section-title" id="i18n-p4-sub-lbl">Sous-principes clés</div>
+          <ul class="sub-principles">
+            <li class="sub-principle" id="i18n-p4-s1"><span class="sub-dot"></span><strong>Privacy by Design</strong> — Intégration des exigences de vie privée dès la conception architecturale du système IA, minimisation des données.</li>
+            <li class="sub-principle" id="i18n-p4-s2"><span class="sub-dot"></span><strong>Consentement éclairé</strong> — Base légale pour l'utilisation des données personnelles dans l'entraînement ; droits d'opposition à l'usage IA (RGPD Art. 22).</li>
+            <li class="sub-principle" id="i18n-p4-s3"><span class="sub-dot"></span><strong>Risques d'extraction de données</strong> — Les LLMs peuvent mémoriser et restituer des données d'entraînement (membership inference attacks). Gestion spécifique requise.</li>
+            <li class="sub-principle" id="i18n-p4-s4"><span class="sub-dot"></span><strong>Anonymisation & confidentialité différentielle</strong> — Techniques cryptographiques pour préserver la vie privée lors de l'entraînement des modèles.</li>
+            <li class="sub-principle" id="i18n-p4-s5"><span class="sub-dot"></span><strong>Surveillance biométrique</strong> — Restrictions strictes voire interdiction de la reconnaissance faciale en temps réel dans les espaces publics (EU AI Act).</li>
+          </ul>
+        </div>
+        <div>
+          <div class="pb-section-title" id="i18n-p4-cov-lbl">Couverture par cadre de référence</div>
+          <div class="fw-coverage">
+            <div class="fw-row"><span class="fw-name">RGPD + EU AI Act</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:100%"></div></div><span class="fw-level lvl-full">Obligatoire</span></div>
+            <div class="fw-row"><span class="fw-name">Loi 25 (Québec)</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:95%"></div></div><span class="fw-level lvl-full">Obligatoire</span></div>
+            <div class="fw-row"><span class="fw-name">OCDE</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:92%"></div></div><span class="fw-level lvl-full">Complet</span></div>
+            <div class="fw-row"><span class="fw-name">UNESCO</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:90%"></div></div><span class="fw-level lvl-full">Complet</span></div>
+            <div class="fw-row"><span class="fw-name">ISO 42001</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:88%"></div></div><span class="fw-level lvl-full">Complet</span></div>
+            <div class="fw-row"><span class="fw-name">Canada SAD + LIAD</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:90%"></div></div><span class="fw-level lvl-full">Obligatoire</span></div>
+            <div class="fw-row"><span class="fw-name">Microsoft RAI</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:92%"></div></div><span class="fw-level lvl-full">Standard</span></div>
+            <div class="fw-row"><span class="fw-name">Chine (CAC)</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:85%"></div></div><span class="fw-level lvl-full">Obligatoire</span></div>
+          </div>
+          <div class="pb-section-title" style="margin-top:1.5rem;">Exigences pratiques</div>
+          <div class="obligations">
+            <div class="obligation" id="i18n-p4-o1"><strong>Analyse d'impact (DPIA IA)</strong> — Évaluation d'impact sur la vie privée obligatoire avant tout déploiement de système IA traitant des données personnelles à grande échelle.</div>
+            <div class="obligation" id="i18n-p4-o2"><strong>Gestion des droits</strong> — Processus pour exercer les droits d'accès, rectification, effacement et opposition aux décisions automatisées.</div>
+            <div class="obligation" id="i18n-p4-o3"><strong>Sécurité des données d'entraînement</strong> — Chiffrement, contrôle d'accès strict, audit des pipelines d'entraînement des modèles.</div>
+          </div>
+        </div>
+        <div class="tensions">
+          <div class="tensions-title">⚡ Tensions & défis d'implémentation</div>
+          <p id="i18n-p4-tens">L'entraînement des modèles de grande taille nécessite des volumes massifs de données, en tension avec les principes de minimisation. Le droit à l'effacement est techniquement complexe à implémenter dans des modèles pré-entraînés (machine unlearning). La conformité RGPD des LLMs fait l'objet de contentieux actifs devant plusieurs DPA européennes.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PILIER 5 -->
+  <div class="pillar-card" style="--p-color: var(--p5);" id="pillar-5">
+    <div class="pillar-header" onclick="togglePillar(this)">
+      <div class="pillar-num">05</div>
+      <div class="pillar-title-wrap">
+        <div class="pillar-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div>
+        <div class="pillar-title" id="i18n-p5-name">Responsabilité & Imputabilité</div>
+        <div class="pillar-tagline" id="i18n-p5-tag">Des mécanismes clairs d'attribution de responsabilité et de recours pour les personnes affectées</div>
+      </div>
+      <div class="pillar-meta-right">
+        <span class="p-consensus" id="i18n-p5-cons">Consensus absolu · 100%</span>
+        <span class="p-frameworks-count" id="i18n-p5-count">Présent dans 55+ cadres</span>
+        <span class="p-chevron">▼</span>
+      </div>
+    </div>
+    <div class="pillar-body">
+      <div class="pillar-body-grid">
+        <div>
+          <div class="pb-section-title" id="i18n-p5-def-lbl">Définition & portée</div>
+          <div class="pb-def" id="i18n-p5-def">La responsabilité (accountability) est le seul pilier présent à 100% dans tous les cadres analysés. Elle impose qu'une personne physique ou morale identifiable soit responsable du développement, du déploiement et des impacts d'un système IA — et qu'elle puisse être tenue de rendre des comptes. L'imputabilité garantit que les personnes affectées par des décisions IA disposent de voies de recours effectives.</div>
+          <div class="pb-section-title" id="i18n-p5-sub-lbl">Sous-principes clés</div>
+          <ul class="sub-principles">
+            <li class="sub-principle" id="i18n-p5-s1"><span class="sub-dot"></span><strong>Chaîne de responsabilité claire</strong> — Identification du développeur, du déployeur et de l'utilisateur; définition des responsabilités à chaque maillon (EU AI Act Art. 25-27).</li>
+            <li class="sub-principle" id="i18n-p5-s2"><span class="sub-dot"></span><strong>Audits et certifications</strong> — Mécanismes d'évaluation de conformité par tiers pour les systèmes à haut risque; accréditation des organismes notifiés.</li>
+            <li class="sub-principle" id="i18n-p5-s3"><span class="sub-dot"></span><strong>Droits de recours</strong> — Voies de contestation des décisions automatisées; accès à des mécanismes de réparation équitables.</li>
+            <li class="sub-principle" id="i18n-p5-s4"><span class="sub-dot"></span><strong>Impact Assessments</strong> — Évaluations d'impact (RAIA Microsoft, AI Impact Assessment ISO 42005, DPIA) formalisées et documentées.</li>
+            <li class="sub-principle" id="i18n-p5-s5"><span class="sub-dot"></span><strong>Responsabilité civile</strong> — EU AI Liability Directive en cours; régimes de responsabilité pour les dommages causés par les systèmes IA autonomes.</li>
+          </ul>
+        </div>
+        <div>
+          <div class="pb-section-title" id="i18n-p5-cov-lbl">Couverture par cadre de référence</div>
+          <div class="fw-coverage">
+            <div class="fw-row"><span class="fw-name">EU AI Act</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:100%"></div></div><span class="fw-level lvl-full">Obligatoire</span></div>
+            <div class="fw-row"><span class="fw-name">ISO 42001</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:100%"></div></div><span class="fw-level lvl-full">Complet</span></div>
+            <div class="fw-row"><span class="fw-name">NIST AI RMF</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:100%"></div></div><span class="fw-level lvl-full">Complet</span></div>
+            <div class="fw-row"><span class="fw-name">OCDE</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:100%"></div></div><span class="fw-level lvl-full">Complet</span></div>
+            <div class="fw-row"><span class="fw-name">UNESCO</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:100%"></div></div><span class="fw-level lvl-full">Complet</span></div>
+            <div class="fw-row"><span class="fw-name">Canada SAD</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:100%"></div></div><span class="fw-level lvl-full">Obligatoire</span></div>
+            <div class="fw-row"><span class="fw-name">Microsoft RAI</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:100%"></div></div><span class="fw-level lvl-full">Standard</span></div>
+            <div class="fw-row"><span class="fw-name">Conseil de l'Europe</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:100%"></div></div><span class="fw-level lvl-full">Traité</span></div>
+          </div>
+          <div class="pb-section-title" style="margin-top:1.5rem;">Exigences pratiques</div>
+          <div class="obligations">
+            <div class="obligation" id="i18n-p5-o1"><strong>Registre des systèmes IA</strong> — Inventaire formalisé de tous les systèmes IA en production, avec propriétaire désigné et niveau de risque.</div>
+            <div class="obligation" id="i18n-p5-o2"><strong>Impact Assessment documenté</strong> — Évaluation d'impact formelle avant tout déploiement de système IA à impact significatif.</div>
+            <div class="obligation" id="i18n-p5-o3"><strong>Mécanisme de plainte</strong> — Processus accessible pour contester ou signaler un problème lié à une décision IA.</div>
+          </div>
+        </div>
+        <div class="tensions">
+          <div class="tensions-title">⚡ Tensions & défis d'implémentation</div>
+          <p>Avec les systèmes IA autonomes et multi-agents, l'attribution de responsabilité devient diffuse. Qui est responsable quand un agent IA prend une décision non anticipée par son développeur? Les chaînes de valeur IA complexes (API tiers, modèles pré-entraînés, fine-tuning) rendent difficile l'identification du responsable ultime.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PILIER 6 -->
+  <div class="pillar-card" style="--p-color: var(--p6);" id="pillar-6">
+    <div class="pillar-header" onclick="togglePillar(this)">
+      <div class="pillar-num">06</div>
+      <div class="pillar-title-wrap">
+        <div class="pillar-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg></div>
+        <div class="pillar-title" id="i18n-p6-name">Contrôle humain & Supervision</div>
+        <div class="pillar-tagline" id="i18n-p6-tag">Les humains doivent conserver la capacité de superviser, corriger et arrêter les systèmes IA</div>
+      </div>
+      <div class="pillar-meta-right">
+        <span class="p-consensus" id="i18n-p6-cons">En consolidation · 88%</span>
+        <span class="p-frameworks-count" id="i18n-p6-count">Présent dans 48+ cadres</span>
+        <span class="p-chevron">▼</span>
+      </div>
+    </div>
+    <div class="pillar-body">
+      <div class="pillar-body-grid">
+        <div>
+          <div class="pb-section-title" id="i18n-p6-def-lbl">Définition & portée</div>
+          <div class="pb-def" id="i18n-p6-def">Ce pilier garantit que les humains maintiennent une capacité de supervision, d'intervention et de contrôle final sur les systèmes IA, en particulier pour les décisions à fort impact. Il s'oppose à la délégation totale d'autorité décisionnelle à des machines. Les modèles varient selon le niveau d'autonomie accordé : Human-in-the-Loop (HITL), Human-on-the-Loop (HOTL) et Human-in-Command.</div>
+          <div class="pb-section-title" id="i18n-p6-sub-lbl">Sous-principes clés</div>
+          <ul class="sub-principles">
+            <li class="sub-principle" id="i18n-p6-s1"><span class="sub-dot"></span><strong>Human-in-the-Loop (HITL)</strong> — Validation humaine obligatoire avant l'exécution de décisions critiques; pas de pleine automatisation.</li>
+            <li class="sub-principle" id="i18n-p6-s2"><span class="sub-dot"></span><strong>Kill switches & arrêt d'urgence</strong> — Mécanismes techniques permettant d'interrompre un système IA en cas de comportement anormal.</li>
+            <li class="sub-principle" id="i18n-p6-s3"><span class="sub-dot"></span><strong>Droit à l'examen humain</strong> — EU AI Act Art. 14 : les systèmes IA à haut risque doivent permettre une supervision humaine effective.</li>
+            <li class="sub-principle" id="i18n-p6-s4"><span class="sub-dot"></span><strong>Autonomie progressive</strong> — Le niveau d'autonomie accordé doit être proportionnel aux risques et à la maturité du système, avec révision périodique.</li>
+            <li class="sub-principle" id="i18n-p6-s5"><span class="sub-dot"></span><strong>Prévention de l'automation bias</strong> — Formation des opérateurs humains pour éviter la sur-confiance dans les décisions IA et maintenir leur capacité critique.</li>
+          </ul>
+        </div>
+        <div>
+          <div class="pb-section-title" id="i18n-p6-cov-lbl">Couverture par cadre de référence</div>
+          <div class="fw-coverage">
+            <div class="fw-row"><span class="fw-name">EU AI Act</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:100%"></div></div><span class="fw-level lvl-full">Obligatoire</span></div>
+            <div class="fw-row"><span class="fw-name">UNESCO</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:95%"></div></div><span class="fw-level lvl-full">Complet</span></div>
+            <div class="fw-row"><span class="fw-name">OCDE</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:90%"></div></div><span class="fw-level lvl-full">Complet</span></div>
+            <div class="fw-row"><span class="fw-name">Canada SAD</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:95%"></div></div><span class="fw-level lvl-full">Obligatoire</span></div>
+            <div class="fw-row"><span class="fw-name">Conseil de l'Europe</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:92%"></div></div><span class="fw-level lvl-full">Traité</span></div>
+            <div class="fw-row"><span class="fw-name">NIST AI RMF</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:85%"></div></div><span class="fw-level lvl-full">Complet</span></div>
+            <div class="fw-row"><span class="fw-name">DoD AI Ethics</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:90%"></div></div><span class="fw-level lvl-full">Obligatoire</span></div>
+            <div class="fw-row"><span class="fw-name">Google / Microsoft</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:70%"></div></div><span class="fw-level lvl-part">Partiel</span></div>
+          </div>
+          <div class="pb-section-title" style="margin-top:1.5rem;">Exigences pratiques</div>
+          <div class="obligations">
+            <div class="obligation" id="i18n-p6-o1"><strong>Niveaux d'autonomie définis</strong> — Documentation formelle du niveau de délégation accordé à chaque système IA (décision finale, recommandation, alerte).</div>
+            <div class="obligation" id="i18n-p6-o2"><strong>Formation des opérateurs</strong> — Programme de formation pour maintenir la compétence critique des superviseurs humains face aux systèmes IA.</div>
+            <div class="obligation" id="i18n-p6-o3"><strong>Procédures de révision manuelle</strong> — Processus clairement défini pour déclencher et exécuter une révision humaine des décisions contestées.</div>
+          </div>
+        </div>
+        <div class="tensions">
+          <div class="tensions-title">⚡ Tensions & défis d'implémentation</div>
+          <p id="i18n-p6-tens">L'exigence de supervision humaine entre en tension avec les bénéfices de l'automatisation (vitesse, coût, scalabilité). Dans les systèmes autonomes avancés (agents IA, IA temps réel), une intervention humaine systématique peut être techniquement impraticable. Le risque d'automation bias — où l'opérateur valide sans critique les décisions IA — peut rendre la supervision formelle sans valeur réelle.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PILIER 7 -->
+  <div class="pillar-card" style="--p-color: var(--p7);" id="pillar-7">
+    <div class="pillar-header" onclick="togglePillar(this)">
+      <div class="pillar-num">07</div>
+      <div class="pillar-title-wrap">
+        <div class="pillar-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 20h10"/><path d="M10 20c5.5-2.5.8-6.4 3-10"/><path d="M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4 0 5.5.8z"/><path d="M14.1 6a7 7 0 0 1 1.1 4.8c-1.6.6-3.2.8-4.6.5.1-1.5.7-3.1 1.9-4.2.9-.8 2.1-1.3 3.5-1.5z"/></svg></div>
+        <div class="pillar-title" id="i18n-p7-name">Durabilité & Impact environnemental</div>
+        <div class="pillar-tagline" id="i18n-p7-tag">Mesurer, limiter et compenser l'empreinte environnementale des systèmes IA</div>
+      </div>
+      <div class="pillar-meta-right">
+        <span class="p-consensus" id="i18n-p7-cons">Pilier émergent · 42%</span>
+        <span class="p-frameworks-count" id="i18n-p7-count">En forte croissance 2024–2025</span>
+        <span class="p-chevron">▼</span>
+      </div>
+    </div>
+    <div class="pillar-body">
+      <div class="pillar-body-grid">
+        <div>
+          <div class="pb-section-title" id="i18n-p7-def-lbl">Définition & portée</div>
+          <div class="pb-def" id="i18n-p7-def">Pilier le plus récent en termes de formalisation, la durabilité environnementale de l'IA émerge dans les cadres de 2023–2025. Elle concerne la consommation énergétique massive de l'entraînement des grands modèles, l'empreinte carbone de l'inférence à grande échelle, la consommation d'eau des datacenters et les impacts sur les matières premières (GPU, rare earths). La Déclaration de Paris (2025) en a fait un axe stratégique.</div>
+          <div class="pb-section-title" id="i18n-p7-sub-lbl">Sous-principes clés</div>
+          <ul class="sub-principles">
+            <li class="sub-principle" id="i18n-p7-s1"><span class="sub-dot"></span><strong>Mesure de l'empreinte carbone</strong> — Quantification des émissions CO₂ liées à l'entraînement et à l'inférence des modèles (scope 1, 2, 3).</li>
+            <li class="sub-principle" id="i18n-p7-s2"><span class="sub-dot"></span><strong>Efficience énergétique by design</strong> — Choix architecturaux et optimisations réduisant la consommation énergétique sans sacrifier les performances.</li>
+            <li class="sub-principle" id="i18n-p7-s3"><span class="sub-dot"></span><strong>Divulgation environnementale</strong> — Obligation de rapporter l'empreinte environnementale des systèmes IA (annoncée dans EU AI Act pour GPAI).</li>
+            <li class="sub-principle" id="i18n-p7-s4"><span class="sub-dot"></span><strong>Énergie renouvelable</strong> — Engagement des opérateurs cloud et datacenters vers 100% d'énergie renouvelable pour les charges de travail IA.</li>
+            <li class="sub-principle" id="i18n-p7-s5"><span class="sub-dot"></span><strong>Sobriété numérique</strong> — Questionnement de la nécessité de déployer des modèles complexes quand des solutions plus légères suffisent.</li>
+          </ul>
+        </div>
+        <div>
+          <div class="pb-section-title" id="i18n-p7-cov-lbl">Couverture par cadre de référence</div>
+          <div class="fw-coverage">
+            <div class="fw-row"><span class="fw-name">UNESCO</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:90%"></div></div><span class="fw-level lvl-full">Complet</span></div>
+            <div class="fw-row"><span class="fw-name">EU AI Act (GPAI)</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:65%"></div></div><span class="fw-level lvl-part">Partiel</span></div>
+            <div class="fw-row"><span class="fw-name">OCDE (rév. 2024)</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:60%"></div></div><span class="fw-level lvl-part">Émergent</span></div>
+            <div class="fw-row"><span class="fw-name">Décl. Paris 2025</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:80%"></div></div><span class="fw-level lvl-full">Engagement</span></div>
+            <div class="fw-row"><span class="fw-name">NIST AI RMF</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:25%"></div></div><span class="fw-level lvl-emerg">Absent</span></div>
+            <div class="fw-row"><span class="fw-name">ISO 42001</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:20%"></div></div><span class="fw-level lvl-emerg">Absent</span></div>
+            <div class="fw-row"><span class="fw-name">Google / Microsoft</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:45%"></div></div><span class="fw-level lvl-part">Partiel</span></div>
+          </div>
+          <div class="pb-section-title" style="margin-top:1.5rem;">Exigences pratiques</div>
+          <div class="obligations">
+            <div class="obligation" id="i18n-p7-o1"><strong>Bilan carbone des modèles</strong> — Estimation et reporting de l'empreinte CO₂ de l'entraînement et du déploiement des modèles IA internes.</div>
+            <div class="obligation" id="i18n-p7-o2"><strong>Critères environnementaux dans les achats IA</strong> — Intégration de critères d'efficience énergétique dans l'évaluation des fournisseurs de modèles et d'infrastructure cloud.</div>
+          </div>
+        </div>
+        <div class="tensions">
+          <div class="tensions-title">⚡ Tensions & défis d'implémentation</div>
+          <p id="i18n-p7-tens">La mesure standardisée de l'empreinte carbone des modèles IA fait encore défaut. Les méthodes de calcul varient considérablement selon les fournisseurs. La course aux modèles toujours plus grands (scaling laws) crée une pression inverse à la sobriété. Ce pilier devrait être l'un des plus dynamiques en 2025–2027 au niveau réglementaire.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PILIER 8 -->
+  <div class="pillar-card" style="--p-color: var(--p8);" id="pillar-8">
+    <div class="pillar-header" onclick="togglePillar(this)">
+      <div class="pillar-num">08</div>
+      <div class="pillar-title-wrap">
+        <div class="pillar-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m11 17 2 2a1 1 0 1 0 3-3"/><path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4"/><path d="m21 3 1 11h-2"/><path d="M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3"/><path d="M3 4h8"/></svg></div>
+        <div class="pillar-title" id="i18n-p8-name">Inclusion & Accessibilité</div>
+        <div class="pillar-tagline" id="i18n-p8-tag">Les bénéfices de l'IA doivent être distribués équitablement, sans creuser les inégalités</div>
+      </div>
+      <div class="pillar-meta-right">
+        <span class="p-consensus" id="i18n-p8-cons">En consolidation · 75%</span>
+        <span class="p-frameworks-count" id="i18n-p8-count">Présent dans 41+ cadres</span>
+        <span class="p-chevron">▼</span>
+      </div>
+    </div>
+    <div class="pillar-body">
+      <div class="pillar-body-grid">
+        <div>
+          <div class="pb-section-title" id="i18n-p8-def-lbl">Définition & portée</div>
+          <div class="pb-def" id="i18n-p8-def">L'inclusion dans le contexte de l'IA responsable englobe plusieurs dimensions : l'accessibilité technique des systèmes IA aux personnes en situation de handicap, la représentativité des équipes de développement (pour réduire les biais de conception), la disponibilité des bénéfices de l'IA à travers les pays et niveaux socioéconomiques, et la protection des groupes vulnérables contre les usages discriminatoires.</div>
+          <div class="pb-section-title" id="i18n-p8-sub-lbl">Sous-principes clés</div>
+          <ul class="sub-principles">
+            <li class="sub-principle" id="i18n-p8-s1"><span class="sub-dot"></span><strong>Accessibilité universelle</strong> — Les interfaces et sorties des systèmes IA doivent être accessibles aux personnes avec handicaps (WCAG, standards d'accessibilité).</li>
+            <li class="sub-principle" id="i18n-p8-s2"><span class="sub-dot"></span><strong>Diversité des équipes</strong> — Promouvoir la diversité (genre, origine, discipline) dans les équipes développant des systèmes IA pour réduire les biais systémiques.</li>
+            <li class="sub-principle" id="i18n-p8-s3"><span class="sub-dot"></span><strong>Fracture numérique & IA</strong> — Éviter que les systèmes IA n'amplifient les inégalités d'accès entre pays du Nord et du Sud, zones urbaines et rurales.</li>
+            <li class="sub-principle" id="i18n-p8-s4"><span class="sub-dot"></span><strong>Protection des groupes vulnérables</strong> — Protections renforcées pour les mineurs, personnes âgées, personnes en situation de vulnérabilité économique.</li>
+            <li class="sub-principle" id="i18n-p8-s5"><span class="sub-dot"></span><strong>Multilinguisme & multilingualité</strong> — Disponibilité des systèmes IA dans des langues non dominantes; éviter les biais culturels anglocentriques.</li>
+          </ul>
+        </div>
+        <div>
+          <div class="pb-section-title" id="i18n-p8-cov-lbl">Couverture par cadre de référence</div>
+          <div class="fw-coverage">
+            <div class="fw-row"><span class="fw-name">UNESCO</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:100%"></div></div><span class="fw-level lvl-full">Complet</span></div>
+            <div class="fw-row"><span class="fw-name">OCDE</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:90%"></div></div><span class="fw-level lvl-full">Complet</span></div>
+            <div class="fw-row"><span class="fw-name">Google AI</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:85%"></div></div><span class="fw-level lvl-full">Engagement</span></div>
+            <div class="fw-row"><span class="fw-name">Microsoft RAI</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:88%"></div></div><span class="fw-level lvl-full">Standard</span></div>
+            <div class="fw-row"><span class="fw-name">EU AI Act</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:65%"></div></div><span class="fw-level lvl-part">Partiel</span></div>
+            <div class="fw-row"><span class="fw-name">ONU Résolution 2024</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:80%"></div></div><span class="fw-level lvl-full">Résolution</span></div>
+            <div class="fw-row"><span class="fw-name">NIST AI RMF</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:70%"></div></div><span class="fw-level lvl-part">Partiel</span></div>
+            <div class="fw-row"><span class="fw-name">ISO 42001</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:40%"></div></div><span class="fw-level lvl-emerg">Limité</span></div>
+          </div>
+          <div class="pb-section-title" style="margin-top:1.5rem;">Exigences pratiques</div>
+          <div class="obligations">
+            <div class="obligation" id="i18n-p8-o1"><strong>Audit d'accessibilité</strong> — Évaluation de conformité aux standards d'accessibilité (WCAG 2.1 AA minimum) pour toutes les interfaces IA publiques.</div>
+            <div class="obligation" id="i18n-p8-o2"><strong>Consultations communautaires</strong> — Implication des communautés affectées dans la conception des systèmes IA à impact social.</div>
+          </div>
+        </div>
+        <div class="tensions">
+          <div class="tensions-title">⚡ Tensions & défis d'implémentation</div>
+          <p id="i18n-p8-tens">L'inclusion reste souvent traitée comme un objectif aspirationnel plutôt qu'une exigence opérationnelle. La tension entre universalité et personnalisation est structurelle. Les métriques d'inclusion sont difficiles à définir et mesurer. Ce pilier est plus fort dans les cadres internationaux que dans les réglementations contraignantes sectorielles.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PILIER 9 -->
+  <div class="pillar-card" style="--p-color: var(--p9);" id="pillar-9">
+    <div class="pillar-header" onclick="togglePillar(this)">
+      <div class="pillar-num">09</div>
+      <div class="pillar-title-wrap">
+        <div class="pillar-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="22" x2="21" y2="22"/><line x1="6" y1="18" x2="6" y2="11"/><line x1="10" y1="18" x2="10" y2="11"/><line x1="14" y1="18" x2="14" y2="11"/><line x1="18" y1="18" x2="18" y2="11"/><polygon points="12 2 20 7 4 7"/></svg></div>
+        <div class="pillar-title" id="i18n-p9-name">Gouvernance & Gestion des risques IA</div>
+        <div class="pillar-tagline" id="i18n-p9-tag">Structures organisationnelles, politiques et processus formels pour piloter l'IA de manière responsable</div>
+      </div>
+      <div class="pillar-meta-right">
+        <span class="p-consensus" id="i18n-p9-cons">Consensus universel · 93%</span>
+        <span class="p-frameworks-count" id="i18n-p9-count">Présent dans 51+ cadres</span>
+        <span class="p-chevron">▼</span>
+      </div>
+    </div>
+    <div class="pillar-body">
+      <div class="pillar-body-grid">
+        <div>
+          <div class="pb-section-title" id="i18n-p9-def-lbl">Définition & portée</div>
+          <div class="pb-def" id="i18n-p9-def">Ce pilier représente l'architecture organisationnelle et processuelle qui permet de mettre en œuvre les huit autres piliers. Il couvre la stratégie IA, les structures de gouvernance (comités, fonctions RAI dédiées), les politiques formelles, la gestion du cycle de vie des systèmes IA, la gestion des risques IA intégrée au cadre de risque d'entreprise (ERM) et la conformité réglementaire continue.</div>
+          <div class="pb-section-title" id="i18n-p9-sub-lbl">Sous-principes clés</div>
+          <ul class="sub-principles">
+            <li class="sub-principle" id="i18n-p9-s1"><span class="sub-dot"></span><strong>Système de management IA (AIMS)</strong> — ISO 42001 : structure formelle de gestion de l'IA intégrée aux systèmes de management existants (ISO 27001, ISO 9001).</li>
+            <li class="sub-principle" id="i18n-p9-s2"><span class="sub-dot"></span><strong>Fonctions RAI dédiées</strong> — Rôles organisationnels spécifiques : Chief AI Officer, Responsible AI Officer, comités éthique IA (ex: AETHER chez Microsoft).</li>
+            <li class="sub-principle" id="i18n-p9-s3"><span class="sub-dot"></span><strong>Cycle de vie IA structuré</strong> — Processus formalisés pour chaque phase : design, développement, test, déploiement, monitoring, retrait.</li>
+            <li class="sub-principle" id="i18n-p9-s4"><span class="sub-dot"></span><strong>Registre des risques IA</strong> — Identification, évaluation et traitement des risques spécifiques aux systèmes IA, intégrés au registre des risques d'entreprise.</li>
+            <li class="sub-principle" id="i18n-p9-s5"><span class="sub-dot"></span><strong>Gestion des fournisseurs IA (AI TPRM)</strong> — Extension du TPRM aux risques spécifiques aux fournisseurs de modèles IA, APIs tiers et services cloud IA.</li>
+          </ul>
+        </div>
+        <div>
+          <div class="pb-section-title" id="i18n-p9-cov-lbl">Couverture par cadre de référence</div>
+          <div class="fw-coverage">
+            <div class="fw-row"><span class="fw-name">ISO 42001</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:100%"></div></div><span class="fw-level lvl-full">Central</span></div>
+            <div class="fw-row"><span class="fw-name">NIST AI RMF</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:100%"></div></div><span class="fw-level lvl-full">Central</span></div>
+            <div class="fw-row"><span class="fw-name">EU AI Act</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:95%"></div></div><span class="fw-level lvl-full">Obligatoire</span></div>
+            <div class="fw-row"><span class="fw-name">Microsoft RAI</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:100%"></div></div><span class="fw-level lvl-full">Central</span></div>
+            <div class="fw-row"><span class="fw-name">Canada SAD + LIAD</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:90%"></div></div><span class="fw-level lvl-full">Obligatoire</span></div>
+            <div class="fw-row"><span class="fw-name">MAS AI Guidelines</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:95%"></div></div><span class="fw-level lvl-full">Obligatoire</span></div>
+            <div class="fw-row"><span class="fw-name">OSFI Canada</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:88%"></div></div><span class="fw-level lvl-full">Obligatoire</span></div>
+            <div class="fw-row"><span class="fw-name">G7 Hiroshima</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:75%"></div></div><span class="fw-level lvl-full">Engagement</span></div>
+          </div>
+          <div class="pb-section-title" style="margin-top:1.5rem;">Exigences pratiques</div>
+          <div class="obligations">
+            <div class="obligation" id="i18n-p9-o1"><strong>Inventaire & classification IA</strong> — Registre complet de tous les systèmes IA en production avec niveau de risque assigné (critique, élevé, moyen, faible).</div>
+            <div class="obligation" id="i18n-p9-o2"><strong>Politique RAI formelle</strong> — Politique d'IA responsable approuvée par la direction, déclinée en procédures opérationnelles par équipe.</div>
+            <div class="obligation" id="i18n-p9-o3"><strong>AI TPRM</strong> — Extension du programme TPRM existant aux risques spécifiques des fournisseurs et services IA tiers (modèles, APIs, données).</div>
+            <div class="obligation" id="i18n-p9-o4"><strong>Formation obligatoire</strong> — Programme de sensibilisation et formation RAI pour tous les employés utilisant ou développant des systèmes IA.</div>
+          </div>
+        </div>
+        <div class="tensions">
+          <div class="tensions-title">⚡ Tensions & défis d'implémentation</div>
+          <p id="i18n-p9-tens">La gouvernance IA doit être intégrée aux structures existantes (GRC, cybersécurité, conformité) sans créer un silo parallèle. La vitesse de déploiement de l'IA dépasse souvent la capacité des processus de gouvernance à suivre. Le pilier 9 est le méta-pilier : sans lui, les 8 autres restent des intentions sans mécanisme d'application.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     MATRICE
+══════════════════════════════════════════ -->
+<section id="matrix" class="section">
+  <div style="margin-bottom:1.5rem;">
+    <div class="consensus-title" id="i18n-mx-title">Matrice de couverture — Piliers × Cadres principaux</div>
+    <div class="consensus-sub" id="i18n-mx-sub">● Traitement complet & explicite &nbsp;◐ Partiel / en émergence &nbsp;○ Absent ou non traité</div>
+  </div>
+  <div class="matrix-container">
+    <table>
+      <thead>
+        <tr>
+          <th>Pilier</th>
+          <th>EU AI Act</th>
+          <th>NIST RMF</th>
+          <th>ISO 42001</th>
+          <th>OCDE</th>
+          <th>UNESCO</th>
+          <th>Canada SAD</th>
+          <th>Loi 25 QC</th>
+          <th>Google AI</th>
+          <th>Microsoft</th>
+          <th>Anthropic</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td id="i18n-mx-p1"><span style="color:var(--p1);">●</span> Transparence</td>
+          <td class="cell-full">●</td><td class="cell-full">●</td><td class="cell-full">●</td><td class="cell-full">●</td><td class="cell-full">●</td><td class="cell-full">●</td><td class="cell-full">●</td><td class="cell-full">●</td><td class="cell-full">●</td><td class="cell-full">●</td>
+        </tr>
+        <tr>
+          <td id="i18n-mx-p2"><span style="color:var(--p2);">●</span> Équité</td>
+          <td class="cell-full">●</td><td class="cell-full">●</td><td class="cell-part">◐</td><td class="cell-full">●</td><td class="cell-full">●</td><td class="cell-part">◐</td><td class="cell-full">●</td><td class="cell-full">●</td><td class="cell-full">●</td><td class="cell-part">◐</td>
+        </tr>
+        <tr>
+          <td id="i18n-mx-p3"><span style="color:var(--p3);">●</span> Sécurité & Robustesse</td>
+          <td class="cell-full">●</td><td class="cell-full">●</td><td class="cell-full">●</td><td class="cell-full">●</td><td class="cell-part">◐</td><td class="cell-part">◐</td><td class="cell-part">◐</td><td class="cell-full">●</td><td class="cell-full">●</td><td class="cell-full">●</td>
+        </tr>
+        <tr>
+          <td id="i18n-mx-p4"><span style="color:var(--p4);">●</span> Vie privée</td>
+          <td class="cell-full">●</td><td class="cell-full">●</td><td class="cell-full">●</td><td class="cell-full">●</td><td class="cell-full">●</td><td class="cell-full">●</td><td class="cell-full">●</td><td class="cell-full">●</td><td class="cell-full">●</td><td class="cell-part">◐</td>
+        </tr>
+        <tr>
+          <td id="i18n-mx-p5"><span style="color:var(--p5);">●</span> Responsabilité</td>
+          <td class="cell-full">●</td><td class="cell-full">●</td><td class="cell-full">●</td><td class="cell-full">●</td><td class="cell-full">●</td><td class="cell-full">●</td><td class="cell-full">●</td><td class="cell-full">●</td><td class="cell-full">●</td><td class="cell-full">●</td>
+        </tr>
+        <tr>
+          <td id="i18n-mx-p6"><span style="color:var(--p6);">●</span> Contrôle humain</td>
+          <td class="cell-full">●</td><td class="cell-full">●</td><td class="cell-part">◐</td><td class="cell-full">●</td><td class="cell-full">●</td><td class="cell-full">●</td><td class="cell-part">◐</td><td class="cell-part">◐</td><td class="cell-part">◐</td><td class="cell-full">●</td>
+        </tr>
+        <tr>
+          <td id="i18n-mx-p7"><span style="color:var(--p7);">●</span> Durabilité</td>
+          <td class="cell-part">◐</td><td class="cell-none">○</td><td class="cell-none">○</td><td class="cell-part">◐</td><td class="cell-full">●</td><td class="cell-none">○</td><td class="cell-none">○</td><td class="cell-none">○</td><td class="cell-none">○</td><td class="cell-none">○</td>
+        </tr>
+        <tr>
+          <td id="i18n-mx-p8"><span style="color:var(--p8);">●</span> Inclusion</td>
+          <td class="cell-part">◐</td><td class="cell-part">◐</td><td class="cell-none">○</td><td class="cell-full">●</td><td class="cell-full">●</td><td class="cell-part">◐</td><td class="cell-part">◐</td><td class="cell-full">●</td><td class="cell-full">●</td><td class="cell-part">◐</td>
+        </tr>
+        <tr>
+          <td id="i18n-mx-p9"><span style="color:var(--p9);">●</span> Gouvernance & Risques</td>
+          <td class="cell-full">●</td><td class="cell-full">●</td><td class="cell-full">●</td><td class="cell-part">◐</td><td class="cell-part">◐</td><td class="cell-full">●</td><td class="cell-full">●</td><td class="cell-part">◐</td><td class="cell-full">●</td><td class="cell-part">◐</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div style="margin-top:2.5rem; background:var(--ink); color:var(--paper); padding:2rem;">
+    <div style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:700;margin-bottom:1rem;color:#e8c87a;" id="i18n-mx-strat-title">Lecture stratégique pour le contexte canadien</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;font-size:0.82rem;line-height:1.7;color:rgba(255,255,255,0.75);">
+      <div>
+        <span id="i18n-mx-strat1"><strong style="color:var(--paper);">Conformité réglementaire immédiate</strong><br>
+        Pour les organisations québécoises, la <strong style="color:#e8c87a;">Loi 25</strong> est d'application immédiate sur les piliers Vie privée, Transparence et Responsabilité. La <strong style="color:#e8c87a;">Directive SAD fédérale</strong> s'impose pour toute interaction avec le gouvernement fédéral. L'<strong style="color:#e8c87a;">EU AI Act</strong> s'applique extra-territorialement aux organisations commercialisant en Europe.
+      </div>
+      <div>
+        <strong style="color:var(--paper);"></span>
+        <span id="i18n-mx-strat2"><strong style="color:var(--paper);">Priorités d'investissement RAI recommandées</strong><br>
+        1. <strong style="color:#e8c87a;">ISO 42001</strong> comme ossature de gouvernance (certifiable, compatible ISO 27001)<br>
+        2. <strong style="color:#e8c87a;">NIST AI RMF</strong> pour l'opérationnalisation (playbook actionnable)<br>
+        3. Extension du <strong style="color:#e8c87a;">TPRM</strong> aux fournisseurs IA<br>
+        4. Programme de formation RAI pour les équipes</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <span id="i18n-footer1">Responsible AI — Synthèse des piliers · Analyse de 55+ cadres · Mars 2026</span>
+  <span id="i18n-footer2">EU AI Act · NIST · ISO 42001 · OCDE · UNESCO · Canada · Big Tech</span>
+</footer>
+
+<script>
+function showSection(id, btn) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+
+function togglePillar(header) {
+  const card = header.parentElement;
+  card.classList.toggle('open');
+}
+
+function goToPillar(n) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('pillars').classList.add('active');
+  document.getElementById('i18n-nav2').classList.add('active');
+  setTimeout(() => {
+    const card = document.getElementById('pillar-' + n);
+    card.classList.add('open');
+    card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 100);
+}
+
+// init on load
+document.addEventListener('DOMContentLoaded', () => { applyLang(); });
+</script>
+
+<script id="i18n-data">
+const LANG = {
+  fr: {
+    // ── meta
+    title: "Responsible AI — Synthèse des Piliers",
+    kicker: "Analyse transversale · 55+ cadres & réglementations · Mars 2026",
+    h1line1: "Les piliers du",
+    h1em: "Responsible AI",
+    subtitle: "Synthèse structurée des exigences communes issues de l'analyse croisée de 55+ cadres internationaux, réglementations, normes et standards industriels sur l'intelligence artificielle responsable.",
+    // ── stats
+    stat1: "Piliers universels", stat2: "Cadres analysés", stat3: "Consensus sur 5 piliers",
+    // ── nav
+    nav1: "Vue d'ensemble", nav2: "Les 9 piliers", nav3: "Matrice",
+    // ── overview
+    ov_title: "Niveau de consensus par pilier",
+    ov_sub: "Taux de présence explicite dans les 55+ cadres analysés, pondéré par le caractère contraignant ou volontaire",
+    introP1: "L'analyse croisée de <strong>55+ cadres de référence</strong> — réglementations contraignantes, normes certifiables, lignes directrices gouvernementales, standards industriels et initiatives multilatérales — révèle une convergence remarquable autour de <strong>9 piliers fondamentaux</strong>.",
+    introP2: "Ces piliers ne sont pas simplement des principes éthiques : ils structurent des <strong>exigences opérationnelles concrètes</strong> qui s'imposent aux organisations développant, déployant ou utilisant des systèmes d'intelligence artificielle.",
+    introP3: "Le degré de consensus varie : cinq piliers font l'objet d'un accord quasi-universel (présents dans 90–100% des cadres), deux sont en consolidation (70–89%), et deux sont <strong>émergents</strong> — en forte croissance dans les cadres récents de 2024–2025.",
+    introP4: "La singularité du paysage actuel est l'articulation entre cadres <strong>volontaires</strong> (qui ont défini le vocabulaire et les concepts) et cadres <strong>contraignants</strong> (qui translatent ces concepts en obligations légales avec sanctions). L'EU AI Act est le pivot de cette transition.",
+    pullQuote: "« Ces piliers forment un système organique — non une liste à cocher. Négliger l'un d'eux crée des failles qui fragilisent l'ensemble. La gouvernance sans transparence est opaque. La sécurité sans équité protège les forts. La responsabilité sans contrôle humain automatise l'impunité. »",
+    pullCite: "Synthèse transversale — Responsible AI Frameworks 2026",
+    // ── pillar names / taglines
+    p1name:"Transparence & Explicabilité", p1tag:"Les systèmes IA doivent pouvoir être compris, documentés et expliqués",
+    p2name:"Équité & Non-discrimination", p2tag:"Les systèmes IA ne doivent pas reproduire ni amplifier les biais discriminatoires",
+    p3name:"Sécurité & Robustesse", p3tag:"Les systèmes IA doivent fonctionner de manière fiable, sûre et résistante aux défaillances",
+    p4name:"Vie privée & Protection des données", p4tag:"Respecter les droits à la vie privée tout au long du cycle de vie des systèmes IA",
+    p5name:"Responsabilité & Imputabilité", p5tag:"Des mécanismes clairs d'attribution de responsabilité et de recours pour les personnes affectées",
+    p6name:"Contrôle humain & Supervision", p6tag:"Les humains doivent conserver la capacité de superviser, corriger et arrêter les systèmes IA",
+    p7name:"Durabilité & Impact environnemental", p7tag:"Mesurer, limiter et compenser l'empreinte environnementale des systèmes IA",
+    p8name:"Inclusion & Accessibilité", p8tag:"Les bénéfices de l'IA doivent être distribués équitablement, sans creuser les inégalités",
+    p9name:"Gouvernance & Gestion des risques IA", p9tag:"Structures organisationnelles, politiques et processus formels pour piloter l'IA de manière responsable",
+    // ── consensus labels
+    c1score:"98% des cadres · Consensus universel", c2score:"95% des cadres · Consensus universel",
+    c3score:"96% des cadres · Consensus universel", c4score:"97% des cadres · Consensus universel",
+    c5score:"100% des cadres · Consensus absolu",  c6score:"88% des cadres · En consolidation",
+    c7score:"42% des cadres · Pilier émergent ↑",  c8score:"75% des cadres · En consolidation",
+    c9score:"93% des cadres · Consensus universel",
+    // ── pillar consensus badges
+    p1cons:"Consensus universel · 98%", p2cons:"Consensus universel · 95%", p3cons:"Consensus universel · 96%",
+    p4cons:"Consensus universel · 97%", p5cons:"Consensus absolu · 100%",   p6cons:"En consolidation · 88%",
+    p7cons:"Pilier émergent · 42%",    p8cons:"En consolidation · 75%",    p9cons:"Consensus universel · 93%",
+    p1count:"Présent dans 54+ cadres", p2count:"Présent dans 52+ cadres", p3count:"Présent dans 53+ cadres",
+    p4count:"Présent dans 53+ cadres", p5count:"Présent dans 55+ cadres", p6count:"Présent dans 48+ cadres",
+    p7count:"En forte croissance 2024–2025", p8count:"Présent dans 41+ cadres", p9count:"Présent dans 51+ cadres",
+    // ── section labels
+    sec_def:"Définition & portée", sec_sub:"Sous-principes clés", sec_cov:"Couverture par cadre de référence",
+    sec_req:"Exigences pratiques", sec_tens:"⚡ Tensions & défis d'implémentation",
+    // ── pillar 1 content
+    p1def:"La transparence exige que les parties prenantes — utilisateurs, personnes affectées, régulateurs — puissent comprendre comment un système IA fonctionne, sur quelles données il a été entraîné, quels objectifs il poursuit et quelles sont ses limites. L'explicabilité est la dimension technique : la capacité à fournir des explications intelligibles sur les décisions ou prédictions produites.",
+    p1s1:"<strong>Explicabilité algorithmique (XAI)</strong> — Les décisions automatisées doivent pouvoir être expliquées à un niveau adapté au public (utilisateur final, expert, régulateur).",
+    p1s2:"<strong>Traçabilité & documentation</strong> — Journalisation des décisions, documentation technique (model cards, system cards, datasheets), registres des systèmes IA à haut risque.",
+    p1s3:"<strong>Transparence sur les données</strong> — Divulgation des sources de données d'entraînement, des pratiques de collecte, des limitations connues des jeux de données.",
+    p1s4:"<strong>Étiquetage du contenu IA</strong> — Obligation de signaler qu'un contenu a été généré ou influencé par un système IA (deepfakes, textes génératifs, décisions automatisées).",
+    p1s5:"<strong>Droit à l'explication</strong> — Toute personne affectée par une décision automatisée significative doit pouvoir demander et obtenir une explication compréhensible.",
+    p1o1:"<strong>Notice d'utilisation IA</strong> — Informer les utilisateurs qu'ils interagissent avec un système IA.",
+    p1o2:"<strong>Documentation technique</strong> — Maintenir des model cards, system cards et registres d'audit.",
+    p1o3:"<strong>Explication sur demande</strong> — Fournir une explication des décisions significatives à toute personne affectée.",
+    p1tens:"La transparence totale peut entrer en conflit avec la protection des secrets commerciaux (algorithmes propriétaires) et la sécurité des systèmes (attaques adversariales facilitées par la connaissance du modèle). Les réglementations acceptent généralement des niveaux de transparence graduels selon les parties prenantes.",
+    // ── pillar 2 content
+    p2def:"L'équité dans les systèmes IA vise à garantir que les décisions, recommandations et prédictions ne désavantagent pas systématiquement certains groupes de personnes en raison de caractéristiques protégées (genre, origine ethnique, âge, handicap, orientation sexuelle, etc.). Elle recouvre à la fois l'équité algorithmique (dans le modèle) et l'équité procédurale (dans le processus).",
+    p2s1:"<strong>Détection et atténuation des biais</strong> — Tests systématiques de fairness sur les données d'entraînement, les modèles et les sorties, avec mécanismes de correction.",
+    p2s2:"<strong>Représentativité des données</strong> — Jeux de données diversifiés et représentatifs pour éviter les biais de sélection et de sous-représentation.",
+    p2s3:"<strong>Équité de groupe vs individuelle</strong> — Distinguer parité démographique, égalité des chances et calibration selon le contexte d'usage.",
+    p2s4:"<strong>Audits de biais obligatoires</strong> — NYC Local Law 144 impose des audits annuels pour les outils IA en RH. Modèle qui se répand.",
+    p2s5:"<strong>Interdiction de discrimination algorithmique</strong> — EU AI Act interdit les systèmes d'IA exploitant des vulnérabilités pour induire des comportements préjudiciables.",
+    p2o1:"<strong>Fairness testing</strong> — Tests de performance segmentés par groupes démographiques avant déploiement.",
+    p2o2:"<strong>Audit de biais</strong> — Évaluation annuelle par un tiers indépendant pour les systèmes à haut risque (RH, crédit, justice).",
+    p2o3:"<strong>Correction continue</strong> — Mécanismes de surveillance post-déploiement avec processus de remédiation des dérives.",
+    p2tens:"Les définitions de l'équité sont mathématiquement incompatibles entre elles (théorème d'impossibilité de Chouldechova). Le choix d'une métrique d'équité dépend du contexte éthique et juridique. De plus, corriger les biais peut réduire la précision globale du modèle, créant un arbitrage performance/équité.",
+    // ── pillar 3 content
+    p3def:"La sécurité des systèmes IA recouvre deux dimensions complémentaires : la <em>safety</em> (absence de comportements dangereux involontaires, fiabilité dans les conditions nominales et dégradées) et la <em>security</em> (résistance aux attaques malveillantes, adversariales ou aux manipulations). La robustesse désigne la capacité à maintenir des performances acceptables face à des données hors-distribution, des environnements changeants ou des perturbations.",
+    p3s1:"<strong>Safety by design</strong> — Intégration de mécanismes de sécurité dès la conception : fail-safe, kill switches, limites de déploiement.",
+    p3s2:"<strong>Résistance aux attaques adversariales</strong> — Tests de robustesse face aux inputs adversariaux, empoisonnement des données, attaques de prompt injection.",
+    p3s3:"<strong>Gestion des modèles frontières</strong> — Responsible Scaling Policies (Anthropic), Preparedness Framework (OpenAI) pour les modèles à capacités potentiellement catastrophiques.",
+    p3s4:"<strong>Tests de performance et validation</strong> — Benchmarks standardisés (MLCommons AI Safety), évaluations red team avant déploiement.",
+    p3s5:"<strong>Monitoring post-déploiement</strong> — Surveillance continue des performances, détection de dérives (data drift, concept drift), gestion des incidents.",
+    p3o1:"<strong>Red teaming</strong> — Tests adversariaux obligatoires avant déploiement des modèles à haut risque.",
+    p3o2:"<strong>Gestion des incidents IA</strong> — Processus formalisé de détection, notification et remédiation des défaillances.",
+    p3o3:"<strong>Évaluations de sécurité tiers</strong> — Audits externes pour les modèles de fondation (exigé par EU AI Act pour GPAI à risque systémique).",
+    p3tens:"La sécurité des systèmes IA introduit une nouvelle couche distincte de la cybersécurité classique. Les attaques spécifiques à l'IA (prompt injection, jailbreaking, model inversion, data poisoning) nécessitent des compétences et des outils dédiés qui font encore défaut dans la plupart des organisations. Le domaine de l'AI Safety pour les modèles frontières reste en grande partie non résolu.",
+    // ── pillar 4 content
+    p4def:"Ce pilier recouvre le respect des droits fondamentaux à la vie privée à toutes les étapes du cycle de vie d'un système IA : collecte et préparation des données, entraînement des modèles, inférence et déploiement. Il impose l'application des principes de <em>Privacy by Design</em> à l'écosystème IA, avec des considérations spécifiques liées à la mémorisation des données d'entraînement et aux risques de ré-identification.",
+    p4s1:"<strong>Privacy by Design</strong> — Intégration des exigences de vie privée dès la conception architecturale du système IA, minimisation des données.",
+    p4s2:"<strong>Consentement éclairé</strong> — Base légale pour l'utilisation des données personnelles dans l'entraînement ; droits d'opposition à l'usage IA (RGPD Art. 22).",
+    p4s3:"<strong>Risques d'extraction de données</strong> — Les LLMs peuvent mémoriser et restituer des données d'entraînement (membership inference attacks). Gestion spécifique requise.",
+    p4s4:"<strong>Anonymisation & confidentialité différentielle</strong> — Techniques cryptographiques pour préserver la vie privée lors de l'entraînement des modèles.",
+    p4s5:"<strong>Surveillance biométrique</strong> — Restrictions strictes voire interdiction de la reconnaissance faciale en temps réel dans les espaces publics (EU AI Act).",
+    p4o1:"<strong>Analyse d'impact (DPIA IA)</strong> — Évaluation d'impact sur la vie privée obligatoire avant tout déploiement de système IA traitant des données personnelles à grande échelle.",
+    p4o2:"<strong>Gestion des droits</strong> — Processus pour exercer les droits d'accès, rectification, effacement et opposition aux décisions automatisées.",
+    p4o3:"<strong>Sécurité des données d'entraînement</strong> — Chiffrement, contrôle d'accès strict, audit des pipelines d'entraînement des modèles.",
+    p4tens:"L'entraînement des modèles de grande taille nécessite des volumes massifs de données, en tension avec les principes de minimisation. Le droit à l'effacement est techniquement complexe à implémenter dans des modèles pré-entraînés (machine unlearning). La conformité RGPD des LLMs fait l'objet de contentieux actifs devant plusieurs DPA européennes.",
+    // ── pillar 5 content
+    p5def:"La responsabilité (accountability) est le seul pilier présent à 100% dans tous les cadres analysés. Elle impose qu'une personne physique ou morale identifiable soit responsable du développement, du déploiement et des impacts d'un système IA — et qu'elle puisse être tenue de rendre des comptes. L'imputabilité garantit que les personnes affectées par des décisions IA disposent de voies de recours effectives.",
+    p5s1:"<strong>Chaîne de responsabilité claire</strong> — Identification du développeur, du déployeur et de l'utilisateur; définition des responsabilités à chaque maillon (EU AI Act Art. 25-27).",
+    p5s2:"<strong>Audits et certifications</strong> — Mécanismes d'évaluation de conformité par tiers pour les systèmes à haut risque; accréditation des organismes notifiés.",
+    p5s3:"<strong>Droits de recours</strong> — Voies de contestation des décisions automatisées; accès à des mécanismes de réparation équitables.",
+    p5s4:"<strong>Impact Assessments</strong> — Évaluations d'impact (RAIA Microsoft, AI Impact Assessment ISO 42005, DPIA) formalisées et documentées.",
+    p5s5:"<strong>Responsabilité civile</strong> — EU AI Liability Directive en cours; régimes de responsabilité pour les dommages causés par les systèmes IA autonomes.",
+    p5o1:"<strong>Registre des systèmes IA</strong> — Inventaire formalisé de tous les systèmes IA en production, avec propriétaire désigné et niveau de risque.",
+    p5o2:"<strong>Impact Assessment documenté</strong> — Évaluation d'impact formelle avant tout déploiement de système IA à impact significatif.",
+    p5o3:"<strong>Mécanisme de plainte</strong> — Processus accessible pour contester ou signaler un problème lié à une décision IA.",
+    p5tens:"Avec les systèmes IA autonomes et multi-agents, l'attribution de responsabilité devient diffuse. Qui est responsable quand un agent IA prend une décision non anticipée par son développeur? Les chaînes de valeur IA complexes (API tiers, modèles pré-entraînés, fine-tuning) rendent difficile l'identification du responsable ultime.",
+    // ── pillar 6 content
+    p6def:"Ce pilier garantit que les humains maintiennent une capacité de supervision, d'intervention et de contrôle final sur les systèmes IA, en particulier pour les décisions à fort impact. Il s'oppose à la délégation totale d'autorité décisionnelle à des machines. Les modèles varient selon le niveau d'autonomie accordé : Human-in-the-Loop (HITL), Human-on-the-Loop (HOTL) et Human-in-Command.",
+    p6s1:"<strong>Human-in-the-Loop (HITL)</strong> — Validation humaine obligatoire avant l'exécution de décisions critiques; pas de pleine automatisation.",
+    p6s2:"<strong>Kill switches & arrêt d'urgence</strong> — Mécanismes techniques permettant d'interrompre un système IA en cas de comportement anormal.",
+    p6s3:"<strong>Droit à l'examen humain</strong> — EU AI Act Art. 14 : les systèmes IA à haut risque doivent permettre une supervision humaine effective.",
+    p6s4:"<strong>Autonomie progressive</strong> — Le niveau d'autonomie accordé doit être proportionnel aux risques et à la maturité du système, avec révision périodique.",
+    p6s5:"<strong>Prévention de l'automation bias</strong> — Formation des opérateurs humains pour éviter la sur-confiance dans les décisions IA et maintenir leur capacité critique.",
+    p6o1:"<strong>Niveaux d'autonomie définis</strong> — Documentation formelle du niveau de délégation accordé à chaque système IA (décision finale, recommandation, alerte).",
+    p6o2:"<strong>Formation des opérateurs</strong> — Programme de formation pour maintenir la compétence critique des superviseurs humains face aux systèmes IA.",
+    p6o3:"<strong>Procédures de révision manuelle</strong> — Processus clairement défini pour déclencher et exécuter une révision humaine des décisions contestées.",
+    p6tens:"L'exigence de supervision humaine entre en tension avec les bénéfices de l'automatisation (vitesse, coût, scalabilité). Dans les systèmes autonomes avancés (agents IA, IA temps réel), une intervention humaine systématique peut être techniquement impraticable. Le risque d'automation bias — où l'opérateur valide sans critique les décisions IA — peut rendre la supervision formelle sans valeur réelle.",
+    // ── pillar 7 content
+    p7def:"Pilier le plus récent en termes de formalisation, la durabilité environnementale de l'IA émerge dans les cadres de 2023–2025. Elle concerne la consommation énergétique massive de l'entraînement des grands modèles, l'empreinte carbone de l'inférence à grande échelle, la consommation d'eau des datacenters et les impacts sur les matières premières (GPU, rare earths). La Déclaration de Paris (2025) en a fait un axe stratégique.",
+    p7s1:"<strong>Mesure de l'empreinte carbone</strong> — Quantification des émissions CO₂ liées à l'entraînement et à l'inférence des modèles (scope 1, 2, 3).",
+    p7s2:"<strong>Efficience énergétique by design</strong> — Choix architecturaux et optimisations réduisant la consommation énergétique sans sacrifier les performances.",
+    p7s3:"<strong>Divulgation environnementale</strong> — Obligation de rapporter l'empreinte environnementale des systèmes IA (annoncée dans EU AI Act pour GPAI).",
+    p7s4:"<strong>Énergie renouvelable</strong> — Engagement des opérateurs cloud et datacenters vers 100% d'énergie renouvelable pour les charges de travail IA.",
+    p7s5:"<strong>Sobriété numérique</strong> — Questionnement de la nécessité de déployer des modèles complexes quand des solutions plus légères suffisent.",
+    p7o1:"<strong>Bilan carbone des modèles</strong> — Estimation et reporting de l'empreinte CO₂ de l'entraînement et du déploiement des modèles IA internes.",
+    p7o2:"<strong>Critères environnementaux dans les achats IA</strong> — Intégration de critères d'efficience énergétique dans l'évaluation des fournisseurs de modèles et d'infrastructure cloud.",
+    p7tens:"La mesure standardisée de l'empreinte carbone des modèles IA fait encore défaut. Les méthodes de calcul varient considérablement selon les fournisseurs. La course aux modèles toujours plus grands (scaling laws) crée une pression inverse à la sobriété. Ce pilier devrait être l'un des plus dynamiques en 2025–2027 au niveau réglementaire.",
+    // ── pillar 8 content
+    p8def:"L'inclusion dans le contexte de l'IA responsable englobe plusieurs dimensions : l'accessibilité technique des systèmes IA aux personnes en situation de handicap, la représentativité des équipes de développement (pour réduire les biais de conception), la disponibilité des bénéfices de l'IA à travers les pays et niveaux socioéconomiques, et la protection des groupes vulnérables contre les usages discriminatoires.",
+    p8s1:"<strong>Accessibilité universelle</strong> — Les interfaces et sorties des systèmes IA doivent être accessibles aux personnes avec handicaps (WCAG, standards d'accessibilité).",
+    p8s2:"<strong>Diversité des équipes</strong> — Promouvoir la diversité (genre, origine, discipline) dans les équipes développant des systèmes IA pour réduire les biais systémiques.",
+    p8s3:"<strong>Fracture numérique & IA</strong> — Éviter que les systèmes IA n'amplifient les inégalités d'accès entre pays du Nord et du Sud, zones urbaines et rurales.",
+    p8s4:"<strong>Protection des groupes vulnérables</strong> — Protections renforcées pour les mineurs, personnes âgées, personnes en situation de vulnérabilité économique.",
+    p8s5:"<strong>Multilinguisme & multilingualité</strong> — Disponibilité des systèmes IA dans des langues non dominantes; éviter les biais culturels anglocentriques.",
+    p8o1:"<strong>Audit d'accessibilité</strong> — Évaluation de conformité aux standards d'accessibilité (WCAG 2.1 AA minimum) pour toutes les interfaces IA publiques.",
+    p8o2:"<strong>Consultations communautaires</strong> — Implication des communautés affectées dans la conception des systèmes IA à impact social.",
+    p8tens:"L'inclusion reste souvent traitée comme un objectif aspirationnel plutôt qu'une exigence opérationnelle. La tension entre universalité et personnalisation est structurelle. Les métriques d'inclusion sont difficiles à définir et mesurer. Ce pilier est plus fort dans les cadres internationaux que dans les réglementations contraignantes sectorielles.",
+    // ── pillar 9 content
+    p9def:"Ce pilier représente l'architecture organisationnelle et processuelle qui permet de mettre en œuvre les huit autres piliers. Il couvre la stratégie IA, les structures de gouvernance (comités, fonctions RAI dédiées), les politiques formelles, la gestion du cycle de vie des systèmes IA, la gestion des risques IA intégrée au cadre de risque d'entreprise (ERM) et la conformité réglementaire continue.",
+    p9s1:"<strong>Système de management IA (AIMS)</strong> — ISO 42001 : structure formelle de gestion de l'IA intégrée aux systèmes de management existants (ISO 27001, ISO 9001).",
+    p9s2:"<strong>Fonctions RAI dédiées</strong> — Rôles organisationnels spécifiques : Chief AI Officer, Responsible AI Officer, comités éthique IA (ex: AETHER chez Microsoft).",
+    p9s3:"<strong>Cycle de vie IA structuré</strong> — Processus formalisés pour chaque phase : design, développement, test, déploiement, monitoring, retrait.",
+    p9s4:"<strong>Registre des risques IA</strong> — Identification, évaluation et traitement des risques spécifiques aux systèmes IA, intégrés au registre des risques d'entreprise.",
+    p9s5:"<strong>Gestion des fournisseurs IA (AI TPRM)</strong> — Extension du TPRM aux risques spécifiques aux fournisseurs de modèles IA, APIs tiers et services cloud IA.",
+    p9o1:"<strong>Inventaire & classification IA</strong> — Registre complet de tous les systèmes IA en production avec niveau de risque assigné (critique, élevé, moyen, faible).",
+    p9o2:"<strong>Politique RAI formelle</strong> — Politique d'IA responsable approuvée par la direction, déclinée en procédures opérationnelles par équipe.",
+    p9o3:"<strong>AI TPRM</strong> — Extension du programme TPRM existant aux risques spécifiques des fournisseurs et services IA tiers (modèles, APIs, données).",
+    p9o4:"<strong>Formation obligatoire</strong> — Programme de sensibilisation et formation RAI pour tous les employés utilisant ou développant des systèmes IA.",
+    p9tens:"La gouvernance IA doit être intégrée aux structures existantes (GRC, cybersécurité, conformité) sans créer un silo parallèle. La vitesse de déploiement de l'IA dépasse souvent la capacité des processus de gouvernance à suivre. Le pilier 9 est le méta-pilier : sans lui, les 8 autres restent des intentions sans mécanisme d'application.",
+    // ── matrix
+    mx_title:"Matrice de couverture — Piliers × Cadres principaux",
+    mx_sub:"● Traitement complet & explicite &nbsp;◐ Partiel / en émergence &nbsp;○ Absent ou non traité",
+    mx_strat_title:"Lecture stratégique pour le contexte canadien",
+    mx_strat1:"<strong style=\"color:var(--paper);\">Conformité réglementaire immédiate</strong><br>Pour les organisations québécoises, la <strong style=\"color:#e8c87a;\">Loi 25</strong> est d'application immédiate sur les piliers Vie privée, Transparence et Responsabilité. La <strong style=\"color:#e8c87a;\">Directive SAD fédérale</strong> s'impose pour toute interaction avec le gouvernement fédéral. L'<strong style=\"color:#e8c87a;\">EU AI Act</strong> s'applique extra-territorialement aux organisations commercialisant en Europe.",
+    mx_strat2:"<strong style=\"color:var(--paper);\">Priorités d'investissement RAI recommandées</strong><br>1. <strong style=\"color:#e8c87a;\">ISO 42001</strong> comme ossature de gouvernance (certifiable, compatible ISO 27001)<br>2. <strong style=\"color:#e8c87a;\">NIST AI RMF</strong> pour l'opérationnalisation (playbook actionnable)<br>3. Extension du <strong style=\"color:#e8c87a;\">TPRM</strong> aux fournisseurs IA<br>4. Programme de formation RAI pour les équipes",
+    // ── footer
+    footer1:"Responsible AI — Synthèse des piliers · Analyse de 55+ cadres · Mars 2026",
+    footer2:"EU AI Act · NIST · ISO 42001 · OCDE · UNESCO · Canada · Big Tech",
+    // ── buttons
+    langBtn:"🌐 EN", themeBtn:"☀️ Light",
+    themeOff:"🌙 Dark", langOff:"🌐 FR",
+  },
+
+  en: {
+    title: "Responsible AI — Pillars Synthesis",
+    kicker: "Cross-framework Analysis · 55+ Frameworks & Regulations · March 2026",
+    h1line1: "The pillars of",
+    h1em: "Responsible AI",
+    subtitle: "Structured synthesis of common requirements drawn from the cross-analysis of 55+ international frameworks, regulations, standards and industry guidelines on responsible artificial intelligence.",
+    stat1: "Universal pillars", stat2: "Frameworks analysed", stat3: "Consensus on 5 pillars",
+    nav1: "Overview", nav2: "The 9 pillars", nav3: "Matrix",
+    ov_title: "Consensus level by pillar",
+    ov_sub: "Explicit presence rate across 55+ analysed frameworks, weighted by binding vs. voluntary nature",
+    introP1: "The cross-analysis of <strong>55+ reference frameworks</strong> — binding regulations, certifiable standards, governmental guidelines, industry standards and multilateral initiatives — reveals a remarkable convergence around <strong>9 fundamental pillars</strong>.",
+    introP2: "These pillars are not merely ethical principles: they structure <strong>concrete operational requirements</strong> that apply to organisations developing, deploying or using artificial intelligence systems.",
+    introP3: "The degree of consensus varies: five pillars enjoy near-universal agreement (present in 90–100% of frameworks), two are consolidating (70–89%), and two are <strong>emerging</strong> — growing rapidly in 2024–2025 frameworks.",
+    introP4: "The defining feature of the current landscape is the articulation between <strong>voluntary</strong> frameworks (which defined the vocabulary and concepts) and <strong>binding</strong> frameworks (which translate these concepts into legal obligations with sanctions). The EU AI Act is the pivot of this transition.",
+    pullQuote: "\"These pillars form an organic system — not a checklist. Neglecting any one of them creates vulnerabilities that weaken the whole. Governance without transparency is opaque. Security without fairness protects the powerful. Accountability without human oversight automates impunity.\"",
+    pullCite: "Cross-framework Synthesis — Responsible AI Frameworks 2026",
+    p1name:"Transparency & Explainability", p1tag:"AI systems must be understandable, documented and explainable",
+    p2name:"Fairness & Non-discrimination", p2tag:"AI systems must not reproduce or amplify discriminatory biases",
+    p3name:"Safety & Robustness", p3tag:"AI systems must operate reliably, safely and withstand failures",
+    p4name:"Privacy & Data Protection", p4tag:"Respecting privacy rights throughout the AI system lifecycle",
+    p5name:"Accountability & Liability", p5tag:"Clear mechanisms for responsibility attribution and redress for affected individuals",
+    p6name:"Human Control & Oversight", p6tag:"Humans must retain the ability to supervise, correct and shut down AI systems",
+    p7name:"Sustainability & Environmental Impact", p7tag:"Measuring, limiting and offsetting the environmental footprint of AI systems",
+    p8name:"Inclusion & Accessibility", p8tag:"AI benefits must be distributed equitably, without widening inequalities",
+    p9name:"Governance & AI Risk Management", p9tag:"Organisational structures, policies and formal processes to pilot AI responsibly",
+    c1score:"98% of frameworks · Universal consensus", c2score:"95% of frameworks · Universal consensus",
+    c3score:"96% of frameworks · Universal consensus", c4score:"97% of frameworks · Universal consensus",
+    c5score:"100% of frameworks · Absolute consensus",  c6score:"88% of frameworks · Consolidating",
+    c7score:"42% of frameworks · Emerging pillar ↑",  c8score:"75% of frameworks · Consolidating",
+    c9score:"93% of frameworks · Universal consensus",
+    p1cons:"Universal consensus · 98%", p2cons:"Universal consensus · 95%", p3cons:"Universal consensus · 96%",
+    p4cons:"Universal consensus · 97%", p5cons:"Absolute consensus · 100%",  p6cons:"Consolidating · 88%",
+    p7cons:"Emerging pillar · 42%",    p8cons:"Consolidating · 75%",        p9cons:"Universal consensus · 93%",
+    p1count:"Present in 54+ frameworks", p2count:"Present in 52+ frameworks", p3count:"Present in 53+ frameworks",
+    p4count:"Present in 53+ frameworks", p5count:"Present in 55+ frameworks", p6count:"Present in 48+ frameworks",
+    p7count:"Rapidly growing 2024–2025", p8count:"Present in 41+ frameworks", p9count:"Present in 51+ frameworks",
+    sec_def:"Definition & scope", sec_sub:"Key sub-principles", sec_cov:"Coverage by reference framework",
+    sec_req:"Practical requirements", sec_tens:"⚡ Tensions & implementation challenges",
+    p1def:"Transparency requires that stakeholders — users, affected individuals, regulators — can understand how an AI system works, on what data it was trained, what objectives it pursues and what its limitations are. Explainability is the technical dimension: the capacity to provide intelligible explanations of the decisions or predictions produced.",
+    p1s1:"<strong>Algorithmic explainability (XAI)</strong> — Automated decisions must be explainable at a level adapted to the audience (end user, expert, regulator).",
+    p1s2:"<strong>Traceability & documentation</strong> — Decision logging, technical documentation (model cards, system cards, datasheets), registries of high-risk AI systems.",
+    p1s3:"<strong>Data transparency</strong> — Disclosure of training data sources, collection practices, and known dataset limitations.",
+    p1s4:"<strong>AI content labelling</strong> — Obligation to signal that content was generated or influenced by an AI system (deepfakes, generative text, automated decisions).",
+    p1s5:"<strong>Right to explanation</strong> — Any person affected by a significant automated decision must be able to request and obtain an intelligible explanation.",
+    p1o1:"<strong>AI use notice</strong> — Inform users that they are interacting with an AI system.",
+    p1o2:"<strong>Technical documentation</strong> — Maintain model cards, system cards and audit registries.",
+    p1o3:"<strong>Explanation on request</strong> — Provide an explanation of significant decisions to any affected person.",
+    p1tens:"Full transparency can conflict with trade secret protection (proprietary algorithms) and system security (adversarial attacks facilitated by model knowledge). Regulations generally accept graduated levels of transparency depending on the stakeholder.",
+    p2def:"Fairness in AI systems aims to ensure that decisions, recommendations and predictions do not systematically disadvantage certain groups of people due to protected characteristics (gender, ethnicity, age, disability, sexual orientation, etc.). It covers both algorithmic fairness (in the model) and procedural fairness (in the process).",
+    p2s1:"<strong>Bias detection and mitigation</strong> — Systematic fairness testing on training data, models and outputs, with correction mechanisms.",
+    p2s2:"<strong>Data representativeness</strong> — Diverse and representative datasets to avoid selection bias and under-representation.",
+    p2s3:"<strong>Group vs individual fairness</strong> — Distinguishing demographic parity, equal opportunity and calibration depending on the use context.",
+    p2s4:"<strong>Mandatory bias audits</strong> — NYC Local Law 144 requires annual bias audits for AI tools used in HR. This model is spreading.",
+    p2s5:"<strong>Prohibition of algorithmic discrimination</strong> — EU AI Act prohibits AI systems exploiting vulnerabilities to induce harmful behaviour.",
+    p2o1:"<strong>Fairness testing</strong> — Performance tests segmented by demographic groups before deployment.",
+    p2o2:"<strong>Bias audit</strong> — Annual assessment by an independent third party for high-risk systems (HR, credit, justice).",
+    p2o3:"<strong>Continuous correction</strong> — Post-deployment monitoring mechanisms with drift remediation processes.",
+    p2tens:"Fairness definitions are mathematically incompatible with each other (Chouldechova impossibility theorem). The choice of a fairness metric depends on the ethical and legal context. Furthermore, correcting biases may reduce overall model accuracy, creating a performance/fairness trade-off.",
+    p3def:"AI system safety covers two complementary dimensions: <em>safety</em> (absence of unintended dangerous behaviours, reliability under nominal and degraded conditions) and <em>security</em> (resistance to malicious, adversarial attacks or manipulation). Robustness refers to the ability to maintain acceptable performance with out-of-distribution data, changing environments or perturbations.",
+    p3s1:"<strong>Safety by design</strong> — Integration of safety mechanisms from the design phase: fail-safe, kill switches, deployment limits.",
+    p3s2:"<strong>Adversarial attack resistance</strong> — Robustness tests against adversarial inputs, data poisoning, prompt injection attacks.",
+    p3s3:"<strong>Frontier model governance</strong> — Responsible Scaling Policies (Anthropic), Preparedness Framework (OpenAI) for models with potentially catastrophic capabilities.",
+    p3s4:"<strong>Performance testing and validation</strong> — Standardised benchmarks (MLCommons AI Safety), red team evaluations before deployment.",
+    p3s5:"<strong>Post-deployment monitoring</strong> — Continuous performance monitoring, drift detection (data drift, concept drift), incident management.",
+    p3o1:"<strong>Red teaming</strong> — Mandatory adversarial testing before deployment of high-risk models.",
+    p3o2:"<strong>AI incident management</strong> — Formalised detection, notification and remediation process for failures.",
+    p3o3:"<strong>Third-party security assessments</strong> — External audits for foundation models (required by EU AI Act for GPAI with systemic risk).",
+    p3tens:"AI system security introduces a distinct new layer beyond traditional cybersecurity. AI-specific attacks (prompt injection, jailbreaking, model inversion, data poisoning) require dedicated skills and tools that most organisations still lack. The field of AI Safety for frontier models remains largely unsolved.",
+    p4def:"This pillar covers respect for fundamental privacy rights at every stage of an AI system's lifecycle: data collection and preparation, model training, inference and deployment. It requires applying <em>Privacy by Design</em> principles to the AI ecosystem, with specific considerations related to training data memorisation and re-identification risks.",
+    p4s1:"<strong>Privacy by Design</strong> — Integration of privacy requirements from the architectural design of the AI system, data minimisation.",
+    p4s2:"<strong>Informed consent</strong> — Legal basis for using personal data in training; rights to object to AI use (GDPR Art. 22).",
+    p4s3:"<strong>Data extraction risks</strong> — LLMs can memorise and reproduce training data (membership inference attacks). Specific management required.",
+    p4s4:"<strong>Anonymisation & differential privacy</strong> — Cryptographic techniques to preserve privacy during model training.",
+    p4s5:"<strong>Biometric surveillance</strong> — Strict restrictions or outright prohibition of real-time facial recognition in public spaces (EU AI Act).",
+    p4o1:"<strong>Impact assessment (AI DPIA)</strong> — Mandatory privacy impact assessment before any deployment of AI systems processing personal data at scale.",
+    p4o2:"<strong>Rights management</strong> — Process for exercising rights of access, rectification, erasure and objection to automated decisions.",
+    p4o3:"<strong>Training data security</strong> — Encryption, strict access control, audit of model training pipelines.",
+    p4tens:"Training large models requires massive data volumes, in tension with minimisation principles. The right to erasure is technically complex to implement in pre-trained models (machine unlearning). GDPR compliance of LLMs is subject to active litigation before several European DPAs.",
+    p5def:"Accountability is the only pillar present in 100% of all analysed frameworks. It requires that an identifiable natural or legal person be responsible for the development, deployment and impacts of an AI system — and that they can be held to account. Liability ensures that persons affected by AI decisions have effective redress mechanisms.",
+    p5s1:"<strong>Clear chain of responsibility</strong> — Identification of developer, deployer and user; definition of responsibilities at each link (EU AI Act Art. 25-27).",
+    p5s2:"<strong>Audits and certifications</strong> — Third-party conformity assessment mechanisms for high-risk systems; accreditation of notified bodies.",
+    p5s3:"<strong>Rights of redress</strong> — Channels for contesting automated decisions; access to fair remedy mechanisms.",
+    p5s4:"<strong>Impact Assessments</strong> — Formalised and documented impact evaluations (RAIA Microsoft, AI Impact Assessment ISO 42005, DPIA).",
+    p5s5:"<strong>Civil liability</strong> — EU AI Liability Directive in progress; liability regimes for damages caused by autonomous AI systems.",
+    p5o1:"<strong>AI systems registry</strong> — Formalised inventory of all AI systems in production, with designated owner and risk level.",
+    p5o2:"<strong>Documented impact assessment</strong> — Formal impact evaluation before any AI deployment with significant impact.",
+    p5o3:"<strong>Complaint mechanism</strong> — Accessible process for contesting or reporting an issue related to an AI decision.",
+    p5tens:"With autonomous and multi-agent AI systems, responsibility attribution becomes diffuse. Who is accountable when an AI agent makes a decision not anticipated by its developer? Complex AI value chains (third-party APIs, pre-trained models, fine-tuning) make it difficult to identify the ultimate responsible party.",
+    p6def:"This pillar ensures that humans maintain a capacity for oversight, intervention and final control over AI systems, particularly for high-impact decisions. It opposes the total delegation of decision-making authority to machines. Models vary by level of autonomy granted: Human-in-the-Loop (HITL), Human-on-the-Loop (HOTL) and Human-in-Command.",
+    p6s1:"<strong>Human-in-the-Loop (HITL)</strong> — Mandatory human validation before executing critical decisions; no full automation.",
+    p6s2:"<strong>Kill switches & emergency stop</strong> — Technical mechanisms enabling interruption of an AI system in case of abnormal behaviour.",
+    p6s3:"<strong>Right to human review</strong> — EU AI Act Art. 14: high-risk AI systems must allow effective human oversight.",
+    p6s4:"<strong>Progressive autonomy</strong> — The level of autonomy granted must be proportional to risks and system maturity, with periodic review.",
+    p6s5:"<strong>Automation bias prevention</strong> — Training human operators to avoid over-reliance on AI decisions and maintain critical capacity.",
+    p6o1:"<strong>Defined autonomy levels</strong> — Formal documentation of the delegation level granted to each AI system (final decision, recommendation, alert).",
+    p6o2:"<strong>Operator training</strong> — Training programme to maintain critical competence of human supervisors facing AI systems.",
+    p6o3:"<strong>Manual review procedures</strong> — Clearly defined process for triggering and executing human review of contested decisions.",
+    p6tens:"The requirement for human oversight is in tension with the benefits of automation (speed, cost, scalability). In advanced autonomous systems (AI agents, real-time AI), systematic human intervention may be technically impractical. The risk of automation bias — where operators validate AI decisions without critical scrutiny — can render formal oversight meaningless.",
+    p7def:"The most recently formalised pillar, environmental sustainability of AI is emerging in 2023–2025 frameworks. It concerns the massive energy consumption of large model training, the carbon footprint of large-scale inference, datacenter water consumption, and raw material impacts (GPUs, rare earths). The Paris Declaration (2025) made it a strategic axis.",
+    p7s1:"<strong>Carbon footprint measurement</strong> — Quantification of CO₂ emissions from model training and inference (scope 1, 2, 3).",
+    p7s2:"<strong>Energy efficiency by design</strong> — Architectural choices and optimisations reducing energy consumption without sacrificing performance.",
+    p7s3:"<strong>Environmental disclosure</strong> — Obligation to report the environmental footprint of AI systems (announced in EU AI Act for GPAI).",
+    p7s4:"<strong>Renewable energy</strong> — Commitment by cloud operators and datacenters to 100% renewable energy for AI workloads.",
+    p7s5:"<strong>Digital sobriety</strong> — Questioning the necessity of deploying complex models when lighter solutions suffice.",
+    p7o1:"<strong>Model carbon accounting</strong> — Estimation and reporting of CO₂ footprint from training and deploying internal AI models.",
+    p7o2:"<strong>Environmental criteria in AI procurement</strong> — Integration of energy efficiency criteria in the evaluation of model providers and cloud infrastructure.",
+    p7tens:"Standardised measurement of AI model carbon footprints is still lacking. Calculation methods vary considerably across providers. The race to ever-larger models (scaling laws) creates pressure counter to sobriety. This pillar is expected to be one of the most dynamic at the regulatory level in 2025–2027.",
+    p8def:"Inclusion in the responsible AI context encompasses several dimensions: technical accessibility of AI systems for people with disabilities, representativeness of development teams (to reduce design biases), availability of AI benefits across countries and socioeconomic levels, and protection of vulnerable groups against discriminatory uses.",
+    p8s1:"<strong>Universal accessibility</strong> — AI system interfaces and outputs must be accessible to people with disabilities (WCAG, accessibility standards).",
+    p8s2:"<strong>Team diversity</strong> — Promoting diversity (gender, origin, discipline) in teams developing AI systems to reduce systemic biases.",
+    p8s3:"<strong>Digital divide & AI</strong> — Preventing AI systems from amplifying access inequalities between Global North and South, urban and rural areas.",
+    p8s4:"<strong>Protection of vulnerable groups</strong> — Enhanced protections for minors, elderly people, economically vulnerable individuals.",
+    p8s5:"<strong>Multilingualism</strong> — Availability of AI systems in non-dominant languages; avoiding Anglocentric cultural biases.",
+    p8o1:"<strong>Accessibility audit</strong> — Conformity assessment to accessibility standards (WCAG 2.1 AA minimum) for all public AI interfaces.",
+    p8o2:"<strong>Community consultations</strong> — Involvement of affected communities in the design of AI systems with social impact.",
+    p8tens:"Inclusion is often treated as an aspirational goal rather than an operational requirement. The tension between universality and personalisation is structural. Inclusion metrics are difficult to define and measure. This pillar is stronger in international frameworks than in binding sectoral regulations.",
+    p9def:"This pillar represents the organisational and procedural architecture enabling implementation of the eight other pillars. It covers AI strategy, governance structures (committees, dedicated RAI functions), formal policies, AI system lifecycle management, AI risk management integrated into the enterprise risk framework (ERM), and ongoing regulatory compliance.",
+    p9s1:"<strong>AI Management System (AIMS)</strong> — ISO 42001: formal AI management structure integrated with existing management systems (ISO 27001, ISO 9001).",
+    p9s2:"<strong>Dedicated RAI functions</strong> — Specific organisational roles: Chief AI Officer, Responsible AI Officer, AI ethics committees (e.g. AETHER at Microsoft).",
+    p9s3:"<strong>Structured AI lifecycle</strong> — Formalised processes for each phase: design, development, testing, deployment, monitoring, retirement.",
+    p9s4:"<strong>AI risk register</strong> — Identification, assessment and treatment of AI-specific risks, integrated into the enterprise risk register.",
+    p9s5:"<strong>AI vendor management (AI TPRM)</strong> — Extension of TPRM to risks specific to AI model providers, third-party APIs and AI cloud services.",
+    p9o1:"<strong>AI inventory & classification</strong> — Complete registry of all AI systems in production with assigned risk level (critical, high, medium, low).",
+    p9o2:"<strong>Formal RAI policy</strong> — Responsible AI policy approved by management, translated into operational procedures per team.",
+    p9o3:"<strong>AI TPRM</strong> — Extension of the existing TPRM programme to risks specific to third-party AI vendors and services (models, APIs, data).",
+    p9o4:"<strong>Mandatory training</strong> — RAI awareness and training programme for all employees using or developing AI systems.",
+    p9tens:"AI governance must be integrated into existing structures (GRC, cybersecurity, compliance) without creating a parallel silo. The pace of AI deployment often outstrips the capacity of governance processes to keep up. Pillar 9 is the meta-pillar: without it, the other 8 remain intentions without an enforcement mechanism.",
+    mx_title:"Coverage Matrix — Pillars × Key Frameworks",
+    mx_sub:"● Full and explicit coverage &nbsp;◐ Partial / emerging &nbsp;○ Absent or not addressed",
+    mx_strat_title:"Strategic reading for the Canadian context",
+    mx_strat1:"<strong style=\"color:var(--paper);\">Immediate regulatory compliance</strong><br>For Québec organisations, <strong style=\"color:#e8c87a;\">Law 25</strong> applies immediately to the Privacy, Transparency and Accountability pillars. The <strong style=\"color:#e8c87a;\">federal SAD Directive</strong> applies to any interaction with the federal government. The <strong style=\"color:#e8c87a;\">EU AI Act</strong> applies extra-territorially to organisations selling in Europe.",
+    mx_strat2:"<strong style=\"color:var(--paper);\">Recommended RAI investment priorities</strong><br>1. <strong style=\"color:#e8c87a;\">ISO 42001</strong> as governance backbone (certifiable, compatible with ISO 27001)<br>2. <strong style=\"color:#e8c87a;\">NIST AI RMF</strong> for operationalisation (actionable playbook)<br>3. Extension of <strong style=\"color:#e8c87a;\">TPRM</strong> to AI vendors<br>4. RAI training programme for teams",
+    footer1:"Responsible AI — Pillars Synthesis · Analysis of 55+ frameworks · March 2026",
+    footer2:"EU AI Act · NIST · ISO 42001 · OECD · UNESCO · Canada · Big Tech",
+    langBtn:"🌐 FR", themeBtn:"☀️ Light",
+    themeOff:"🌙 Dark", langOff:"🌐 EN",
+  }
+};
+
+let currentLang = 'en';
+let currentTheme = 'dark';
+
+function toggleLang() {
+  currentLang = currentLang === 'fr' ? 'en' : 'fr';
+  applyLang();
+}
+
+function toggleTheme() {
+  currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
+  document.body.classList.toggle('light', currentTheme === 'light');
+  const t = LANG[currentLang];
+  document.getElementById('themeBtn').textContent = currentTheme === 'light' ? t.themeOff : t.themeBtn;
+}
+
+function applyLang() {
+  const t = LANG[currentLang];
+  document.documentElement.lang = currentLang;
+  document.title = t.title;
+
+  // ── helpers
+  function set(id, html) { const el = document.getElementById(id); if(el) el.innerHTML = html; }
+  function setText(id, txt) { const el = document.getElementById(id); if(el) el.textContent = txt; }
+
+  // meta / header
+  set('i18n-kicker', t.kicker);
+  set('i18n-h1line1', t.h1line1);
+  set('i18n-h1em', t.h1em);
+  set('i18n-subtitle', t.subtitle);
+  set('i18n-stat1', t.stat1); set('i18n-stat2', t.stat2); set('i18n-stat3', t.stat3);
+  // nav
+  set('i18n-nav1', t.nav1); set('i18n-nav2', t.nav2); set('i18n-nav3', t.nav3);
+  // overview
+  set('i18n-ov-title', t.ov_title); set('i18n-ov-sub', t.ov_sub);
+  set('i18n-intro-p1', t.introP1); set('i18n-intro-p2', t.introP2);
+  set('i18n-intro-p3', t.introP3); set('i18n-intro-p4', t.introP4);
+  set('i18n-pull-quote', t.pullQuote); set('i18n-pull-cite', t.pullCite);
+  // consensus cards
+  for(let i=1;i<=9;i++){
+    set('i18n-c'+i+'-name', t['p'+i+'name']);
+    set('i18n-c'+i+'-score', t['c'+i+'score']);
+    set('i18n-p'+i+'-name', t['p'+i+'name']);
+    set('i18n-p'+i+'-tag', t['p'+i+'tag']);
+    set('i18n-p'+i+'-cons', t['p'+i+'cons']);
+    set('i18n-p'+i+'-count', t['p'+i+'count']);
+    // body sections
+    set('i18n-p'+i+'-def-lbl', t.sec_def);
+    set('i18n-p'+i+'-sub-lbl', t.sec_sub);
+    set('i18n-p'+i+'-cov-lbl', t.sec_cov);
+    set('i18n-p'+i+'-req-lbl', t.sec_req);
+    set('i18n-p'+i+'-tens-lbl', t.sec_tens);
+    set('i18n-p'+i+'-def', t['p'+i+'def']);
+    set('i18n-p'+i+'-s1', t['p'+i+'s1']); set('i18n-p'+i+'-s2', t['p'+i+'s2']);
+    set('i18n-p'+i+'-s3', t['p'+i+'s3']); set('i18n-p'+i+'-s4', t['p'+i+'s4']);
+    set('i18n-p'+i+'-s5', t['p'+i+'s5']);
+    set('i18n-p'+i+'-o1', t['p'+i+'o1']); set('i18n-p'+i+'-o2', t['p'+i+'o2']);
+    set('i18n-p'+i+'-o3', t['p'+i+'o3']);
+    set('i18n-p'+i+'-tens', t['p'+i+'tens']);
+  }
+  // pillar 9 has o4
+  set('i18n-p9-o4', t.p9o4);
+
+  // matrix
+  set('i18n-mx-title', t.mx_title); set('i18n-mx-sub', t.mx_sub);
+  set('i18n-mx-strat-title', t.mx_strat_title);
+  set('i18n-mx-strat1', t.mx_strat1); set('i18n-mx-strat2', t.mx_strat2);
+  // footer
+  set('i18n-footer1', t.footer1); set('i18n-footer2', t.footer2);
+  // buttons
+  document.getElementById('langBtn').textContent = t.langBtn;
+  const themeIsLight = currentTheme === 'light';
+  document.getElementById('themeBtn').textContent = themeIsLight ? t.themeOff : t.themeBtn;
+}
+
+// matrix row pillar names (use same as pillar names)
+function applyMatrixPillarNames(){
+  const t = LANG[currentLang];
+  for(let i=1;i<=9;i++){
+    const el = document.getElementById('i18n-mx-p'+i);
+    if(el) el.innerHTML = '<span style="color:var(--p'+i+');">●</span> ' + t['p'+i+'name'];
+  }
+}
+
+const _origApply = applyLang;
+window.applyLang = function(){
+  _origApply();
+  applyMatrixPillarNames();
+};
+</script>
+
+</body>
+</html>
+
