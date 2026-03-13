@@ -760,6 +760,160 @@ body.dark .lc-table tbody tr:hover .lc-cell { background: rgba(255,255,255,0.02)
   .lc-insight-grid { grid-template-columns: 1fr 1fr; }
 }
 
+
+/* ── RESOURCES TAB ── */
+.res-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.res-stats {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+  flex-shrink: 0;
+}
+
+.res-stat {
+  font-size: 12px;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.res-stat strong {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--text);
+  font-family: 'Fira Mono', monospace;
+  line-height: 1;
+}
+
+.res-category {
+  margin-bottom: 1.75rem;
+}
+
+.res-cat-header {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.5rem 0;
+  margin-bottom: 0.5rem;
+  border-bottom: 2px solid var(--border);
+}
+
+.res-cat-emoji { font-size: 1.1rem; }
+
+.res-cat-name {
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--text);
+  flex: 1;
+}
+
+.res-cat-count {
+  font-family: 'Fira Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.1rem 0.55rem;
+}
+
+.res-table-wrap { overflow-x: auto; }
+
+.res-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12.5px;
+}
+
+.res-table thead th {
+  text-align: left;
+  padding: 0.45rem 0.75rem;
+  font-family: 'Fira Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  border-bottom: 1px solid var(--border);
+  background: var(--bg2);
+  white-space: nowrap;
+}
+
+.res-table tbody tr {
+  border-bottom: 1px solid var(--border);
+  transition: background 0.1s;
+}
+.res-table tbody tr:hover { background: var(--bg2); }
+
+.res-table td {
+  padding: 0.55rem 0.75rem;
+  vertical-align: top;
+  color: var(--text);
+}
+
+.fw-name-cell { min-width: 240px; font-weight: 500; }
+.fw-year-cell { white-space: nowrap; color: var(--muted); font-family: 'Fira Mono', monospace; font-size: 11px; }
+.fw-type-cell { white-space: nowrap; color: var(--muted); font-size: 11px; }
+.fw-desc-cell { color: var(--muted); font-size: 12px; line-height: 1.55; }
+.fw-status-cell { white-space: nowrap; }
+
+.fw-link {
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.15s;
+}
+.fw-link:hover { color: #2563eb; text-decoration: underline; }
+body.dark .fw-link:hover { color: #60a5fa; }
+
+.fw-binding {
+  display: inline-block;
+  font-size: 10px;
+  font-family: 'Fira Mono', monospace;
+  font-weight: 600;
+  padding: 0.15rem 0.5rem;
+  border-radius: 3px;
+  background: #fef2f2;
+  color: #b91c1c;
+  border: 1px solid #fecaca;
+}
+body.dark .fw-binding {
+  background: #1f0a0a;
+  color: #f87171;
+  border-color: #7f1d1d;
+}
+
+.fw-voluntary {
+  display: inline-block;
+  font-size: 10px;
+  font-family: 'Fira Mono', monospace;
+  font-weight: 500;
+  padding: 0.15rem 0.5rem;
+  border-radius: 3px;
+  background: #f0fdf4;
+  color: #15803d;
+  border: 1px solid #bbf7d0;
+}
+body.dark .fw-voluntary {
+  background: #052e16;
+  color: #4ade80;
+  border-color: #166534;
+}
+
+@media (max-width: 800px) {
+  .res-header { flex-direction: column; }
+  .fw-desc-cell { display: none; }
+}
+
 </style>
 </head>
 <body>
@@ -772,6 +926,7 @@ body.dark .lc-table tbody tr:hover .lc-cell { background: rgba(255,255,255,0.02)
     <button class="tab" id="i18n-nav2" onclick="showTab('pillars',this)"></button>
     <button class="tab" id="i18n-nav3" onclick="showTab('matrix',this)"></button>
     <button class="tab" id="i18n-nav4" onclick="showTab('lifecycle',this)"></button>
+    <button class="tab" id="i18n-nav5" onclick="showTab('resources',this)"></button>
   </div>
   <div class="ctrl-group">
     <button class="ctrl" id="langBtn" onclick="toggleLang()"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg> <span id="langLabel">FR</span></button>
@@ -1207,11 +1362,595 @@ body.dark .lc-table tbody tr:hover .lc-cell { background: rgba(255,255,255,0.02)
     </div>
   </section>
 
+
+  <!-- RESOURCES / FRAMEWORKS LIST -->
+  <section id="resources" class="section">
+    <div class="res-header">
+      <div>
+        <p class="lc-title" id="res-title">55+ AI Frameworks & Regulations</p>
+        <p class="lc-sub" id="res-sub">Exhaustive reference list with direct links. Click any framework name to access the source document.</p>
+      </div>
+      <div class="res-stats">
+        <span class="res-stat"><strong>59</strong> <span id="res-stat-fw">frameworks</span></span>
+        <span class="res-stat res-binding"><span class="fw-binding" style="font-size:11px;">Binding</span> = legally enforceable</span>
+        <span class="res-stat res-voluntary"><span class="fw-voluntary" style="font-size:11px;">Voluntary</span> = guidelines / best practices</span>
+      </div>
+    </div>
+    
+        <div class="res-category">
+          <div class="res-cat-header">
+            <span class="res-cat-emoji">🌐</span>
+            <span class="res-cat-name" data-en="International" data-fr="International">International</span>
+            <span class="res-cat-count">8</span>
+          </div>
+          <div class="res-table-wrap">
+            <table class="res-table">
+              <thead>
+                <tr>
+                  <th class="fw-th-name" data-en="Framework / Regulation" data-fr="Cadre / Réglementation">Framework / Regulation</th>
+                  <th class="fw-th-year" data-en="Year" data-fr="Année">Year</th>
+                  <th class="fw-th-type" data-en="Type" data-fr="Type">Type</th>
+                  <th class="fw-th-status" data-en="Status" data-fr="Statut">Status</th>
+                  <th class="fw-th-desc" data-en="Description" data-fr="Description">Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="fw-row-item">
+                  <td class="fw-name-cell"><a href="https://oecd.ai/en/ai-principles" target="_blank" class="fw-link">↗ OECD AI Principles</a></td>
+                  <td class="fw-year-cell">2019/2024</td>
+                  <td class="fw-type-cell">Guidelines</td>
+                  <td class="fw-status-cell"><span class="fw-voluntary" data-en="Voluntary" data-fr="Volontaire">Voluntary</span></td>
+                  <td class="fw-desc-cell"><span data-en="Foundational AI principles adopted by 46+ countries covering transparency, accountability and human oversight." data-fr="Principes IA fondateurs adoptés par 46+ pays couvrant transparence, responsabilité et supervision humaine.">Foundational AI principles adopted by 46+ countries covering transparency, accountability and human oversight.</span></td>
+                </tr>
+                <tr class="fw-row-item">
+                  <td class="fw-name-cell"><a href="https://www.unesco.org/en/artificial-intelligence/recommendation-ethics" target="_blank" class="fw-link">↗ UNESCO Recommendation on AI Ethics</a></td>
+                  <td class="fw-year-cell">2021</td>
+                  <td class="fw-type-cell">Recommendation</td>
+                  <td class="fw-status-cell"><span class="fw-voluntary" data-en="Voluntary" data-fr="Volontaire">Voluntary</span></td>
+                  <td class="fw-desc-cell"><span data-en="Global recommendation covering all aspects of ethical AI from privacy to sustainability and cultural diversity." data-fr="Recommandation mondiale couvrant tous les aspects de l'IA éthique, de la vie privée à la durabilité.">Global recommendation covering all aspects of ethical AI from privacy to sustainability and cultural diversity.</span></td>
+                </tr>
+                <tr class="fw-row-item">
+                  <td class="fw-name-cell"><a href="https://www.meti.go.jp/policy/mono_info_service/ai/hiroshima-process-international-code-of-conduct.html" target="_blank" class="fw-link">↗ G7 Hiroshima AI Process</a></td>
+                  <td class="fw-year-cell">2023–2025</td>
+                  <td class="fw-type-cell">Code of Conduct</td>
+                  <td class="fw-status-cell"><span class="fw-voluntary" data-en="Voluntary" data-fr="Volontaire">Voluntary</span></td>
+                  <td class="fw-desc-cell"><span data-en="International code of conduct for advanced AI developers, covering safety, transparency and responsible deployment." data-fr="Code de conduite international pour les développeurs d'IA avancée, couvrant sécurité et transparence.">International code of conduct for advanced AI developers, covering safety, transparency and responsible deployment.</span></td>
+                </tr>
+                <tr class="fw-row-item">
+                  <td class="fw-name-cell"><a href="https://www.coe.int/en/web/artificial-intelligence/the-framework-convention-on-artificial-intelligence" target="_blank" class="fw-link">↗ Council of Europe AI Convention</a></td>
+                  <td class="fw-year-cell">2024</td>
+                  <td class="fw-type-cell">Treaty</td>
+                  <td class="fw-status-cell"><span class="fw-binding" data-en="Binding" data-fr="Contraignant">Binding</span></td>
+                  <td class="fw-desc-cell"><span data-en="First legally binding international treaty on AI, requiring signatories to ensure AI respects human rights." data-fr="Premier traité international juridiquement contraignant sur l'IA, exigeant le respect des droits humains.">First legally binding international treaty on AI, requiring signatories to ensure AI respects human rights.</span></td>
+                </tr>
+                <tr class="fw-row-item">
+                  <td class="fw-name-cell"><a href="https://www.gpai.ai" target="_blank" class="fw-link">↗ GPAI Code of Practice</a></td>
+                  <td class="fw-year-cell">2025</td>
+                  <td class="fw-type-cell">Code of Practice</td>
+                  <td class="fw-status-cell"><span class="fw-voluntary" data-en="Voluntary" data-fr="Volontaire">Voluntary</span></td>
+                  <td class="fw-desc-cell"><span data-en="Global Partnership on AI code of practice for general-purpose AI models aligned with the EU AI Act." data-fr="Code de pratique du Partenariat mondial sur l'IA pour les modèles GPAI aligné avec l'EU AI Act.">Global Partnership on AI code of practice for general-purpose AI models aligned with the EU AI Act.</span></td>
+                </tr>
+                <tr class="fw-row-item">
+                  <td class="fw-name-cell"><a href="https://documents.un.org/doc/undoc/ltd/n24/065/92/pdf/n2406592.pdf" target="_blank" class="fw-link">↗ UN Resolution A/78/L.49</a></td>
+                  <td class="fw-year-cell">2024</td>
+                  <td class="fw-type-cell">Resolution</td>
+                  <td class="fw-status-cell"><span class="fw-voluntary" data-en="Voluntary" data-fr="Volontaire">Voluntary</span></td>
+                  <td class="fw-desc-cell"><span data-en="UN General Assembly resolution on seizing opportunities of safe, secure and trustworthy AI for sustainable development." data-fr="Résolution de l'Assemblée générale de l'ONU sur une IA sûre et fiable pour le développement durable.">UN General Assembly resolution on seizing opportunities of safe, secure and trustworthy AI for sustainable development.</span></td>
+                </tr>
+                <tr class="fw-row-item">
+                  <td class="fw-name-cell"><a href="https://www.gov.uk/government/publications/ai-safety-summit-2023-the-bletchley-declaration" target="_blank" class="fw-link">↗ Bletchley / Seoul / Paris AI Summits</a></td>
+                  <td class="fw-year-cell">2023–2025</td>
+                  <td class="fw-type-cell">Declaration</td>
+                  <td class="fw-status-cell"><span class="fw-voluntary" data-en="Voluntary" data-fr="Volontaire">Voluntary</span></td>
+                  <td class="fw-desc-cell"><span data-en="Series of international AI Safety Summits establishing shared principles for frontier AI governance." data-fr="Série de sommets internationaux sur la sécurité de l'IA établissant des principes communs pour les modèles frontières.">Series of international AI Safety Summits establishing shared principles for frontier AI governance.</span></td>
+                </tr>
+                <tr class="fw-row-item">
+                  <td class="fw-name-cell"><a href="https://www.aisingapore.org" target="_blank" class="fw-link">↗ Singapore Consensus on AI Safety</a></td>
+                  <td class="fw-year-cell">2025</td>
+                  <td class="fw-type-cell">Consensus</td>
+                  <td class="fw-status-cell"><span class="fw-voluntary" data-en="Voluntary" data-fr="Volontaire">Voluntary</span></td>
+                  <td class="fw-desc-cell"><span data-en="International consensus on priorities for AI safety research and evaluation methodologies." data-fr="Consensus international sur les priorités de recherche en sécurité IA et méthodologies d'évaluation.">International consensus on priorities for AI safety research and evaluation methodologies.</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="res-category">
+          <div class="res-cat-header">
+            <span class="res-cat-emoji">🇪🇺</span>
+            <span class="res-cat-name" data-en="European Union" data-fr="Union européenne">European Union</span>
+            <span class="res-cat-count">6</span>
+          </div>
+          <div class="res-table-wrap">
+            <table class="res-table">
+              <thead>
+                <tr>
+                  <th class="fw-th-name" data-en="Framework / Regulation" data-fr="Cadre / Réglementation">Framework / Regulation</th>
+                  <th class="fw-th-year" data-en="Year" data-fr="Année">Year</th>
+                  <th class="fw-th-type" data-en="Type" data-fr="Type">Type</th>
+                  <th class="fw-th-status" data-en="Status" data-fr="Statut">Status</th>
+                  <th class="fw-th-desc" data-en="Description" data-fr="Description">Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="fw-row-item">
+                  <td class="fw-name-cell"><a href="https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689" target="_blank" class="fw-link">↗ EU AI Act (Regulation 2024/1689)</a></td>
+                  <td class="fw-year-cell">2024</td>
+                  <td class="fw-type-cell">Regulation</td>
+                  <td class="fw-status-cell"><span class="fw-binding" data-en="Binding" data-fr="Contraignant">Binding</span></td>
+                  <td class="fw-desc-cell"><span data-en="Landmark risk-based regulation classifying AI systems into risk tiers with mandatory requirements and sanctions up to €35M or 7% global turnover." data-fr="Règlement phare basé sur le risque classifiant les systèmes IA avec des exigences obligatoires et des sanctions jusqu'à 35M€ ou 7% du CA mondial.">Landmark risk-based regulation classifying AI systems into risk tiers with mandatory requirements and sanctions up to €35M or 7% global turnover.</span></td>
+                </tr>
+                <tr class="fw-row-item">
+                  <td class="fw-name-cell"><a href="https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52022PC0496" target="_blank" class="fw-link">↗ EU AI Liability Directive (proposed)</a></td>
+                  <td class="fw-year-cell">2022+</td>
+                  <td class="fw-type-cell">Directive (proposed)</td>
+                  <td class="fw-status-cell"><span class="fw-voluntary" data-en="Voluntary" data-fr="Volontaire">Voluntary</span></td>
+                  <td class="fw-desc-cell"><span data-en="Proposed directive establishing civil liability rules for damage caused by AI systems, adapting existing product liability rules." data-fr="Directive proposée établissant des règles de responsabilité civile pour les dommages causés par les systèmes IA.">Proposed directive establishing civil liability rules for damage caused by AI systems, adapting existing product liability rules.</span></td>
+                </tr>
+                <tr class="fw-row-item">
+                  <td class="fw-name-cell"><a href="https://digital-strategy.ec.europa.eu/en/library/ethics-guidelines-trustworthy-ai" target="_blank" class="fw-link">↗ HLEG AI Trustworthy AI Guidelines</a></td>
+                  <td class="fw-year-cell">2019</td>
+                  <td class="fw-type-cell">Guidelines</td>
+                  <td class="fw-status-cell"><span class="fw-voluntary" data-en="Voluntary" data-fr="Volontaire">Voluntary</span></td>
+                  <td class="fw-desc-cell"><span data-en="Ethics guidelines for trustworthy AI defining 7 key requirements: human agency, robustness, privacy, transparency, fairness, wellbeing, accountability." data-fr="Lignes directrices éthiques pour une IA digne de confiance définissant 7 exigences clés.">Ethics guidelines for trustworthy AI defining 7 key requirements: human agency, robustness, privacy, transparency, fairness, wellbeing, accountability.</span></td>
+                </tr>
+                <tr class="fw-row-item">
+                  <td class="fw-name-cell"><a href="https://code-of-practice.ai-office.eu" target="_blank" class="fw-link">↗ GPAI Code of Practice (Art. 56 EU AI Act)</a></td>
+                  <td class="fw-year-cell">2025</td>
+                  <td class="fw-type-cell">Code of Practice</td>
+                  <td class="fw-status-cell"><span class="fw-binding" data-en="Binding" data-fr="Contraignant">Binding</span></td>
+                  <td class="fw-desc-cell"><span data-en="Mandatory code of practice for providers of general-purpose AI models under the EU AI Act Article 56." data-fr="Code de pratique obligatoire pour les fournisseurs de modèles d'IA à usage général selon l'Art. 56 EU AI Act.">Mandatory code of practice for providers of general-purpose AI models under the EU AI Act Article 56.</span></td>
+                </tr>
+                <tr class="fw-row-item">
+                  <td class="fw-name-cell"><a href="https://gdpr-info.eu/art-22-gdpr/" target="_blank" class="fw-link">↗ GDPR applied to AI (Art. 22)</a></td>
+                  <td class="fw-year-cell">2018</td>
+                  <td class="fw-type-cell">Regulation</td>
+                  <td class="fw-status-cell"><span class="fw-binding" data-en="Binding" data-fr="Contraignant">Binding</span></td>
+                  <td class="fw-desc-cell"><span data-en="Application of GDPR rights to automated decision-making and AI, including right to explanation and human review." data-fr="Application des droits RGPD aux décisions automatisées et à l'IA, incluant le droit à l'explication.">Application of GDPR rights to automated decision-making and AI, including right to explanation and human review.</span></td>
+                </tr>
+                <tr class="fw-row-item">
+                  <td class="fw-name-cell"><a href="https://digital-strategy.ec.europa.eu/en/policies/ai-continent-action-plan" target="_blank" class="fw-link">↗ AI Continent Action Plan</a></td>
+                  <td class="fw-year-cell">2025</td>
+                  <td class="fw-type-cell">Strategy</td>
+                  <td class="fw-status-cell"><span class="fw-voluntary" data-en="Voluntary" data-fr="Volontaire">Voluntary</span></td>
+                  <td class="fw-desc-cell"><span data-en="EU strategic plan to make Europe a global leader in trustworthy AI, covering infrastructure, data and talent." data-fr="Plan d'action stratégique de l'UE pour faire de l'Europe un leader mondial en IA de confiance.">EU strategic plan to make Europe a global leader in trustworthy AI, covering infrastructure, data and talent.</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="res-category">
+          <div class="res-cat-header">
+            <span class="res-cat-emoji">🏛️</span>
+            <span class="res-cat-name" data-en="National" data-fr="National">National</span>
+            <span class="res-cat-count">14</span>
+          </div>
+          <div class="res-table-wrap">
+            <table class="res-table">
+              <thead>
+                <tr>
+                  <th class="fw-th-name" data-en="Framework / Regulation" data-fr="Cadre / Réglementation">Framework / Regulation</th>
+                  <th class="fw-th-year" data-en="Year" data-fr="Année">Year</th>
+                  <th class="fw-th-type" data-en="Type" data-fr="Type">Type</th>
+                  <th class="fw-th-status" data-en="Status" data-fr="Statut">Status</th>
+                  <th class="fw-th-desc" data-en="Description" data-fr="Description">Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="fw-row-item">
+                  <td class="fw-name-cell"><a href="https://airc.nist.gov/RMF" target="_blank" class="fw-link">↗ NIST AI RMF 1.0 (USA)</a></td>
+                  <td class="fw-year-cell">2023</td>
+                  <td class="fw-type-cell">Framework</td>
+                  <td class="fw-status-cell"><span class="fw-voluntary" data-en="Voluntary" data-fr="Volontaire">Voluntary</span></td>
+                  <td class="fw-desc-cell"><span data-en="Voluntary framework with four core functions (Govern, Map, Measure, Manage) for managing AI risks throughout the lifecycle." data-fr="Cadre volontaire avec quatre fonctions principales pour gérer les risques IA tout au long du cycle de vie.">Voluntary framework with four core functions (Govern, Map, Measure, Manage) for managing AI risks throughout the lifecycle.</span></td>
+                </tr>
+                <tr class="fw-row-item">
+                  <td class="fw-name-cell"><a href="https://leg.colorado.gov/bills/sb24-205" target="_blank" class="fw-link">↗ Colorado AI Act SB205 (USA)</a></td>
+                  <td class="fw-year-cell">2024</td>
+                  <td class="fw-type-cell">Law</td>
+                  <td class="fw-status-cell"><span class="fw-binding" data-en="Binding" data-fr="Contraignant">Binding</span></td>
+                  <td class="fw-desc-cell"><span data-en="First US state law requiring algorithmic impact assessments for high-risk AI systems used in consequential decisions." data-fr="Première loi d'État américain exigeant des évaluations d'impact algorithmique pour les IA à haut risque.">First US state law requiring algorithmic impact assessments for high-risk AI systems used in consequential decisions.</span></td>
+                </tr>
+                <tr class="fw-row-item">
+                  <td class="fw-name-cell"><a href="https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=202320240SB942" target="_blank" class="fw-link">↗ California AI Transparency Act SB942 (USA)</a></td>
+                  <td class="fw-year-cell">2024</td>
+                  <td class="fw-type-cell">Law</td>
+                  <td class="fw-status-cell"><span class="fw-binding" data-en="Binding" data-fr="Contraignant">Binding</span></td>
+                  <td class="fw-desc-cell"><span data-en="Requires AI providers to make detection tools available and disclose AI-generated content." data-fr="Exige des fournisseurs d'IA de rendre disponibles des outils de détection et de divulguer les contenus générés.">Requires AI providers to make detection tools available and disclose AI-generated content.</span></td>
+                </tr>
+                <tr class="fw-row-item">
+                  <td class="fw-name-cell"><a href="https://www.cac.gov.cn/2023-07/13/c_1690898327029107.htm" target="_blank" class="fw-link">↗ China CAC AI Regulations (China)</a></td>
+                  <td class="fw-year-cell">2022–2025</td>
+                  <td class="fw-type-cell">Regulation</td>
+                  <td class="fw-status-cell"><span class="fw-binding" data-en="Binding" data-fr="Contraignant">Binding</span></td>
+                  <td class="fw-desc-cell"><span data-en="Series of binding regulations covering algorithmic recommendations, deep synthesis (deepfakes), and generative AI services." data-fr="Série de règlements contraignants couvrant les recommandations algorithmiques, les synthèses profondes et les services d'IA générative.">Series of binding regulations covering algorithmic recommendations, deep synthesis (deepfakes), and generative AI services.</span></td>
+                </tr>
+                <tr class="fw-row-item">
+                  <td class="fw-name-cell"><a href="https://www.gov.uk/government/publications/ai-regulation-a-pro-innovation-approach" target="_blank" class="fw-link">↗ UK AI White Paper (UK)</a></td>
+                  <td class="fw-year-cell">2023</td>
+                  <td class="fw-type-cell">Policy</td>
+                  <td class="fw-status-cell"><span class="fw-voluntary" data-en="Voluntary" data-fr="Volontaire">Voluntary</span></td>
+                  <td class="fw-desc-cell"><span data-en="Pro-innovation regulatory framework establishing five AI principles without creating new AI-specific legislation." data-fr="Cadre réglementaire pro-innovation établissant cinq principes IA sans créer de nouvelle législation spécifique.">Pro-innovation regulatory framework establishing five AI principles without creating new AI-specific legislation.</span></td>
+                </tr>
+                <tr class="fw-row-item">
+                  <td class="fw-name-cell"><a href="https://www.meti.go.jp/english/policy/mono_info_service/ai/index.html" target="_blank" class="fw-link">↗ Japan AI Promotion Act (Japan)</a></td>
+                  <td class="fw-year-cell">2025</td>
+                  <td class="fw-type-cell">Law</td>
+                  <td class="fw-status-cell"><span class="fw-binding" data-en="Binding" data-fr="Contraignant">Binding</span></td>
+                  <td class="fw-desc-cell"><span data-en="Law promoting AI development while ensuring safety and transparency for AI systems in Japan." data-fr="Loi promouvant le développement de l'IA tout en assurant la sécurité et la transparence des systèmes IA au Japon.">Law promoting AI development while ensuring safety and transparency for AI systems in Japan.</span></td>
+                </tr>
+                <tr class="fw-row-item">
+                  <td class="fw-name-cell"><a href="https://www.pdpc.gov.sg/help-and-resources/2020/01/model-ai-governance-framework" target="_blank" class="fw-link">↗ Singapore Model AI Governance Framework</a></td>
+                  <td class="fw-year-cell">2020/2023</td>
+                  <td class="fw-type-cell">Framework</td>
+                  <td class="fw-status-cell"><span class="fw-voluntary" data-en="Voluntary" data-fr="Volontaire">Voluntary</span></td>
+                  <td class="fw-desc-cell"><span data-en="Practical guidance for private sector AI governance covering internal governance, risk management and stakeholder engagement." data-fr="Orientations pratiques pour la gouvernance IA du secteur privé couvrant gouvernance interne et gestion des risques.">Practical guidance for private sector AI governance covering internal governance, risk management and stakeholder engagement.</span></td>
+                </tr>
+                <tr class="fw-row-item">
+                  <td class="fw-name-cell"><a href="https://www.planalto.gov.br" target="_blank" class="fw-link">↗ Brazil AI Law 15.900/2025 (Brazil)</a></td>
+                  <td class="fw-year-cell">2025</td>
+                  <td class="fw-type-cell">Law</td>
+                  <td class="fw-status-cell"><span class="fw-binding" data-en="Binding" data-fr="Contraignant">Binding</span></td>
+                  <td class="fw-desc-cell"><span data-en="Comprehensive AI law establishing rights of AI users and obligations for AI systems providers in Brazil." data-fr="Loi IA complète établissant les droits des utilisateurs et les obligations des fournisseurs de systèmes IA au Brésil.">Comprehensive AI law establishing rights of AI users and obligations for AI systems providers in Brazil.</span></td>
+                </tr>
+                <tr class="fw-row-item">
+                  <td class="fw-name-cell"><a href="https://www.industry.gov.au/publications/australias-ai-ethics-principles" target="_blank" class="fw-link">↗ Australia Voluntary AI Safety Standard</a></td>
+                  <td class="fw-year-cell">2024</td>
+                  <td class="fw-type-cell">Standard</td>
+                  <td class="fw-status-cell"><span class="fw-voluntary" data-en="Voluntary" data-fr="Volontaire">Voluntary</span></td>
+                  <td class="fw-desc-cell"><span data-en="Eight guardrails providing practical guidance for Australian businesses deploying AI in high-risk settings." data-fr="Huit garde-fous fournissant des orientations pratiques pour les entreprises australiennes déployant l'IA dans des contextes à risque.">Eight guardrails providing practical guidance for Australian businesses deploying AI in high-risk settings.</span></td>
+                </tr>
+                <tr class="fw-row-item">
+                  <td class="fw-name-cell"><a href="https://www.meity.gov.in" target="_blank" class="fw-link">↗ India MeitY AI Guidelines (India)</a></td>
+                  <td class="fw-year-cell">2023</td>
+                  <td class="fw-type-cell">Guidelines</td>
+                  <td class="fw-status-cell"><span class="fw-voluntary" data-en="Voluntary" data-fr="Volontaire">Voluntary</span></td>
+                  <td class="fw-desc-cell"><span data-en="Advisory guidelines for responsible AI development in India covering data governance, transparency and accountability." data-fr="Lignes directrices consultatives pour le développement responsable de l'IA en Inde.">Advisory guidelines for responsible AI development in India covering data governance, transparency and accountability.</span></td>
+                </tr>
+                <tr class="fw-row-item">
+                  <td class="fw-name-cell"><a href="https://sdaia.gov.sa/en/SDAIA/about/Pages/AI.aspx" target="_blank" class="fw-link">↗ Saudi Arabia SDAIA Ethics Principles</a></td>
+                  <td class="fw-year-cell">2023</td>
+                  <td class="fw-type-cell">Principles</td>
+                  <td class="fw-status-cell"><span class="fw-voluntary" data-en="Voluntary" data-fr="Volontaire">Voluntary</span></td>
+                  <td class="fw-desc-cell"><span data-en="National AI ethics principles covering human-centricity, transparency, privacy and fairness for AI systems in Saudi Arabia." data-fr="Principes éthiques nationaux IA couvrant l'anthropocentrisme, la transparence, la vie privée et l'équité en Arabie Saoudite.">National AI ethics principles covering human-centricity, transparency, privacy and fairness for AI systems in Saudi Arabia.</span></td>
+                </tr>
+                <tr class="fw-row-item">
+                  <td class="fw-name-cell"><a href="https://www.msit.go.kr" target="_blank" class="fw-link">↗ South Korea AI Basic Act (Korea)</a></td>
+                  <td class="fw-year-cell">2024</td>
+                  <td class="fw-type-cell">Law</td>
+                  <td class="fw-status-cell"><span class="fw-binding" data-en="Binding" data-fr="Contraignant">Binding</span></td>
+                  <td class="fw-desc-cell"><span data-en="Foundational AI legislation establishing risk-based classification and governance requirements for AI in South Korea." data-fr="Législation IA fondamentale établissant une classification basée sur le risque et des exigences de gouvernance en Corée du Sud.">Foundational AI legislation establishing risk-based classification and governance requirements for AI in South Korea.</span></td>
+                </tr>
+                <tr class="fw-row-item">
+                  <td class="fw-name-cell"><a href="https://www.economie.gouv.fr/france-2030" target="_blank" class="fw-link">↗ France 2030 AI Strategy (France)</a></td>
+                  <td class="fw-year-cell">2023</td>
+                  <td class="fw-type-cell">Strategy</td>
+                  <td class="fw-status-cell"><span class="fw-voluntary" data-en="Voluntary" data-fr="Volontaire">Voluntary</span></td>
+                  <td class="fw-desc-cell"><span data-en="National AI strategy investing €1.5B in AI research, talent and sovereignty, with CNIL guidance on GDPR-AI intersection." data-fr="Stratégie IA nationale investissant 1,5Md€ dans la recherche IA, les talents et la souveraineté.">National AI strategy investing €1.5B in AI research, talent and sovereignty, with CNIL guidance on GDPR-AI intersection.</span></td>
+                </tr>
+                <tr class="fw-row-item">
+                  <td class="fw-name-cell"><a href="https://ai.gov.ae" target="_blank" class="fw-link">↗ UAE AIATC AI Guidelines (UAE)</a></td>
+                  <td class="fw-year-cell">2024</td>
+                  <td class="fw-type-cell">Guidelines</td>
+                  <td class="fw-status-cell"><span class="fw-voluntary" data-en="Voluntary" data-fr="Volontaire">Voluntary</span></td>
+                  <td class="fw-desc-cell"><span data-en="AI governance principles and guidelines from the UAE Artificial Intelligence and Advanced Technology Council." data-fr="Principes et lignes directrices de gouvernance IA du Conseil des technologies d'IA et avancées des EAU.">AI governance principles and guidelines from the UAE Artificial Intelligence and Advanced Technology Council.</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="res-category">
+          <div class="res-cat-header">
+            <span class="res-cat-emoji">🍁</span>
+            <span class="res-cat-name" data-en="Canada" data-fr="Canada">Canada</span>
+            <span class="res-cat-count">5</span>
+          </div>
+          <div class="res-table-wrap">
+            <table class="res-table">
+              <thead>
+                <tr>
+                  <th class="fw-th-name" data-en="Framework / Regulation" data-fr="Cadre / Réglementation">Framework / Regulation</th>
+                  <th class="fw-th-year" data-en="Year" data-fr="Année">Year</th>
+                  <th class="fw-th-type" data-en="Type" data-fr="Type">Type</th>
+                  <th class="fw-th-status" data-en="Status" data-fr="Statut">Status</th>
+                  <th class="fw-th-desc" data-en="Description" data-fr="Description">Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="fw-row-item">
+                  <td class="fw-name-cell"><a href="https://www.tbs-sct.canada.ca/pol/doc-eng.aspx?id=32592" target="_blank" class="fw-link">↗ Directive on Automated Decision-Making (Canada)</a></td>
+                  <td class="fw-year-cell">2019/2023</td>
+                  <td class="fw-type-cell">Directive</td>
+                  <td class="fw-status-cell"><span class="fw-binding" data-en="Binding" data-fr="Contraignant">Binding</span></td>
+                  <td class="fw-desc-cell"><span data-en="Mandatory federal directive requiring algorithmic impact assessments for automated decision systems used by the federal government." data-fr="Directive fédérale obligatoire exigeant des évaluations d'impact algorithmique pour les systèmes de décision automatisée.">Mandatory federal directive requiring algorithmic impact assessments for automated decision systems used by the federal government.</span></td>
+                </tr>
+                <tr class="fw-row-item">
+                  <td class="fw-name-cell"><a href="https://www.parl.ca/DocumentViewer/en/44-1/bill/C-27/first-reading" target="_blank" class="fw-link">↗ Bill C-27 / AIDA (Canada)</a></td>
+                  <td class="fw-year-cell">2022+</td>
+                  <td class="fw-type-cell">Bill (in progress)</td>
+                  <td class="fw-status-cell"><span class="fw-voluntary" data-en="Voluntary" data-fr="Volontaire">Voluntary</span></td>
+                  <td class="fw-desc-cell"><span data-en="Proposed Artificial Intelligence and Data Act establishing rules for high-impact AI systems in Canada (in progress)." data-fr="Projet de loi sur l'intelligence artificielle et les données établissant des règles pour les IA à impact élevé au Canada (en cours).">Proposed Artificial Intelligence and Data Act establishing rules for high-impact AI systems in Canada (in progress).</span></td>
+                </tr>
+                <tr class="fw-row-item">
+                  <td class="fw-name-cell"><a href="https://ised-isde.canada.ca/site/ai-strategy/en" target="_blank" class="fw-link">↗ Pan-Canadian AI Strategy (Canada)</a></td>
+                  <td class="fw-year-cell">2017/2022</td>
+                  <td class="fw-type-cell">Strategy</td>
+                  <td class="fw-status-cell"><span class="fw-voluntary" data-en="Voluntary" data-fr="Volontaire">Voluntary</span></td>
+                  <td class="fw-desc-cell"><span data-en="National strategy investing $443M to support AI research, talent and adoption across Canada through CIFAR." data-fr="Stratégie nationale investissant 443M$ pour soutenir la recherche IA, les talents et l'adoption à travers le Canada.">National strategy investing $443M to support AI research, talent and adoption across Canada through CIFAR.</span></td>
+                </tr>
+                <tr class="fw-row-item">
+                  <td class="fw-name-cell"><a href="https://www.canada.ca/en/government/system/digital-government/digital-government-innovations/responsible-use-ai.html" target="_blank" class="fw-link">↗ Government of Canada AI Guidelines</a></td>
+                  <td class="fw-year-cell">2023</td>
+                  <td class="fw-type-cell">Guidelines</td>
+                  <td class="fw-status-cell"><span class="fw-voluntary" data-en="Voluntary" data-fr="Volontaire">Voluntary</span></td>
+                  <td class="fw-desc-cell"><span data-en="Principles and guidelines for the responsible use of AI across the Government of Canada." data-fr="Principes et lignes directrices pour l'utilisation responsable de l'IA au sein du gouvernement du Canada.">Principles and guidelines for the responsible use of AI across the Government of Canada.</span></td>
+                </tr>
+                <tr class="fw-row-item">
+                  <td class="fw-name-cell"><a href="https://www.cai.gouv.qc.ca/protection-des-renseignements-personnels/loi-25/" target="_blank" class="fw-link">↗ Law 25 — Québec (Canada)</a></td>
+                  <td class="fw-year-cell">2023</td>
+                  <td class="fw-type-cell">Law</td>
+                  <td class="fw-status-cell"><span class="fw-binding" data-en="Binding" data-fr="Contraignant">Binding</span></td>
+                  <td class="fw-desc-cell"><span data-en="Binding Quebec privacy law requiring disclosure of automated decision-making, profiling transparency and data protection obligations." data-fr="Loi québécoise contraignante exigeant la divulgation des décisions automatisées, la transparence du profilage et la protection des données.">Binding Quebec privacy law requiring disclosure of automated decision-making, profiling transparency and data protection obligations.</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="res-category">
+          <div class="res-cat-header">
+            <span class="res-cat-emoji">📐</span>
+            <span class="res-cat-name" data-en="Standards & Norms" data-fr="Normes & Standards">Standards & Norms</span>
+            <span class="res-cat-count">8</span>
+          </div>
+          <div class="res-table-wrap">
+            <table class="res-table">
+              <thead>
+                <tr>
+                  <th class="fw-th-name" data-en="Framework / Regulation" data-fr="Cadre / Réglementation">Framework / Regulation</th>
+                  <th class="fw-th-year" data-en="Year" data-fr="Année">Year</th>
+                  <th class="fw-th-type" data-en="Type" data-fr="Type">Type</th>
+                  <th class="fw-th-status" data-en="Status" data-fr="Statut">Status</th>
+                  <th class="fw-th-desc" data-en="Description" data-fr="Description">Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="fw-row-item">
+                  <td class="fw-name-cell"><a href="https://www.iso.org/standard/81230.html" target="_blank" class="fw-link">↗ ISO/IEC 42001:2023</a></td>
+                  <td class="fw-year-cell">2023</td>
+                  <td class="fw-type-cell">Standard</td>
+                  <td class="fw-status-cell"><span class="fw-voluntary" data-en="Voluntary" data-fr="Volontaire">Voluntary</span></td>
+                  <td class="fw-desc-cell"><span data-en="Certifiable AI Management System (AIMS) standard providing requirements for establishing, implementing and improving AI governance." data-fr="Standard certifiable de système de management IA (AIMS) fournissant des exigences pour établir et améliorer la gouvernance IA.">Certifiable AI Management System (AIMS) standard providing requirements for establishing, implementing and improving AI governance.</span></td>
+                </tr>
+                <tr class="fw-row-item">
+                  <td class="fw-name-cell"><a href="https://www.iso.org/standard/44545.html" target="_blank" class="fw-link">↗ ISO/IEC 42005 — AI Impact Assessment</a></td>
+                  <td class="fw-year-cell">In dev.</td>
+                  <td class="fw-type-cell">Standard</td>
+                  <td class="fw-status-cell"><span class="fw-voluntary" data-en="Voluntary" data-fr="Volontaire">Voluntary</span></td>
+                  <td class="fw-desc-cell"><span data-en="Standard for AI system impact assessment methodologies covering societal, ethical and environmental impacts (in development)." data-fr="Standard pour les méthodologies d'évaluation d'impact des systèmes IA couvrant les impacts sociétaux, éthiques et environnementaux.">Standard for AI system impact assessment methodologies covering societal, ethical and environmental impacts (in development).</span></td>
+                </tr>
+                <tr class="fw-row-item">
+                  <td class="fw-name-cell"><a href="https://www.iso.org/standard/44546.html" target="_blank" class="fw-link">↗ ISO/IEC 42006 — AI Auditing</a></td>
+                  <td class="fw-year-cell">In dev.</td>
+                  <td class="fw-type-cell">Standard</td>
+                  <td class="fw-status-cell"><span class="fw-voluntary" data-en="Voluntary" data-fr="Volontaire">Voluntary</span></td>
+                  <td class="fw-desc-cell"><span data-en="Requirements and guidance for bodies auditing AI management systems against ISO/IEC 42001 (in development)." data-fr="Exigences et orientations pour les organismes d'audit des systèmes de management IA selon ISO/IEC 42001.">Requirements and guidance for bodies auditing AI management systems against ISO/IEC 42001 (in development).</span></td>
+                </tr>
+                <tr class="fw-row-item">
+                  <td class="fw-name-cell"><a href="https://www.iso.org/standard/77304.html" target="_blank" class="fw-link">↗ ISO/IEC 23894 — AI Risk Management</a></td>
+                  <td class="fw-year-cell">2023</td>
+                  <td class="fw-type-cell">Standard</td>
+                  <td class="fw-status-cell"><span class="fw-voluntary" data-en="Voluntary" data-fr="Volontaire">Voluntary</span></td>
+                  <td class="fw-desc-cell"><span data-en="Guidance for AI risk management processes integrated within organizational risk management frameworks." data-fr="Orientations pour les processus de gestion des risques IA intégrés dans les cadres de gestion des risques organisationnels.">Guidance for AI risk management processes integrated within organizational risk management frameworks.</span></td>
+                </tr>
+                <tr class="fw-row-item">
+                  <td class="fw-name-cell"><a href="https://standards.ieee.org/ieee/7000/6929/" target="_blank" class="fw-link">↗ IEEE 7000-2021</a></td>
+                  <td class="fw-year-cell">2021</td>
+                  <td class="fw-type-cell">Standard</td>
+                  <td class="fw-status-cell"><span class="fw-voluntary" data-en="Voluntary" data-fr="Volontaire">Voluntary</span></td>
+                  <td class="fw-desc-cell"><span data-en="Standard model process for addressing ethical concerns during system design through value-based engineering." data-fr="Processus modèle pour traiter les préoccupations éthiques lors de la conception de systèmes par ingénierie basée sur les valeurs.">Standard model process for addressing ethical concerns during system design through value-based engineering.</span></td>
+                </tr>
+                <tr class="fw-row-item">
+                  <td class="fw-name-cell"><a href="https://engagestandards.ieee.org/ieeecertifaied.html" target="_blank" class="fw-link">↗ IEEE CertifAIEd</a></td>
+                  <td class="fw-year-cell">2022</td>
+                  <td class="fw-type-cell">Certification</td>
+                  <td class="fw-status-cell"><span class="fw-voluntary" data-en="Voluntary" data-fr="Volontaire">Voluntary</span></td>
+                  <td class="fw-desc-cell"><span data-en="IEEE program for assessing and certifying AI systems against ethical principles including transparency and accountability." data-fr="Programme IEEE d'évaluation et de certification des systèmes IA selon des principes éthiques incluant transparence et responsabilité.">IEEE program for assessing and certifying AI systems against ethical principles including transparency and accountability.</span></td>
+                </tr>
+                <tr class="fw-row-item">
+                  <td class="fw-name-cell"><a href="https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.1270.pdf" target="_blank" class="fw-link">↗ NIST SP 1270 — Towards Bias in AI</a></td>
+                  <td class="fw-year-cell">2022</td>
+                  <td class="fw-type-cell">Publication</td>
+                  <td class="fw-status-cell"><span class="fw-voluntary" data-en="Voluntary" data-fr="Volontaire">Voluntary</span></td>
+                  <td class="fw-desc-cell"><span data-en="NIST special publication providing guidance on identifying and managing bias in AI systems." data-fr="Publication spéciale NIST fournissant des orientations pour identifier et gérer les biais dans les systèmes IA.">NIST special publication providing guidance on identifying and managing bias in AI systems.</span></td>
+                </tr>
+                <tr class="fw-row-item">
+                  <td class="fw-name-cell"><a href="https://www.cencenelec.eu/areas-of-work/cen-cenelec-topics/artificial-intelligence/" target="_blank" class="fw-link">↗ CEN/CENELEC AI Standards (EU harmonised)</a></td>
+                  <td class="fw-year-cell">In dev.</td>
+                  <td class="fw-type-cell">Standard</td>
+                  <td class="fw-status-cell"><span class="fw-voluntary" data-en="Voluntary" data-fr="Volontaire">Voluntary</span></td>
+                  <td class="fw-desc-cell"><span data-en="European harmonised standards under development to support EU AI Act compliance across risk categories." data-fr="Standards harmonisés européens en développement pour soutenir la conformité EU AI Act selon les catégories de risque.">European harmonised standards under development to support EU AI Act compliance across risk categories.</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="res-category">
+          <div class="res-cat-header">
+            <span class="res-cat-emoji">🏭</span>
+            <span class="res-cat-name" data-en="Sectoral" data-fr="Sectoriel">Sectoral</span>
+            <span class="res-cat-count">9</span>
+          </div>
+          <div class="res-table-wrap">
+            <table class="res-table">
+              <thead>
+                <tr>
+                  <th class="fw-th-name" data-en="Framework / Regulation" data-fr="Cadre / Réglementation">Framework / Regulation</th>
+                  <th class="fw-th-year" data-en="Year" data-fr="Année">Year</th>
+                  <th class="fw-th-type" data-en="Type" data-fr="Type">Type</th>
+                  <th class="fw-th-status" data-en="Status" data-fr="Statut">Status</th>
+                  <th class="fw-th-desc" data-en="Description" data-fr="Description">Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="fw-row-item">
+                  <td class="fw-name-cell"><a href="https://www.mas.gov.sg/publications/monographs-or-information-paper/2018/feat" target="_blank" class="fw-link">↗ MAS FEAT Principles (Singapore Finance)</a></td>
+                  <td class="fw-year-cell">2018</td>
+                  <td class="fw-type-cell">Principles</td>
+                  <td class="fw-status-cell"><span class="fw-voluntary" data-en="Voluntary" data-fr="Volontaire">Voluntary</span></td>
+                  <td class="fw-desc-cell"><span data-en="Monetary Authority of Singapore principles for fairness, ethics, accountability and transparency in financial AI." data-fr="Principes de l'Autorité monétaire de Singapour sur l'équité, l'éthique, la responsabilité et la transparence en IA financière.">Monetary Authority of Singapore principles for fairness, ethics, accountability and transparency in financial AI.</span></td>
+                </tr>
+                <tr class="fw-row-item">
+                  <td class="fw-name-cell"><a href="https://www.mas.gov.sg/regulation/guidelines/guidelines-on-risk-management-practices-for-ai-and-data-analytics" target="_blank" class="fw-link">↗ MAS AI Risk Management Guidelines</a></td>
+                  <td class="fw-year-cell">2025</td>
+                  <td class="fw-type-cell">Guidelines</td>
+                  <td class="fw-status-cell"><span class="fw-voluntary" data-en="Voluntary" data-fr="Volontaire">Voluntary</span></td>
+                  <td class="fw-desc-cell"><span data-en="Guidelines for financial institutions on managing risks associated with AI model development and deployment." data-fr="Lignes directrices pour les institutions financières sur la gestion des risques liés au développement et au déploiement de modèles IA.">Guidelines for financial institutions on managing risks associated with AI model development and deployment.</span></td>
+                </tr>
+                <tr class="fw-row-item">
+                  <td class="fw-name-cell"><a href="https://www.osfi-bsif.gc.ca/en/guidance/guidance-library/b-15" target="_blank" class="fw-link">↗ OSFI Guideline B-15 (Canada Finance)</a></td>
+                  <td class="fw-year-cell">2023</td>
+                  <td class="fw-type-cell">Guideline</td>
+                  <td class="fw-status-cell"><span class="fw-binding" data-en="Binding" data-fr="Contraignant">Binding</span></td>
+                  <td class="fw-desc-cell"><span data-en="OSFI guideline on climate risk management with AI governance provisions for federally regulated financial institutions." data-fr="Ligne directrice BSIF sur la gestion des risques climatiques avec dispositions de gouvernance IA pour les institutions financières fédérales.">OSFI guideline on climate risk management with AI governance provisions for federally regulated financial institutions.</span></td>
+                </tr>
+                <tr class="fw-row-item">
+                  <td class="fw-name-cell"><a href="https://www.fda.gov/medical-devices/software-medical-device-samd/artificial-intelligence-and-machine-learning-aiml-enabled-medical-devices" target="_blank" class="fw-link">↗ FDA Software as Medical Device (USA Health)</a></td>
+                  <td class="fw-year-cell">2021–2025</td>
+                  <td class="fw-type-cell">Guidance</td>
+                  <td class="fw-status-cell"><span class="fw-binding" data-en="Binding" data-fr="Contraignant">Binding</span></td>
+                  <td class="fw-desc-cell"><span data-en="FDA framework for AI/ML-based software as medical devices covering premarket submissions and post-deployment monitoring." data-fr="Cadre FDA pour les logiciels IA/ML en tant que dispositifs médicaux couvrant les soumissions pré-marché et le monitoring.">FDA framework for AI/ML-based software as medical devices covering premarket submissions and post-deployment monitoring.</span></td>
+                </tr>
+                <tr class="fw-row-item">
+                  <td class="fw-name-cell"><a href="https://www.who.int/publications/i/item/9789240029200" target="_blank" class="fw-link">↗ WHO Ethics & Governance of AI for Health</a></td>
+                  <td class="fw-year-cell">2021</td>
+                  <td class="fw-type-cell">Guidance</td>
+                  <td class="fw-status-cell"><span class="fw-voluntary" data-en="Voluntary" data-fr="Volontaire">Voluntary</span></td>
+                  <td class="fw-desc-cell"><span data-en="WHO guidance on ethical design, development and deployment of AI technologies for health applications." data-fr="Orientations OMS sur la conception éthique, le développement et le déploiement des technologies IA pour la santé.">WHO guidance on ethical design, development and deployment of AI technologies for health applications.</span></td>
+                </tr>
+                <tr class="fw-row-item">
+                  <td class="fw-name-cell"><a href="https://legistar.council.nyc.gov/LegislationDetail.aspx?ID=4344524" target="_blank" class="fw-link">↗ NYC Local Law 144 (USA HR)</a></td>
+                  <td class="fw-year-cell">2023</td>
+                  <td class="fw-type-cell">Law</td>
+                  <td class="fw-status-cell"><span class="fw-binding" data-en="Binding" data-fr="Contraignant">Binding</span></td>
+                  <td class="fw-desc-cell"><span data-en="New York City law requiring annual bias audits for automated employment decision tools used by employers." data-fr="Loi de New York exigeant des audits annuels de biais pour les outils de décision d'emploi automatisés.">New York City law requiring annual bias audits for automated employment decision tools used by employers.</span></td>
+                </tr>
+                <tr class="fw-row-item">
+                  <td class="fw-name-cell"><a href="https://www.csa.gov.sg/resources/publications/securing-ai" target="_blank" class="fw-link">↗ CSA Singapore — Securing AI (Cybersecurity)</a></td>
+                  <td class="fw-year-cell">2024</td>
+                  <td class="fw-type-cell">Guidelines</td>
+                  <td class="fw-status-cell"><span class="fw-voluntary" data-en="Voluntary" data-fr="Volontaire">Voluntary</span></td>
+                  <td class="fw-desc-cell"><span data-en="Cybersecurity guidelines for AI systems covering adversarial attacks, model security and AI supply chain risks." data-fr="Lignes directrices de cybersécurité pour les systèmes IA couvrant les attaques adversariales, la sécurité des modèles et les risques de chaîne d'approvisionnement.">Cybersecurity guidelines for AI systems covering adversarial attacks, model security and AI supply chain risks.</span></td>
+                </tr>
+                <tr class="fw-row-item">
+                  <td class="fw-name-cell"><a href="https://www.ai.mil/docs/RAI_Strategy_and_Implementation_Pathway_2021.pdf" target="_blank" class="fw-link">↗ DoD AI Ethics Principles + RAI Strategy (USA Defence)</a></td>
+                  <td class="fw-year-cell">2020–2022</td>
+                  <td class="fw-type-cell">Strategy</td>
+                  <td class="fw-status-cell"><span class="fw-binding" data-en="Binding" data-fr="Contraignant">Binding</span></td>
+                  <td class="fw-desc-cell"><span data-en="US Department of Defense AI ethics principles and Responsible AI Strategy covering military AI applications." data-fr="Principes d'éthique IA et stratégie IA responsable du Département de la Défense américain couvrant les applications militaires.">US Department of Defense AI ethics principles and Responsible AI Strategy covering military AI applications.</span></td>
+                </tr>
+                <tr class="fw-row-item">
+                  <td class="fw-name-cell"><a href="https://www.unesco.org/en/digital-education/artificial-intelligence" target="_blank" class="fw-link">↗ UNESCO GenAI Guidance for Education</a></td>
+                  <td class="fw-year-cell">2023</td>
+                  <td class="fw-type-cell">Guidance</td>
+                  <td class="fw-status-cell"><span class="fw-voluntary" data-en="Voluntary" data-fr="Volontaire">Voluntary</span></td>
+                  <td class="fw-desc-cell"><span data-en="UNESCO guidance on generative AI use in education covering pedagogical, ethical and safety considerations." data-fr="Orientations UNESCO sur l'utilisation de l'IA générative en éducation couvrant les considérations pédagogiques, éthiques et de sécurité.">UNESCO guidance on generative AI use in education covering pedagogical, ethical and safety considerations.</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="res-category">
+          <div class="res-cat-header">
+            <span class="res-cat-emoji">🏢</span>
+            <span class="res-cat-name" data-en="Industry / Big Tech" data-fr="Industrie / Big Tech">Industry / Big Tech</span>
+            <span class="res-cat-count">9</span>
+          </div>
+          <div class="res-table-wrap">
+            <table class="res-table">
+              <thead>
+                <tr>
+                  <th class="fw-th-name" data-en="Framework / Regulation" data-fr="Cadre / Réglementation">Framework / Regulation</th>
+                  <th class="fw-th-year" data-en="Year" data-fr="Année">Year</th>
+                  <th class="fw-th-type" data-en="Type" data-fr="Type">Type</th>
+                  <th class="fw-th-status" data-en="Status" data-fr="Statut">Status</th>
+                  <th class="fw-th-desc" data-en="Description" data-fr="Description">Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="fw-row-item">
+                  <td class="fw-name-cell"><a href="https://ai.google/responsibility/principles/" target="_blank" class="fw-link">↗ Google AI Principles + Frontier Safety Framework</a></td>
+                  <td class="fw-year-cell">2018/2023</td>
+                  <td class="fw-type-cell">Principles</td>
+                  <td class="fw-status-cell"><span class="fw-voluntary" data-en="Voluntary" data-fr="Volontaire">Voluntary</span></td>
+                  <td class="fw-desc-cell"><span data-en="Google's foundational AI principles covering beneficial, safe, privacy-respecting and accountable AI development." data-fr="Principes IA fondateurs de Google couvrant le développement IA bénéfique, sûr, respectueux de la vie privée et responsable.">Google's foundational AI principles covering beneficial, safe, privacy-respecting and accountable AI development.</span></td>
+                </tr>
+                <tr class="fw-row-item">
+                  <td class="fw-name-cell"><a href="https://blogs.microsoft.com/wp-content/uploads/prod/sites/5/2022/06/Microsoft-Responsible-AI-Standard-v2-General-Requirements-3.pdf" target="_blank" class="fw-link">↗ Microsoft Responsible AI Standard v2</a></td>
+                  <td class="fw-year-cell">2022</td>
+                  <td class="fw-type-cell">Standard</td>
+                  <td class="fw-status-cell"><span class="fw-voluntary" data-en="Voluntary" data-fr="Volontaire">Voluntary</span></td>
+                  <td class="fw-desc-cell"><span data-en="Microsoft's internal standard requiring Responsible AI Impact Assessments (RAIA) for all AI products before release." data-fr="Standard interne Microsoft exigeant des évaluations d'impact IA responsable (RAIA) pour tous les produits IA avant leur lancement.">Microsoft's internal standard requiring Responsible AI Impact Assessments (RAIA) for all AI products before release.</span></td>
+                </tr>
+                <tr class="fw-row-item">
+                  <td class="fw-name-cell"><a href="https://www.ibm.com/artificial-intelligence/ethics" target="_blank" class="fw-link">↗ IBM AI Trust & Transparency</a></td>
+                  <td class="fw-year-cell">2018+</td>
+                  <td class="fw-type-cell">Framework</td>
+                  <td class="fw-status-cell"><span class="fw-voluntary" data-en="Voluntary" data-fr="Volontaire">Voluntary</span></td>
+                  <td class="fw-desc-cell"><span data-en="IBM's AI ethics framework and open-source tools for explainability, fairness and robustness testing." data-fr="Cadre d'éthique IA d'IBM et outils open-source pour l'explicabilité, l'équité et les tests de robustesse.">IBM's AI ethics framework and open-source tools for explainability, fairness and robustness testing.</span></td>
+                </tr>
+                <tr class="fw-row-item">
+                  <td class="fw-name-cell"><a href="https://www.anthropic.com/news/anthropics-responsible-scaling-policy" target="_blank" class="fw-link">↗ Anthropic Responsible Scaling Policy (RSP)</a></td>
+                  <td class="fw-year-cell">2023/2024</td>
+                  <td class="fw-type-cell">Policy</td>
+                  <td class="fw-status-cell"><span class="fw-voluntary" data-en="Voluntary" data-fr="Volontaire">Voluntary</span></td>
+                  <td class="fw-desc-cell"><span data-en="Anthropic's policy defining AI Safety Levels (ASL) and required safety measures before deploying frontier models." data-fr="Politique d'Anthropic définissant les niveaux de sécurité IA (ASL) et les mesures requises avant le déploiement de modèles frontières.">Anthropic's policy defining AI Safety Levels (ASL) and required safety measures before deploying frontier models.</span></td>
+                </tr>
+                <tr class="fw-row-item">
+                  <td class="fw-name-cell"><a href="https://openai.com/safety/preparedness" target="_blank" class="fw-link">↗ OpenAI Preparedness Framework</a></td>
+                  <td class="fw-year-cell">2023</td>
+                  <td class="fw-type-cell">Framework</td>
+                  <td class="fw-status-cell"><span class="fw-voluntary" data-en="Voluntary" data-fr="Volontaire">Voluntary</span></td>
+                  <td class="fw-desc-cell"><span data-en="OpenAI's framework for evaluating and mitigating catastrophic risks from frontier AI models across four risk categories." data-fr="Cadre d'OpenAI pour évaluer et atténuer les risques catastrophiques des modèles IA frontières selon quatre catégories de risque.">OpenAI's framework for evaluating and mitigating catastrophic risks from frontier AI models across four risk categories.</span></td>
+                </tr>
+                <tr class="fw-row-item">
+                  <td class="fw-name-cell"><a href="https://partnershiponai.org" target="_blank" class="fw-link">↗ Partnership on AI + ABOUT ML</a></td>
+                  <td class="fw-year-cell">2016+</td>
+                  <td class="fw-type-cell">Initiative</td>
+                  <td class="fw-status-cell"><span class="fw-voluntary" data-en="Voluntary" data-fr="Volontaire">Voluntary</span></td>
+                  <td class="fw-desc-cell"><span data-en="Multi-stakeholder initiative promoting responsible AI development and the ABOUT ML documentation standard." data-fr="Initiative multi-parties prenantes promouvant le développement IA responsable et le standard de documentation ABOUT ML.">Multi-stakeholder initiative promoting responsible AI development and the ABOUT ML documentation standard.</span></td>
+                </tr>
+                <tr class="fw-row-item">
+                  <td class="fw-name-cell"><a href="https://ai.meta.com/research/publications/system-cards-a-new-artifact-for-responsible-ai/" target="_blank" class="fw-link">↗ Meta System Cards</a></td>
+                  <td class="fw-year-cell">2022</td>
+                  <td class="fw-type-cell">Framework</td>
+                  <td class="fw-status-cell"><span class="fw-voluntary" data-en="Voluntary" data-fr="Volontaire">Voluntary</span></td>
+                  <td class="fw-desc-cell"><span data-en="Meta's framework for documenting AI systems at the system level, extending model cards to full deployment context." data-fr="Cadre de Meta pour documenter les systèmes IA au niveau système, étendant les model cards au contexte de déploiement complet.">Meta's framework for documenting AI systems at the system level, extending model cards to full deployment context.</span></td>
+                </tr>
+                <tr class="fw-row-item">
+                  <td class="fw-name-cell"><a href="https://aws.amazon.com/machine-learning/responsible-ai/" target="_blank" class="fw-link">↗ AWS Responsible AI Policy</a></td>
+                  <td class="fw-year-cell">2023</td>
+                  <td class="fw-type-cell">Policy</td>
+                  <td class="fw-status-cell"><span class="fw-voluntary" data-en="Voluntary" data-fr="Volontaire">Voluntary</span></td>
+                  <td class="fw-desc-cell"><span data-en="Amazon Web Services policy and tooling for responsible AI covering fairness, explainability and privacy in cloud AI services." data-fr="Politique et outillage AWS pour l'IA responsable couvrant l'équité, l'explicabilité et la vie privée dans les services IA cloud.">Amazon Web Services policy and tooling for responsible AI covering fairness, explainability and privacy in cloud AI services.</span></td>
+                </tr>
+                <tr class="fw-row-item">
+                  <td class="fw-name-cell"><a href="https://mlcommons.org/2024/04/mlc-aisafety-v0-5-results/" target="_blank" class="fw-link">↗ MLCommons AI Safety v1.0 Benchmark</a></td>
+                  <td class="fw-year-cell">2024</td>
+                  <td class="fw-type-cell">Benchmark</td>
+                  <td class="fw-status-cell"><span class="fw-voluntary" data-en="Voluntary" data-fr="Volontaire">Voluntary</span></td>
+                  <td class="fw-desc-cell"><span data-en="Open benchmark for evaluating safety of AI models across hazard categories including chemical, biological and violent risks." data-fr="Benchmark ouvert pour évaluer la sécurité des modèles IA selon des catégories de danger incluant les risques chimiques, biologiques et violents.">Open benchmark for evaluating safety of AI models across hazard categories including chemical, biological and violent risks.</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+  </section>
+
 </div>
 
 <footer>
   <div class="footer-top"><span id="i18n-footer1"></span><span id="i18n-footer2"></span></div>
-  <span class="footer-oss">🔓 Open Source project under the MIT License &nbsp;·&nbsp; made with ❤️ in Canada.</span>
+  <span class="footer-oss">🔓 Open Source project under the MIT License &nbsp;|&nbsp; made with ❤️ in Canada 🍁</span>
 </footer>
 
 <!-- ── i18n data ── -->
@@ -1373,6 +2112,7 @@ const LANG = {
 
     // ── lifecycle tab
     nav4: "Cycle de vie IA",
+    nav5: "Bibliothèque",
     lc_title: "Matrice Piliers RAI × Cycle de vie IA",
     lc_sub: "Intensité d'applicabilité de chaque pilier à chacune des 10 étapes du cycle de vie des systèmes IA.",
     lc_pillar_hdr: "Pilier RAI",
@@ -1531,6 +2271,7 @@ const LANG = {
 
     // ── lifecycle tab
     nav4: "AI Lifecycle",
+    nav5: "Library",
     lc_title: "RAI Pillars × AI Lifecycle Matrix",
     lc_sub: "Applicability intensity of each pillar across the 10 stages of the AI system lifecycle.",
     lc_pillar_hdr: "RAI Pillar",
@@ -1642,6 +2383,9 @@ function applyLang() {
 
   // ── lifecycle tab
   set('i18n-nav4', t.nav4);
+  set('i18n-nav5', t.nav5);
+  // resources tab lang switch
+  applyResourcesLang(currentLang);
   set('lc-title', t.lc_title);
   set('lc-sub', t.lc_sub);
   set('lc-pillar-hdr', t.lc_pillar_hdr);
@@ -1658,6 +2402,23 @@ function applyLang() {
 
   // lang button label
   document.getElementById('langLabel').textContent = currentLang === 'en' ? 'FR' : 'EN';
+}
+
+
+function applyResourcesLang(lang) {
+  // Update all data-en/data-fr elements inside #resources
+  document.querySelectorAll('#resources [data-en]').forEach(el => {
+    el.textContent = lang === 'en' ? el.dataset.en : el.dataset.fr;
+  });
+  // Section header
+  const title = document.getElementById('res-title');
+  const sub   = document.getElementById('res-sub');
+  const stat  = document.getElementById('res-stat-fw');
+  if(title) title.textContent = lang === 'en' ? '55+ AI Frameworks & Regulations' : '55+ Cadres & Réglementations IA';
+  if(sub)   sub.textContent   = lang === 'en'
+    ? 'Exhaustive reference list with direct links. Click any framework name to access the source document.'
+    : 'Liste de référence exhaustive avec liens directs. Cliquez sur un cadre pour accéder au document source.';
+  if(stat)  stat.textContent  = lang === 'en' ? 'frameworks' : 'cadres';
 }
 
 document.addEventListener('DOMContentLoaded', applyLang);
