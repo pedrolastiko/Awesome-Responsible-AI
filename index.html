@@ -536,6 +536,20 @@ tbody td:first-child { text-align: left; font-size: 13px; font-weight: 500; padd
 .cp { color: #d97706; font-size: 0.85rem; }
 .cn { color: var(--border); font-size: 0.9rem; }
 .mx-pillar { color: var(--text); }
+.mx-pillar-content {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.mx-ico svg {
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  fill: none;
+  flex-shrink: 0;
+}
 
 .mx-note {
   margin-top: 1.5rem;
@@ -2452,7 +2466,12 @@ function applyLang() {
     set('i18n-p'+i+'-tens', t['p'+i+'tens']);
     // matrix row
     const mxEl = document.getElementById('i18n-mx-p'+i);
-    if(mxEl) mxEl.textContent = t['p'+i+'name'];
+    if(mxEl) {
+      const lcNameEl = document.getElementById('i18n-p'+i+'-name-lc');
+      const lcIconEl = lcNameEl?.parentElement?.querySelector('.lc-ico');
+      const iconHTML = lcIconEl ? `<span class="mx-ico" style="color:${lcIconEl.style.color}">${lcIconEl.innerHTML}</span>` : '';
+      mxEl.innerHTML = `<span class="mx-pillar-content">${iconHTML}<span>${t['p'+i+'name']}</span></span>`;
+    }
   }
 
   set('i18n-mx-title', t.mx_title);
