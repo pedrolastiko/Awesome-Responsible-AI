@@ -1,1422 +1,1220 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Responsible AI — Synthèse des Piliers</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<title>Responsible AI — The 9 Pillars</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
+/* ── TOKENS ── */
 :root {
-  --ink:     #141414;
-  --paper:   #f8f5f0;
-  --cream:   #f0ebe2;
-  --rule:    #d4cec4;
-  --muted:   #888070;
-  --white:   #ffffff;
-
-  --p1: #b83a1a; /* Transparence — terracotta */
-  --p2: #1a5c9e; /* Équité — cobalt */
-  --p3: #1e6b45; /* Sécurité — forest */
-  --p4: #6b3a8a; /* Vie privée — aubergine */
-  --p5: #c47a10; /* Responsabilité — amber */
-  --p6: #1a7a7a; /* Contrôle humain — teal */
-  --p7: #3a6e2a; /* Durabilité — vert */
-  --p8: #8a3a5a; /* Inclusion — bordeaux */
-  --p9: #2a3a8a; /* Gouvernance — indigo */
+  --bg:      #ffffff;
+  --bg2:     #f8f9fa;
+  --border:  #e5e7eb;
+  --text:    #111827;
+  --muted:   #6b7280;
+  --light-muted: #9ca3af;
+  --radius:  6px;
+}
+body.dark {
+  --bg:      #0f1117;
+  --bg2:     #1a1d27;
+  --border:  #2d3148;
+  --text:    #f1f3f9;
+  --muted:   #9ca3af;
+  --light-muted: #6b7280;
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
+* { margin:0; padding:0; box-sizing:border-box; }
 
 body {
-  font-family: 'Outfit', sans-serif;
-  background: var(--paper);
-  color: var(--ink);
-  min-height: 100vh;
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.6;
 }
 
-/* ── HEADER ── */
-.masthead {
-  background: var(--ink);
-  color: var(--paper);
-  padding: 3rem 4rem 2.5rem;
-  position: relative;
-  overflow: hidden;
-}
-
-.masthead::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(255,255,255,0.04) 40px),
-    repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(255,255,255,0.04) 40px);
-}
-
-.masthead-inner { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; }
-
-.masthead-top {
+/* ── TOPBAR ── */
+.topbar {
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  padding: 0 2rem;
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 3rem;
-  margin-bottom: 2rem;
-  padding-bottom: 2rem;
-  border-bottom: 1px solid rgba(255,255,255,0.15);
+  align-items: center;
+  gap: 1rem;
+  height: 52px;
+  position: sticky;
+  top: 0;
+  z-index: 200;
 }
 
-.label-tag {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.62rem;
-  letter-spacing: 0.22em;
+.topbar-brand {
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--text);
+  white-space: nowrap;
+}
+
+.topbar-brand span {
+  font-weight: 400;
+  color: var(--muted);
+  margin-left: 0.4rem;
+}
+
+.tab-group {
+  display: flex;
+  gap: 2px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 3px;
+  margin-left: auto;
+}
+
+.tab {
+  padding: 0.3rem 1rem;
+  font-size: 13px;
+  font-weight: 500;
+  border: none;
+  background: none;
+  color: var(--muted);
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+.tab:hover { color: var(--text); }
+.tab.active { background: var(--bg); color: var(--text); box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+body.dark .tab.active { box-shadow: 0 1px 3px rgba(0,0,0,0.4); }
+
+.ctrl-group {
+  display: flex;
+  gap: 4px;
+  margin-left: 0.75rem;
+}
+
+.ctrl {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0.3rem 0.75rem;
+  font-size: 12px;
+  font-weight: 500;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--muted);
+  cursor: pointer;
+  border-radius: 5px;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+.ctrl svg { width:13px; height:13px; stroke: currentColor; flex-shrink:0; }
+.ctrl:hover { color: var(--text); border-color: var(--text); }
+
+/* ── HERO ── */
+.hero {
+  border-bottom: 1px solid var(--border);
+  padding: 2.5rem 2rem 2rem;
+  background: var(--bg);
+}
+
+.hero-inner {
+  max-width: 900px;
+}
+
+.hero-kicker {
+  font-family: 'Fira Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.5);
+  color: var(--muted);
+  margin-bottom: 0.6rem;
+  display: block;
+}
+
+.hero h1 {
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  color: var(--text);
+  line-height: 1.2;
+}
+
+.hero-sub {
+  margin-top: 0.6rem;
+  color: var(--muted);
+  max-width: 640px;
+  font-size: 14px;
+}
+
+.hero-stats {
+  display: flex;
+  gap: 2rem;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+}
+
+.hstat { display: flex; flex-direction: column; gap: 2px; }
+.hstat-n {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1;
+  font-family: 'Fira Mono', monospace;
+}
+.hstat-l {
+  font-size: 11px;
+  color: var(--muted);
+  font-family: 'Fira Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* ── MAIN ── */
+.main { max-width: 1100px; margin: 0 auto; padding: 2rem; }
+
+.section { display: none; }
+.section.active { display: block; animation: fadeUp 0.2s ease; }
+@keyframes fadeUp { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
+
+/* ── OVERVIEW ── */
+.ov-intro {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.ov-intro-text {
+  font-size: 14px;
+  color: #374151;
+  line-height: 1.75;
+}
+body.dark .ov-intro-text { color: #d1d5db; }
+.ov-intro-text p + p { margin-top: 0.75rem; }
+
+.ov-callout {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+}
+
+.ov-callout-title {
+  font-weight: 600;
+  font-size: 13px;
+  margin-bottom: 0.75rem;
+  color: var(--text);
+}
+
+.consensus-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  font-size: 12px;
+}
+
+.cr-dot {
+  width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+}
+
+.cr-label { color: var(--muted); flex: 1; }
+.cr-pct { font-family: 'Fira Mono', monospace; font-weight: 500; font-size: 11px; color: var(--text); }
+
+.section-label {
+  font-family: 'Fira Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--muted);
   margin-bottom: 1rem;
 }
 
-.masthead h1 {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(2.2rem, 4vw, 3.6rem);
-  font-weight: 700;
-  line-height: 1.08;
-  letter-spacing: -0.02em;
-  color: var(--paper);
-}
-
-.masthead h1 em {
-  font-style: italic;
-  color: #e8c87a;
-}
-
-.masthead-sub {
-  margin-top: 0.8rem;
-  font-size: 0.9rem;
-  color: rgba(255,255,255,0.55);
-  font-weight: 300;
-  line-height: 1.65;
-  max-width: 560px;
-}
-
-.masthead-stats {
+.ov-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 0;
-  border: 1px solid rgba(255,255,255,0.15);
-  flex-shrink: 0;
-  min-width: 300px;
+  gap: 0.75rem;
 }
 
-.mstat {
-  padding: 1.2rem 1.4rem;
-  border-right: 1px solid rgba(255,255,255,0.1);
-  text-align: center;
-}
-.mstat:last-child { border-right: none; }
-
-.mstat .n {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 2.4rem;
-  font-weight: 700;
-  color: #e8c87a;
-  line-height: 1;
-  display: block;
-}
-
-.mstat .l {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.58rem;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: rgba(255,255,255,0.4);
-  margin-top: 0.3rem;
-  display: block;
-}
-
-/* Pillar legend bar */
-.pillar-legend {
-  display: flex;
-  gap: 0;
-  flex-wrap: nowrap;
+.ov-card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.1rem 1.1rem 0.9rem;
+  cursor: pointer;
+  transition: all 0.15s;
+  background: var(--bg);
+  border-top: 3px solid var(--pc);
+  position: relative;
   overflow: hidden;
 }
 
-.legend-dot {
-  flex: 1;
-  height: 4px;
-  cursor: pointer;
-  transition: flex 0.3s ease;
+.ov-card:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  transform: translateY(-1px);
+  background: var(--pl);
 }
 
-.legend-dot:hover { flex: 3; }
-
-/* ── NAV ── */
-.nav-bar {
-  background: var(--white);
-  border-bottom: 1px solid var(--rule);
-  padding: 0 4rem;
-  display: flex;
-  align-items: center;
-  gap: 0;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  overflow-x: auto;
+body.dark .ov-card:hover {
+  background: var(--bg2);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
 }
 
-.nav-btn {
-  padding: 0.9rem 1.1rem;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.6rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+.ov-header { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.5rem; }
+
+.ov-icon svg {
+  width: 18px; height: 18px;
+  stroke: var(--pc);
+  stroke-width: 1.8;
+  fill: none;
+}
+
+.ov-num {
+  font-family: 'Fira Mono', monospace;
+  font-size: 11px;
   color: var(--muted);
-  cursor: pointer;
-  border: none;
-  background: none;
-  border-bottom: 2px solid transparent;
-  white-space: nowrap;
-  transition: all 0.2s;
-}
-.nav-btn:hover { color: var(--ink); }
-.nav-btn.active { color: var(--ink); border-bottom-color: var(--ink); font-weight: 500; }
-
-.nav-sep { width: 1px; background: var(--rule); height: 20px; margin: 0 0.5rem; flex-shrink: 0; }
-
-/* ── MAIN ── */
-main { max-width: 1200px; margin: 0 auto; padding: 3rem 4rem 6rem; }
-
-/* ── SECTION ── */
-.section { display: none; }
-.section.active { display: block; animation: rise 0.35s ease; }
-
-@keyframes rise {
-  from { opacity: 0; transform: translateY(12px); }
-  to   { opacity: 1; transform: translateY(0); }
+  font-weight: 500;
 }
 
-/* ── INTRO SECTION ── */
-.intro-lead {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 3rem;
-  margin-bottom: 3rem;
-  padding-bottom: 3rem;
-  border-bottom: 1px solid var(--rule);
+.ov-name {
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--text);
+  margin-bottom: 0.6rem;
+  line-height: 1.3;
 }
 
-.intro-text {
-  font-size: 1rem;
-  line-height: 1.8;
-  color: #333;
-}
-
-.intro-text p + p { margin-top: 1rem; }
-.intro-text strong { color: var(--ink); font-weight: 600; }
-
-.intro-pull {
-  background: var(--ink);
-  color: var(--paper);
-  padding: 2rem;
-}
-
-.intro-pull blockquote {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.3rem;
-  font-style: italic;
-  line-height: 1.6;
-  color: #e8e0d0;
-}
-
-.intro-pull cite {
-  display: block;
-  margin-top: 1rem;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.6rem;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: rgba(255,255,255,0.4);
-  font-style: normal;
-}
-
-/* ── CONSENSUS MAP ── */
-.consensus-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.5rem;
-  font-weight: 700;
+.ov-bar {
+  height: 3px;
+  background: var(--border);
+  border-radius: 2px;
   margin-bottom: 0.4rem;
 }
 
-.consensus-sub {
-  font-size: 0.82rem;
+.ov-fill {
+  height: 3px;
+  background: var(--pc);
+  border-radius: 2px;
+  transition: width 0.6s ease;
+}
+
+.ov-score {
+  font-size: 11px;
   color: var(--muted);
-  margin-bottom: 1.8rem;
+  font-family: 'Fira Mono', monospace;
 }
 
-.consensus-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
-  margin-bottom: 3rem;
-}
-
-.c-card {
-  background: var(--white);
-  border: 1px solid var(--rule);
-  padding: 1.4rem;
-  cursor: pointer;
-  transition: all 0.2s;
-  border-top: 4px solid var(--c-color);
-  position: relative;
-}
-
-.c-card:hover { box-shadow: 0 6px 20px rgba(0,0,0,0.08); transform: translateY(-2px); }
-
-.c-num {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 2.8rem;
-  font-weight: 700;
-  color: var(--c-color);
-  line-height: 1;
-  margin-bottom: 0.3rem;
-}
-
-.c-name {
-  font-weight: 600;
-  font-size: 0.88rem;
-  line-height: 1.3;
-  margin-bottom: 0.6rem;
-}
-
-.c-bar-wrap {
-  height: 4px;
-  background: var(--rule);
-  margin-bottom: 0.5rem;
-}
-
-.c-bar {
-  height: 4px;
-  background: var(--c-color);
-  width: var(--pct);
-}
-
-.c-score {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.6rem;
-  color: var(--muted);
-  letter-spacing: 0.08em;
-}
-
-/* ── PILLAR SECTION ── */
-.pillars-list { display: flex; flex-direction: column; gap: 1.5rem; }
-
+/* ── PILLARS ── */
 .pillar-card {
-  background: var(--white);
-  border: 1px solid var(--rule);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 0.5rem;
   overflow: hidden;
-  border-left: 5px solid var(--p-color);
+  background: var(--bg);
 }
 
-.pillar-header {
-  display: grid;
-  grid-template-columns: 70px 1fr auto;
+.pillar-hd {
+  width: 100%;
+  display: flex;
   align-items: center;
-  gap: 1.5rem;
-  padding: 1.5rem 2rem;
+  gap: 0.85rem;
+  padding: 0.85rem 1rem;
+  background: none;
+  border: none;
   cursor: pointer;
-  transition: background 0.15s;
+  text-align: left;
+  border-left: 3px solid var(--pc);
+  transition: background 0.12s;
 }
 
-.pillar-header:hover { background: var(--cream); }
+.pillar-hd:hover { background: var(--pl); }
+body.dark .pillar-hd:hover { background: var(--bg2); }
 
-.pillar-num {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 3rem;
-  font-weight: 700;
-  color: var(--p-color);
-  line-height: 1;
-  opacity: 0.6;
+.pillar-ico svg {
+  width: 20px; height: 20px;
+  stroke: var(--pc);
+  stroke-width: 1.8;
+  fill: none;
+  flex-shrink: 0;
 }
 
-.pillar-title-wrap {}
+.pillar-nn {
+  font-family: 'Fira Mono', monospace;
+  font-size: 12px;
+  color: var(--muted);
+  width: 24px;
+  flex-shrink: 0;
+}
 
-.pillar-icon { font-size: 1.3rem; margin-bottom: 0.2rem; }
+.pillar-info { flex: 1; min-width: 0; }
 
 .pillar-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.5rem;
-  font-weight: 700;
-  line-height: 1.1;
-  color: var(--ink);
+  display: block;
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--text);
 }
 
-.pillar-tagline {
-  font-size: 0.78rem;
+.pillar-tag {
+  display: block;
+  font-size: 12px;
   color: var(--muted);
-  margin-top: 0.25rem;
-  font-weight: 300;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.pillar-meta-right {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 0.5rem;
+.pillar-badge {
+  font-family: 'Fira Mono', monospace;
+  font-size: 10px;
+  padding: 0.2rem 0.55rem;
+  border: 1px solid var(--pc);
+  color: var(--pc);
+  border-radius: 3px;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
-.p-consensus {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.62rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  padding: 0.2rem 0.6rem;
-  border: 1px solid var(--p-color);
-  color: var(--p-color);
+.pillar-chev svg {
+  width: 16px; height: 16px;
+  stroke: var(--muted);
+  transition: transform 0.2s;
+  flex-shrink: 0;
 }
 
-.p-frameworks-count {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.6rem;
-  color: var(--muted);
-}
+.pillar-card.open .pillar-chev svg { transform: rotate(180deg); }
 
-.p-chevron {
-  font-size: 1rem;
-  color: var(--muted);
-  transition: transform 0.25s;
-}
-
-.pillar-card.open .p-chevron { transform: rotate(180deg); }
-
+/* body */
 .pillar-body {
   display: none;
-  padding: 0 2rem 2rem;
-  border-top: 1px solid var(--rule);
+  padding: 1.25rem 1.25rem 1.25rem 1.25rem;
+  border-top: 1px solid var(--border);
 }
-
 .pillar-card.open .pillar-body { display: block; }
 
-.pillar-body-grid {
+.pb-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 2rem;
-  padding-top: 1.5rem;
+  gap: 1.5rem;
 }
 
-.pb-section-title {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.6rem;
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
-  color: var(--muted);
-  margin-bottom: 0.8rem;
-  padding-bottom: 0.4rem;
-  border-bottom: 1px solid var(--rule);
-}
-
-.pb-def {
-  font-size: 0.88rem;
-  line-height: 1.75;
-  color: #3a3a3a;
-  margin-bottom: 1.2rem;
-}
-
-.sub-principles { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
-
-.sub-principle {
-  display: flex;
-  gap: 0.6rem;
-  align-items: flex-start;
-  font-size: 0.82rem;
-  color: #444;
-  line-height: 1.5;
-}
-
-.sub-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--p-color);
-  flex-shrink: 0;
-  margin-top: 0.45rem;
-}
-
-/* Frameworks coverage */
-.fw-coverage {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.fw-row {
-  display: flex;
-  align-items: center;
-  gap: 0.7rem;
-  font-size: 0.78rem;
-}
-
-.fw-name { width: 160px; flex-shrink: 0; color: #444; font-weight: 500; }
-
-.fw-bar-bg { flex: 1; height: 6px; background: var(--rule); }
-.fw-bar-fill { height: 6px; background: var(--p-color); transition: width 0.6s ease; }
-
-.fw-level {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.58rem;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  width: 70px;
-  text-align: right;
-  flex-shrink: 0;
-}
-
-.lvl-full { color: var(--p-color); }
-.lvl-partial { color: var(--muted); }
-.lvl-emerging { color: #aaa; }
-
-/* Obligations / pratiques */
-.obligations { display: flex; flex-direction: column; gap: 0.6rem; }
-
-.obligation {
-  background: var(--cream);
-  padding: 0.7rem 1rem;
-  border-left: 3px solid var(--p-color);
-  font-size: 0.8rem;
-  color: #333;
-  line-height: 1.5;
-}
-
-.obligation strong { font-weight: 600; color: var(--ink); }
-
-/* Tensions */
-.tensions {
-  background: #fff8f0;
-  border: 1px solid #f0d8b0;
-  padding: 1rem 1.2rem;
-  margin-top: 1.2rem;
-  grid-column: 1 / -1;
-}
-
-.tensions-title {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.58rem;
+.pb-label {
+  font-family: 'Fira Mono', monospace;
+  font-size: 10px;
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  color: #b07030;
+  color: var(--muted);
   margin-bottom: 0.5rem;
+  margin-top: 1rem;
+  padding-bottom: 0.3rem;
+  border-bottom: 1px solid var(--border);
+}
+.pb-col > .pb-label:first-child { margin-top: 0; }
+
+.pb-def {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.7;
 }
 
-.tensions p { font-size: 0.8rem; color: #555; line-height: 1.6; }
+.pb-subs {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
 
-/* ── MATRIX VIEW ── */
-.matrix-container { overflow-x: auto; }
+.pb-subs li {
+  font-size: 13px;
+  color: #374151;
+  line-height: 1.55;
+  padding-left: 0.9rem;
+  position: relative;
+}
+body.dark .pb-subs li { color: #d1d5db; }
+
+.pb-subs li::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0.5em;
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--pc);
+}
+
+/* framework bars */
+.fw-list { display: flex; flex-direction: column; gap: 0.35rem; }
+.fw-row { display: flex; align-items: center; gap: 0.5rem; font-size: 12px; }
+.fw-nm { width: 130px; flex-shrink: 0; color: var(--muted); }
+.fw-bg { flex: 1; height: 5px; background: var(--border); border-radius: 3px; }
+.fw-fi { height: 5px; border-radius: 3px; }
+.lf { background: #16a34a; }
+.lp { background: #d97706; }
+.ln { background: #9ca3af; }
+.fw-lv { font-size: 10px; font-family: 'Fira Mono', monospace; width: 70px; text-align: right; flex-shrink: 0; }
+.fw-lv.lf { color: #16a34a; }
+.fw-lv.lp { color: #d97706; }
+.fw-lv.ln { color: #9ca3af; }
+
+/* requirements */
+.reqs { display: flex; flex-direction: column; gap: 0.4rem; }
+.req-item {
+  font-size: 13px;
+  color: #374151;
+  padding: 0.55rem 0.75rem;
+  background: var(--bg2);
+  border-left: 3px solid var(--pc);
+  border-radius: 0 4px 4px 0;
+  line-height: 1.55;
+}
+body.dark .req-item { color: #d1d5db; }
+
+.tens-lbl { color: #b45309 !important; border-color: #fcd34d !important; }
+
+.pb-tens {
+  font-size: 13px;
+  color: #78350f;
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+  border-radius: 4px;
+  padding: 0.75rem;
+  line-height: 1.65;
+}
+body.dark .pb-tens {
+  color: #fde68a;
+  background: #1c1a0a;
+  border-color: #78350f;
+}
+
+/* ── MATRIX ── */
+.matrix-intro {
+  margin-bottom: 1.25rem;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.matrix-legend {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+  font-size: 12px;
+  color: var(--muted);
+  font-family: 'Fira Mono', monospace;
+}
+
+.mx-wrap { overflow-x: auto; }
 
 table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.75rem;
-  min-width: 900px;
+  font-size: 12px;
+  min-width: 800px;
 }
 
 thead th {
-  padding: 0.65rem 0.8rem;
+  padding: 0.55rem 0.6rem;
+  text-align: center;
+  font-family: 'Fira Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  border-bottom: 2px solid var(--border);
+  background: var(--bg2);
+  white-space: nowrap;
+}
+thead th:first-child { text-align: left; min-width: 190px; }
+
+tbody tr { border-bottom: 1px solid var(--border); transition: background 0.1s; }
+tbody tr:hover { background: var(--bg2); }
+tbody td { padding: 0.65rem 0.6rem; vertical-align: middle; text-align: center; }
+tbody td:first-child { text-align: left; font-size: 13px; font-weight: 500; padding-left: 0.75rem; }
+
+.cf { color: #16a34a; font-size: 0.95rem; }
+.cp { color: #d97706; font-size: 0.85rem; }
+.cn { color: var(--border); font-size: 0.9rem; }
+.mx-pillar { color: var(--text); }
+
+.mx-note {
+  margin-top: 1.5rem;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+}
+
+.mx-note-col h4 {
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--text);
+}
+
+.mx-note-col p, .mx-note-col div {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+/* ── FOOTER ── */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 0.75rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  align-items: center;
+  font-family: 'Fira Mono', monospace;
+  font-size: 11px;
+  color: var(--light-muted);
+  background: var(--bg2);
+  letter-spacing: 0.04em;
+}
+
+.footer-top {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.footer-oss {
+  font-size: 11px;
+  color: var(--muted);
+  border-top: 1px solid var(--border);
+  padding-top: 0.4rem;
+  width: 100%;
+  text-align: center;
+  letter-spacing: 0.06em;
+}
+
+@media (max-width: 800px) {
+  .topbar { flex-wrap: wrap; height: auto; padding: 0.5rem 1rem; gap: 0.5rem; }
+  .tab-group { order: 2; width: 100%; margin-left: 0; }
+  .ctrl-group { margin-left: 0; }
+  .hero, .main { padding: 1.25rem; }
+  .ov-intro { grid-template-columns: 1fr; }
+  .ov-grid { grid-template-columns: 1fr 1fr; }
+  .pb-grid { grid-template-columns: 1fr; }
+  .mx-note { grid-template-columns: 1fr; }
+  .pillar-badge { display: none; }
+  footer { flex-direction: column; gap: 0.25rem; }
+}
+
+/* ── LIFECYCLE MATRIX ── */
+.lc-header { margin-bottom: 1.25rem; }
+.lc-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 0.3rem;
+}
+.lc-sub {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 0.75rem;
+}
+.lc-legend {
+  font-family: 'Fira Mono', monospace;
+  font-size: 12px;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+.lc-full { color: #16a34a; font-size: 14px; }
+.lc-part { color: #d97706; font-size: 13px; }
+.lc-none-sym { color: var(--border); font-size: 13px; }
+
+.lc-wrap { overflow-x: auto; margin-bottom: 1.5rem; }
+
+.lc-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  min-width: 860px;
+}
+
+.lc-th-pillar {
   text-align: left;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.58rem;
+  font-family: 'Fira Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  padding: 0.55rem 0.75rem;
+  border-bottom: 2px solid var(--border);
+  background: var(--bg2);
+  min-width: 200px;
+  white-space: nowrap;
+}
+
+.lc-th {
+  text-align: center;
+  font-family: 'Fira Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  padding: 0.4rem 0.3rem;
+  border-bottom: 2px solid var(--border);
+  background: var(--bg2);
+  white-space: pre-line;
+  line-height: 1.3;
+  min-width: 68px;
+  vertical-align: bottom;
+}
+
+.lc-table tbody tr {
+  border-bottom: 1px solid var(--border);
+  transition: background 0.1s;
+}
+.lc-table tbody tr:hover { background: var(--bg2); }
+
+.lc-pillar-cell {
+  padding: 0.6rem 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text);
+  white-space: nowrap;
+}
+
+.lc-ico svg {
+  width: 16px;
+  height: 16px;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  fill: none;
+  flex-shrink: 0;
+}
+
+.lc-cell {
+  text-align: center;
+  vertical-align: middle;
+  padding: 0.55rem 0.25rem;
+  font-size: 15px;
+  transition: background 0.1s;
+  position: relative;
+}
+
+.lc-full { color: #16a34a; }
+.lc-part { color: #d97706; }
+.lc-none { color: var(--border); }
+
+.lc-table tbody tr:hover .lc-cell { background: rgba(0,0,0,0.02); }
+body.dark .lc-table tbody tr:hover .lc-cell { background: rgba(255,255,255,0.02); }
+
+/* column highlight on hover */
+.lc-table colgroup col { transition: background 0.1s; }
+
+/* ── INSIGHTS ── */
+.lc-insights { margin-top: 0.5rem; }
+
+.lc-insight-title {
+  font-family: 'Fira Mono', monospace;
+  font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: var(--muted);
-  border-bottom: 2px solid var(--ink);
-  background: var(--paper);
-  white-space: nowrap;
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid var(--border);
 }
 
-thead th:first-child { min-width: 200px; }
-
-tbody tr { border-bottom: 1px solid var(--rule); transition: background 0.1s; }
-tbody tr:hover { background: var(--cream); }
-
-tbody td { padding: 0.75rem 0.8rem; vertical-align: middle; }
-tbody td:first-child { font-weight: 600; font-size: 0.8rem; }
-
-.cell-full   { text-align: center; color: var(--p3); font-size: 1rem; }
-.cell-part   { text-align: center; color: #c8a020; font-size: 0.85rem; }
-.cell-none   { text-align: center; color: var(--rule); font-size: 0.9rem; }
-.cell-emerg  { text-align: center; color: #aaa; font-size: 0.75rem; font-family: 'JetBrains Mono', monospace; }
-
-.row-pillar {
-  width: 10px;
-  padding: 0;
+.lc-insight-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.75rem;
 }
 
-.pillar-stripe {
-  width: 5px;
-  height: 100%;
-  display: block;
+.lc-insight-card {
+  border: 1px solid var(--border);
+  border-top: 3px solid;
+  border-radius: var(--radius);
+  padding: 0.9rem;
+  background: var(--bg);
 }
 
-/* FOOTER */
-footer {
-  border-top: 1px solid var(--rule);
-  padding: 1.5rem 4rem;
-  display: flex;
-  justify-content: space-between;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.6rem;
+.lc-ic-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 0.4rem;
+  line-height: 1.3;
+}
+
+.lc-ic-body {
+  font-size: 12px;
   color: var(--muted);
-  letter-spacing: 0.06em;
-  background: var(--white);
+  line-height: 1.6;
 }
 
-@media (max-width: 900px) {
-  .masthead, main, .nav-bar, footer { padding-left: 1.5rem; padding-right: 1.5rem; }
-  .masthead-top { flex-direction: column; }
-  .masthead-stats { min-width: unset; width: 100%; }
-  .intro-lead { grid-template-columns: 1fr; }
-  .consensus-grid { grid-template-columns: 1fr 1fr; }
-  .pillar-body-grid { grid-template-columns: 1fr; }
-  .pillar-header { grid-template-columns: 50px 1fr; }
-  .pillar-meta-right { display: none; }
-}
-
-body.light {
-  --ink:   #0f1117;
-  --paper: #f4f7fb;
-  --cream: #e8edf5;
-  --rule:  #c8d0e0;
-  --muted: #5a6280;
-  --white: #ffffff;
-}
-body.light .masthead { background: #1a2340; }
-body.light .masthead::before { opacity: 0.3; }
-body.light .nav-bar { background: #fff; box-shadow: 0 1px 6px rgba(0,0,0,0.07); }
-body.light .intro-pull { background: #1a2340; }
-body.light .c-card { background: #fff; }
-body.light .pillar-card { background: #fff; }
-body.light .pillar-header:hover { background: var(--cream); }
-body.light footer { background: #fff; }
-
-/* ─── CONTROL BUTTONS ─── */
-.ctrl-btn {
-  margin-left: 0.5rem;
-  padding: 0.28rem 0.85rem;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.6rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  border: 1px solid var(--rule);
-  background: none;
-  color: var(--muted);
-  cursor: pointer;
-  border-radius: 2px;
-  transition: all 0.15s;
-  white-space: nowrap;
-}
-.ctrl-btn:hover { border-color: var(--ink); color: var(--ink); }
-.ctrl-btn.active-ctrl { background: var(--ink); color: var(--paper); border-color: var(--ink); }
-
-
-/* ── LUCIDE ICONS ── */
-.pillar-icon svg {
-  display: block;
-  width: 28px;
-  height: 28px;
-  stroke: var(--p-color);
-  stroke-width: 1.6;
-  fill: none;
-  margin-bottom: 0.35rem;
-}
-
-.c-card svg {
-  display: block;
-  width: 32px;
-  height: 32px;
-  stroke: var(--c-color);
-  stroke-width: 1.5;
-  fill: none;
-  margin-bottom: 0.5rem;
+@media (max-width: 800px) {
+  .lc-insight-grid { grid-template-columns: 1fr 1fr; }
 }
 
 </style>
 </head>
 <body>
 
-<!-- ══════════════ MASTHEAD ══════════════ -->
-<div class="masthead">
-  <div class="masthead-inner">
-    <div class="masthead-top">
-      <div>
-        <div class="label-tag">Analyse transversale · 55+ cadres & réglementations · Mars 2026</div>
-        <h1><span id="i18n-h1line1">Les piliers du</span><br><em id="i18n-h1em">Responsible AI</em></h1>
-        <p class="masthead-sub" id="i18n-subtitle">Synthèse structurée des exigences communes issues de l'analyse croisée de 55+ cadres internationaux, réglementations, normes et standards industriels sur l'intelligence artificielle responsable.</p>
-      </div>
-      <div class="masthead-stats">
-        <div class="mstat"><span class="n">9</span><span class="l" id="i18n-stat1">Piliers universels</span></div>
-        <div class="mstat"><span class="n">55+</span><span class="l" id="i18n-stat2">Cadres analysés</span></div>
-        <div class="mstat"><span class="n">100%</span><span class="l" id="i18n-stat3">Consensus sur 5 piliers</span></div>
-      </div>
-    </div>
-    <div class="pillar-legend">
-      <div class="legend-dot" style="background:var(--p1);" title="Transparence"></div>
-      <div class="legend-dot" style="background:var(--p2);" title="Équité"></div>
-      <div class="legend-dot" style="background:var(--p3);" title="Sécurité"></div>
-      <div class="legend-dot" style="background:var(--p4);" title="Vie privée"></div>
-      <div class="legend-dot" style="background:var(--p5);" title="Responsabilité"></div>
-      <div class="legend-dot" style="background:var(--p6);" title="Contrôle humain"></div>
-      <div class="legend-dot" style="background:var(--p7);" title="Durabilité"></div>
-      <div class="legend-dot" style="background:var(--p8);" title="Inclusion"></div>
-      <div class="legend-dot" style="background:var(--p9);" title="Gouvernance"></div>
+<!-- ── TOPBAR ── -->
+<header class="topbar">
+  <div class="topbar-brand">Responsible AI <span id="i18n-kicker"></span></div>
+  <div class="tab-group">
+    <button class="tab active" id="i18n-nav1" onclick="showTab('overview',this)"></button>
+    <button class="tab" id="i18n-nav2" onclick="showTab('pillars',this)"></button>
+    <button class="tab" id="i18n-nav3" onclick="showTab('matrix',this)"></button>
+    <button class="tab" id="i18n-nav4" onclick="showTab('lifecycle',this)"></button>
+  </div>
+  <div class="ctrl-group">
+    <button class="ctrl" id="langBtn" onclick="toggleLang()"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg> <span id="langLabel">FR</span></button>
+    <button class="ctrl" id="themeBtn" onclick="toggleTheme()"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg> <span id="themeLabel">Dark</span></button>
+  </div>
+</header>
+
+<!-- ── HERO ── -->
+<div class="hero">
+  <div class="hero-inner">
+    <span class="hero-kicker" id="i18n-subtitle"></span>
+    <h1 id="i18n-h1line1"></h1>
+    <div class="hero-stats">
+      <div class="hstat"><span class="hstat-n">9</span><span class="hstat-l" id="i18n-stat1"></span></div>
+      <div class="hstat"><span class="hstat-n">55+</span><span class="hstat-l" id="i18n-stat2"></span></div>
+      <div class="hstat"><span class="hstat-n">100%</span><span class="hstat-l" id="i18n-stat3"></span></div>
     </div>
   </div>
 </div>
 
-<!-- ══════════════ NAV ══════════════ -->
-<nav class="nav-bar">
-  <button class="nav-btn active" id="i18n-nav1" onclick="showSection('overview', this)">Vue d'ensemble</button>
-  <div class="nav-sep"></div>
-  <button class="nav-btn" id="i18n-nav2" onclick="showSection('pillars', this)">Les 9 piliers</button>
-  <div class="nav-sep"></div>
-  <button class="nav-btn" id="i18n-nav3" onclick="showSection('matrix', this)">Matrice</button>
-  <div style="margin-left:auto;display:flex;align-items:center;gap:0.3rem;padding:0 0 0 1rem;">
-    <button class="ctrl-btn" id="langBtn" onclick="toggleLang()">🌐 EN</button>
-    <button class="ctrl-btn" id="themeBtn" onclick="toggleTheme()">☀️ Light</button>
-  </div>
-</nav>
+<!-- ── MAIN ── -->
+<div class="main">
 
-<main>
-
-<!-- ══════════════════════════════════════════
-     VUE D'ENSEMBLE
-══════════════════════════════════════════ -->
-<section id="overview" class="section active">
-
-  <div class="intro-lead">
-    <div class="intro-text">
-      <p id="i18n-intro-p1">L'analyse croisée de <strong>55+ cadres de référence</strong> — réglementations contraignantes, normes certifiables, lignes directrices gouvernementales, standards industriels et initiatives multilatérales — révèle une convergence remarquable autour de <strong>9 piliers fondamentaux</strong>.</p>
-      <p id="i18n-intro-p2">Ces piliers ne sont pas simplement des principes éthiques : ils structurent des <strong>exigences opérationnelles concrètes</strong> qui s'imposent aux organisations développant, déployant ou utilisant des systèmes d'intelligence artificielle.</p>
-      <p id="i18n-intro-p3">Le degré de consensus varie : cinq piliers font l'objet d'un accord quasi-universel (présents dans 90–100% des cadres), deux sont en consolidation (70–89%), et deux sont <strong>émergents</strong> — en forte croissance dans les cadres récents de 2024–2025.</p>
-      <p id="i18n-intro-p4">La singularité du paysage actuel est l'articulation entre cadres <strong>volontaires</strong> (qui ont défini le vocabulaire et les concepts) et cadres <strong>contraignants</strong> (qui translatent ces concepts en obligations légales avec sanctions). L'EU AI Act est le pivot de cette transition.</p>
-    </div>
-    <div class="intro-pull">
-      <blockquote id="i18n-pull-quote">« Ces piliers forment un système organique — non une liste à cocher. Négliger l'un d'eux crée des failles qui fragilisent l'ensemble. La gouvernance sans transparence est opaque. La sécurité sans équité protège les forts. La responsabilité sans contrôle humain automatise l'impunité. »</blockquote>
-      <cite id="i18n-pull-cite">Synthèse transversale — Responsible AI Frameworks 2026</cite>
-    </div>
-  </div>
-
-  <div class="consensus-title" id="i18n-ov-title">Niveau de consensus par pilier</div>
-  <div class="consensus-sub" id="i18n-ov-sub">Taux de présence explicite dans les 55+ cadres analysés, pondéré par le caractère contraignant ou volontaire</div>
-
-  <div class="consensus-grid">
-
-    <div class="c-card" style="--c-color: var(--p1);" onclick="goToPillar(1)">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><circle cx="12" cy="12" r="1"/><path d="M5 12s2.5-5 7-5 7 5 7 5-2.5 5-7 5-7-5-7-5"/></svg>
-      <div class="c-num">01</div>
-      <div class="c-name" id="i18n-c1-name">Transparence & Explicabilité</div>
-      <div class="c-bar-wrap"><div class="c-bar" style="--pct: 98%"></div></div>
-      <div class="c-score" id="i18n-c1-score">98% des cadres · Consensus universel</div>
-    </div>
-
-    <div class="c-card" style="--c-color: var(--p2);" onclick="goToPillar(2)">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M7 21H17"/><path d="M12 3v18"/><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/></svg>
-      <div class="c-num">02</div>
-      <div class="c-name" id="i18n-c2-name">Équité & Non-discrimination</div>
-      <div class="c-bar-wrap"><div class="c-bar" style="--pct: 95%"></div></div>
-      <div class="c-score" id="i18n-c2-score">95% des cadres · Consensus universel</div>
-    </div>
-
-    <div class="c-card" style="--c-color: var(--p3);" onclick="goToPillar(3)">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
-      <div class="c-num">03</div>
-      <div class="c-name" id="i18n-c3-name">Sécurité & Robustesse</div>
-      <div class="c-bar-wrap"><div class="c-bar" style="--pct: 96%"></div></div>
-      <div class="c-score" id="i18n-c3-score">96% des cadres · Consensus universel</div>
-    </div>
-
-    <div class="c-card" style="--c-color: var(--p4);" onclick="goToPillar(4)">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="16" r="1"/><rect x="3" y="10" width="18" height="12" rx="2"/><path d="M7 10V7a5 5 0 0 1 10 0v3"/></svg>
-      <div class="c-num">04</div>
-      <div class="c-name" id="i18n-c4-name">Vie privée & Protection des données</div>
-      <div class="c-bar-wrap"><div class="c-bar" style="--pct: 97%"></div></div>
-      <div class="c-score" id="i18n-c4-score">97% des cadres · Consensus universel</div>
-    </div>
-
-    <div class="c-card" style="--c-color: var(--p5);" onclick="goToPillar(5)">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
-      <div class="c-num">05</div>
-      <div class="c-name" id="i18n-c5-name">Responsabilité & Imputabilité</div>
-      <div class="c-bar-wrap"><div class="c-bar" style="--pct: 100%"></div></div>
-      <div class="c-score" id="i18n-c5-score">100% des cadres · Consensus absolu</div>
-    </div>
-
-    <div class="c-card" style="--c-color: var(--p6);" onclick="goToPillar(6)">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg>
-      <div class="c-num">06</div>
-      <div class="c-name" id="i18n-c6-name">Contrôle humain & Supervision</div>
-      <div class="c-bar-wrap"><div class="c-bar" style="--pct: 88%"></div></div>
-      <div class="c-score" id="i18n-c6-score">88% des cadres · En consolidation</div>
-    </div>
-
-    <div class="c-card" style="--c-color: var(--p7);" onclick="goToPillar(7)">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 20h10"/><path d="M10 20c5.5-2.5.8-6.4 3-10"/><path d="M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4 0 5.5.8z"/><path d="M14.1 6a7 7 0 0 1 1.1 4.8c-1.6.6-3.2.8-4.6.5.1-1.5.7-3.1 1.9-4.2.9-.8 2.1-1.3 3.5-1.5z"/></svg>
-      <div class="c-num">07</div>
-      <div class="c-name" id="i18n-c7-name">Durabilité & Impact environnemental</div>
-      <div class="c-bar-wrap"><div class="c-bar" style="--pct: 42%"></div></div>
-      <div class="c-score" id="i18n-c7-score">42% des cadres · Pilier émergent ↑</div>
-    </div>
-
-    <div class="c-card" style="--c-color: var(--p8);" onclick="goToPillar(8)">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m11 17 2 2a1 1 0 1 0 3-3"/><path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4"/><path d="m21 3 1 11h-2"/><path d="M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3"/><path d="M3 4h8"/></svg>
-      <div class="c-num">08</div>
-      <div class="c-name" id="i18n-c8-name">Inclusion & Accessibilité</div>
-      <div class="c-bar-wrap"><div class="c-bar" style="--pct: 75%"></div></div>
-      <div class="c-score" id="i18n-c8-score">75% des cadres · En consolidation</div>
-    </div>
-
-    <div class="c-card" style="--c-color: var(--p9);" onclick="goToPillar(9)">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="22" x2="21" y2="22"/><line x1="6" y1="18" x2="6" y2="11"/><line x1="10" y1="18" x2="10" y2="11"/><line x1="14" y1="18" x2="14" y2="11"/><line x1="18" y1="18" x2="18" y2="11"/><polygon points="12 2 20 7 4 7"/></svg>
-      <div class="c-num">09</div>
-      <div class="c-name" id="i18n-c9-name">Gouvernance & Gestion des risques IA</div>
-      <div class="c-bar-wrap"><div class="c-bar" style="--pct: 93%"></div></div>
-      <div class="c-score" id="i18n-c9-score">93% des cadres · Consensus universel</div>
-    </div>
-
-  </div>
-
-</section>
-
-<!-- ══════════════════════════════════════════
-     LES 9 PILIERS
-══════════════════════════════════════════ -->
-<section id="pillars" class="section">
-<div class="pillars-list">
-
-  <!-- PILIER 1 -->
-  <div class="pillar-card" style="--p-color: var(--p1);" id="pillar-1">
-    <div class="pillar-header" onclick="togglePillar(this)">
-      <div class="pillar-num">01</div>
-      <div class="pillar-title-wrap">
-        <div class="pillar-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><circle cx="12" cy="12" r="1"/><path d="M5 12s2.5-5 7-5 7 5 7 5-2.5 5-7 5-7-5-7-5"/></svg></div>
-        <div class="pillar-title" id="i18n-p1-name">Transparence & Explicabilité</div>
-        <div class="pillar-tagline" id="i18n-p1-tag">Les systèmes IA doivent pouvoir être compris, documentés et expliqués</div>
+  <!-- OVERVIEW -->
+  <section id="overview" class="section active">
+    <div class="ov-intro">
+      <div class="ov-intro-text">
+        <p id="i18n-intro-p1"></p>
+        <p id="i18n-intro-p2"></p>
+        <p id="i18n-intro-p3"></p>
+        <p id="i18n-intro-p4"></p>
       </div>
-      <div class="pillar-meta-right">
-        <span class="p-consensus" id="i18n-p1-cons">Consensus universel · 98%</span>
-        <span class="p-frameworks-count" id="i18n-p1-count">Présent dans 54+ cadres</span>
-        <span class="p-chevron">▼</span>
+      <div class="ov-callout">
+        <div class="ov-callout-title" id="i18n-ov-title"></div>
+        <div class="consensus-row"><div class="cr-dot" style="background:#c0392b"></div><span class="cr-label" id="i18n-c1-name"></span><span class="cr-pct">98%</span></div><div class="consensus-row"><div class="cr-dot" style="background:#2563eb"></div><span class="cr-label" id="i18n-c2-name"></span><span class="cr-pct">95%</span></div><div class="consensus-row"><div class="cr-dot" style="background:#16a34a"></div><span class="cr-label" id="i18n-c3-name"></span><span class="cr-pct">96%</span></div><div class="consensus-row"><div class="cr-dot" style="background:#7c3aed"></div><span class="cr-label" id="i18n-c4-name"></span><span class="cr-pct">97%</span></div><div class="consensus-row"><div class="cr-dot" style="background:#d97706"></div><span class="cr-label" id="i18n-c5-name"></span><span class="cr-pct">100%</span></div><div class="consensus-row"><div class="cr-dot" style="background:#0891b2"></div><span class="cr-label" id="i18n-c6-name"></span><span class="cr-pct">88%</span></div><div class="consensus-row"><div class="cr-dot" style="background:#15803d"></div><span class="cr-label" id="i18n-c7-name"></span><span class="cr-pct">42%</span></div><div class="consensus-row"><div class="cr-dot" style="background:#9d174d"></div><span class="cr-label" id="i18n-c8-name"></span><span class="cr-pct">75%</span></div><div class="consensus-row"><div class="cr-dot" style="background:#1e3a8a"></div><span class="cr-label" id="i18n-c9-name"></span><span class="cr-pct">93%</span></div>
       </div>
     </div>
-    <div class="pillar-body">
-      <div class="pillar-body-grid">
-        <div>
-          <div class="pb-section-title" id="i18n-p1-def-lbl">Définition & portée</div>
-          <div class="pb-def" id="i18n-p1-def">La transparence exige que les parties prenantes — utilisateurs, personnes affectées, régulateurs — puissent comprendre comment un système IA fonctionne, sur quelles données il a été entraîné, quels objectifs il poursuit et quelles sont ses limites. L'explicabilité est la dimension technique : la capacité à fournir des explications intelligibles sur les décisions ou prédictions produites.</div>
-          <div class="pb-section-title" id="i18n-p1-sub-lbl">Sous-principes clés</div>
-          <ul class="sub-principles">
-            <li class="sub-principle" id="i18n-p1-s1"><span class="sub-dot"></span><strong>Explicabilité algorithmique (XAI)</strong> — Les décisions automatisées doivent pouvoir être expliquées à un niveau adapté au public (utilisateur final, expert, régulateur).</li>
-            <li class="sub-principle" id="i18n-p1-s2"><span class="sub-dot"></span><strong>Traçabilité & documentation</strong> — Journalisation des décisions, documentation technique (model cards, system cards, datasheets), registres des systèmes IA à haut risque.</li>
-            <li class="sub-principle" id="i18n-p1-s3"><span class="sub-dot"></span><strong>Transparence sur les données</strong> — Divulgation des sources de données d'entraînement, des pratiques de collecte, des limitations connues des jeux de données.</li>
-            <li class="sub-principle" id="i18n-p1-s4"><span class="sub-dot"></span><strong>Étiquetage du contenu IA</strong> — Obligation de signaler qu'un contenu a été généré ou influencé par un système IA (deepfakes, textes génératifs, décisions automatisées).</li>
-            <li class="sub-principle" id="i18n-p1-s5"><span class="sub-dot"></span><strong>Droit à l'explication</strong> — Toute personne affectée par une décision automatisée significative doit pouvoir demander et obtenir une explication compréhensible.</li>
-          </ul>
-        </div>
-        <div>
-          <div class="pb-section-title" id="i18n-p1-cov-lbl">Couverture par cadre de référence</div>
-          <div class="fw-coverage">
-            <div class="fw-row"><span class="fw-name">EU AI Act</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:100%"></div></div><span class="fw-level lvl-full">Obligatoire</span></div>
-            <div class="fw-row"><span class="fw-name">NIST AI RMF</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:95%"></div></div><span class="fw-level lvl-full">Complet</span></div>
-            <div class="fw-row"><span class="fw-name">ISO 42001</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:90%"></div></div><span class="fw-level lvl-full">Complet</span></div>
-            <div class="fw-row"><span class="fw-name">OCDE</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:95%"></div></div><span class="fw-level lvl-full">Complet</span></div>
-            <div class="fw-row"><span class="fw-name">UNESCO</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:90%"></div></div><span class="fw-level lvl-full">Complet</span></div>
-            <div class="fw-row"><span class="fw-name">Canada SAD</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:88%"></div></div><span class="fw-level lvl-full">Obligatoire</span></div>
-            <div class="fw-row"><span class="fw-name">Loi 25 (Québec)</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:85%"></div></div><span class="fw-level lvl-full">Obligatoire</span></div>
-            <div class="fw-row"><span class="fw-name">Microsoft RAI</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:92%"></div></div><span class="fw-level lvl-full">Standard</span></div>
-            <div class="fw-row"><span class="fw-name">Google AI</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:88%"></div></div><span class="fw-level lvl-full">Engagement</span></div>
-          </div>
-          <div class="pb-section-title" style="margin-top:1.5rem;">Exigences pratiques</div>
-          <div class="obligations">
-            <div class="obligation" id="i18n-p1-o1"><strong>Notice d'utilisation IA</strong> — Informer les utilisateurs qu'ils interagissent avec un système IA.</div>
-            <div class="obligation" id="i18n-p1-o2"><strong>Documentation technique</strong> — Maintenir des model cards, system cards et registres d'audit.</div>
-            <div class="obligation" id="i18n-p1-o3"><strong>Explication sur demande</strong> — Fournir une explication des décisions significatives à toute personne affectée.</div>
+  </section>
+
+  <!-- PILLARS -->
+  <section id="pillars" class="section">
+    
+      <div class="pillar-card" id="pillar-1" style="--pc:#c0392b;--pl:#fef2f0;">
+        <button class="pillar-hd" onclick="togglePillar(1)">
+          <span class="pillar-ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><circle cx="12" cy="12" r="1"/><path d="M5 12s2.5-5 7-5 7 5 7 5-2.5 5-7 5-7-5-7-5"/></svg></span>
+          <span class="pillar-nn">01</span>
+          <span class="pillar-info">
+            <span class="pillar-title" id="i18n-p1-name"></span>
+            <span class="pillar-tag" id="i18n-p1-tag"></span>
+          </span>
+          <span class="pillar-badge" id="i18n-p1-cons"></span>
+          <span class="pillar-chev"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+        </button>
+        <div class="pillar-body" id="body-1">
+          <div class="pb-grid">
+            <div class="pb-col">
+              <p class="pb-label" id="i18n-p1-def-lbl"></p>
+              <p class="pb-def" id="i18n-p1-def"></p>
+              <p class="pb-label" id="i18n-p1-sub-lbl"></p>
+              <ul class="pb-subs"><li id="i18n-p1-s1"></li><li id="i18n-p1-s2"></li><li id="i18n-p1-s3"></li><li id="i18n-p1-s4"></li><li id="i18n-p1-s5"></li></ul>
+            </div>
+            <div class="pb-col">
+              <p class="pb-label" id="i18n-p1-cov-lbl"></p>
+              <div class="fw-list"><div class="fw-row"><span class="fw-nm">EU AI Act</span><div class="fw-bg"><div class="fw-fi lf" style="width:100%"></div></div><span class="fw-lv lf">Mandatory</span></div><div class="fw-row"><span class="fw-nm">NIST AI RMF</span><div class="fw-bg"><div class="fw-fi lf" style="width:95%"></div></div><span class="fw-lv lf">Full</span></div><div class="fw-row"><span class="fw-nm">ISO 42001</span><div class="fw-bg"><div class="fw-fi lf" style="width:90%"></div></div><span class="fw-lv lf">Full</span></div><div class="fw-row"><span class="fw-nm">OECD</span><div class="fw-bg"><div class="fw-fi lf" style="width:95%"></div></div><span class="fw-lv lf">Full</span></div><div class="fw-row"><span class="fw-nm">UNESCO</span><div class="fw-bg"><div class="fw-fi lf" style="width:90%"></div></div><span class="fw-lv lf">Full</span></div><div class="fw-row"><span class="fw-nm">Canada SAD</span><div class="fw-bg"><div class="fw-fi lf" style="width:88%"></div></div><span class="fw-lv lf">Mandatory</span></div><div class="fw-row"><span class="fw-nm">Law 25 QC</span><div class="fw-bg"><div class="fw-fi lf" style="width:85%"></div></div><span class="fw-lv lf">Mandatory</span></div><div class="fw-row"><span class="fw-nm">Microsoft RAI</span><div class="fw-bg"><div class="fw-fi lf" style="width:92%"></div></div><span class="fw-lv lf">Standard</span></div><div class="fw-row"><span class="fw-nm">Google AI</span><div class="fw-bg"><div class="fw-fi lf" style="width:88%"></div></div><span class="fw-lv lf">Commitment</span></div></div>
+              <p class="pb-label" id="i18n-p1-req-lbl"></p>
+              <div class="reqs"><div class="req-item" id="i18n-p1-o1"></div><div class="req-item" id="i18n-p1-o2"></div><div class="req-item" id="i18n-p1-o3"></div></div>
+              <p class="pb-label tens-lbl" id="i18n-p1-tens-lbl"></p>
+              <p class="pb-tens" id="i18n-p1-tens"></p>
+            </div>
           </div>
         </div>
-        <div class="tensions">
-          <div class="tensions-title">⚡ Tensions & défis d'implémentation</div>
-          <p id="i18n-p1-tens">La transparence totale peut entrer en conflit avec la protection des secrets commerciaux (algorithmes propriétaires) et la sécurité des systèmes (attaques adversariales facilitées par la connaissance du modèle). Les réglementations acceptent généralement des niveaux de transparence graduels selon les parties prenantes.</p>
+      </div>
+      <div class="pillar-card" id="pillar-2" style="--pc:#2563eb;--pl:#eff6ff;">
+        <button class="pillar-hd" onclick="togglePillar(2)">
+          <span class="pillar-ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M7 21H17"/><path d="M12 3v18"/><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/></svg></span>
+          <span class="pillar-nn">02</span>
+          <span class="pillar-info">
+            <span class="pillar-title" id="i18n-p2-name"></span>
+            <span class="pillar-tag" id="i18n-p2-tag"></span>
+          </span>
+          <span class="pillar-badge" id="i18n-p2-cons"></span>
+          <span class="pillar-chev"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+        </button>
+        <div class="pillar-body" id="body-2">
+          <div class="pb-grid">
+            <div class="pb-col">
+              <p class="pb-label" id="i18n-p2-def-lbl"></p>
+              <p class="pb-def" id="i18n-p2-def"></p>
+              <p class="pb-label" id="i18n-p2-sub-lbl"></p>
+              <ul class="pb-subs"><li id="i18n-p2-s1"></li><li id="i18n-p2-s2"></li><li id="i18n-p2-s3"></li><li id="i18n-p2-s4"></li><li id="i18n-p2-s5"></li></ul>
+            </div>
+            <div class="pb-col">
+              <p class="pb-label" id="i18n-p2-cov-lbl"></p>
+              <div class="fw-list"><div class="fw-row"><span class="fw-nm">EU AI Act</span><div class="fw-bg"><div class="fw-fi lf" style="width:100%"></div></div><span class="fw-lv lf">Mandatory</span></div><div class="fw-row"><span class="fw-nm">OECD</span><div class="fw-bg"><div class="fw-fi lf" style="width:95%"></div></div><span class="fw-lv lf">Full</span></div><div class="fw-row"><span class="fw-nm">UNESCO</span><div class="fw-bg"><div class="fw-fi lf" style="width:95%"></div></div><span class="fw-lv lf">Full</span></div><div class="fw-row"><span class="fw-nm">NIST AI RMF</span><div class="fw-bg"><div class="fw-fi lf" style="width:90%"></div></div><span class="fw-lv lf">Full</span></div><div class="fw-row"><span class="fw-nm">Google AI</span><div class="fw-bg"><div class="fw-fi lf" style="width:92%"></div></div><span class="fw-lv lf">Commitment</span></div><div class="fw-row"><span class="fw-nm">Microsoft RAI</span><div class="fw-bg"><div class="fw-fi lf" style="width:92%"></div></div><span class="fw-lv lf">Standard</span></div><div class="fw-row"><span class="fw-nm">NYC LL 144</span><div class="fw-bg"><div class="fw-fi lf" style="width:100%"></div></div><span class="fw-lv lf">Mandatory</span></div><div class="fw-row"><span class="fw-nm">ISO 42001</span><div class="fw-bg"><div class="fw-fi lp" style="width:70%"></div></div><span class="fw-lv lp">Partial</span></div><div class="fw-row"><span class="fw-nm">MAS FEAT</span><div class="fw-bg"><div class="fw-fi lf" style="width:88%"></div></div><span class="fw-lv lf">Full</span></div></div>
+              <p class="pb-label" id="i18n-p2-req-lbl"></p>
+              <div class="reqs"><div class="req-item" id="i18n-p2-o1"></div><div class="req-item" id="i18n-p2-o2"></div><div class="req-item" id="i18n-p2-o3"></div></div>
+              <p class="pb-label tens-lbl" id="i18n-p2-tens-lbl"></p>
+              <p class="pb-tens" id="i18n-p2-tens"></p>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
+      <div class="pillar-card" id="pillar-3" style="--pc:#16a34a;--pl:#f0fdf4;">
+        <button class="pillar-hd" onclick="togglePillar(3)">
+          <span class="pillar-ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg></span>
+          <span class="pillar-nn">03</span>
+          <span class="pillar-info">
+            <span class="pillar-title" id="i18n-p3-name"></span>
+            <span class="pillar-tag" id="i18n-p3-tag"></span>
+          </span>
+          <span class="pillar-badge" id="i18n-p3-cons"></span>
+          <span class="pillar-chev"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+        </button>
+        <div class="pillar-body" id="body-3">
+          <div class="pb-grid">
+            <div class="pb-col">
+              <p class="pb-label" id="i18n-p3-def-lbl"></p>
+              <p class="pb-def" id="i18n-p3-def"></p>
+              <p class="pb-label" id="i18n-p3-sub-lbl"></p>
+              <ul class="pb-subs"><li id="i18n-p3-s1"></li><li id="i18n-p3-s2"></li><li id="i18n-p3-s3"></li><li id="i18n-p3-s4"></li><li id="i18n-p3-s5"></li></ul>
+            </div>
+            <div class="pb-col">
+              <p class="pb-label" id="i18n-p3-cov-lbl"></p>
+              <div class="fw-list"><div class="fw-row"><span class="fw-nm">EU AI Act</span><div class="fw-bg"><div class="fw-fi lf" style="width:100%"></div></div><span class="fw-lv lf">Mandatory</span></div><div class="fw-row"><span class="fw-nm">NIST AI RMF</span><div class="fw-bg"><div class="fw-fi lf" style="width:95%"></div></div><span class="fw-lv lf">Full</span></div><div class="fw-row"><span class="fw-nm">ISO 42001</span><div class="fw-bg"><div class="fw-fi lf" style="width:90%"></div></div><span class="fw-lv lf">Full</span></div><div class="fw-row"><span class="fw-nm">OECD</span><div class="fw-bg"><div class="fw-fi lf" style="width:90%"></div></div><span class="fw-lv lf">Full</span></div><div class="fw-row"><span class="fw-nm">Anthropic RSP</span><div class="fw-bg"><div class="fw-fi lf" style="width:100%"></div></div><span class="fw-lv lf">Central</span></div><div class="fw-row"><span class="fw-nm">OpenAI Prep.</span><div class="fw-bg"><div class="fw-fi lf" style="width:100%"></div></div><span class="fw-lv lf">Central</span></div><div class="fw-row"><span class="fw-nm">CSA Singapore</span><div class="fw-bg"><div class="fw-fi lf" style="width:95%"></div></div><span class="fw-lv lf">Full</span></div><div class="fw-row"><span class="fw-nm">DoD AI</span><div class="fw-bg"><div class="fw-fi lf" style="width:95%"></div></div><span class="fw-lv lf">Mandatory</span></div><div class="fw-row"><span class="fw-nm">FDA SaMD</span><div class="fw-bg"><div class="fw-fi lf" style="width:98%"></div></div><span class="fw-lv lf">Mandatory</span></div></div>
+              <p class="pb-label" id="i18n-p3-req-lbl"></p>
+              <div class="reqs"><div class="req-item" id="i18n-p3-o1"></div><div class="req-item" id="i18n-p3-o2"></div><div class="req-item" id="i18n-p3-o3"></div></div>
+              <p class="pb-label tens-lbl" id="i18n-p3-tens-lbl"></p>
+              <p class="pb-tens" id="i18n-p3-tens"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pillar-card" id="pillar-4" style="--pc:#7c3aed;--pl:#faf5ff;">
+        <button class="pillar-hd" onclick="togglePillar(4)">
+          <span class="pillar-ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="16" r="1"/><rect x="3" y="10" width="18" height="12" rx="2"/><path d="M7 10V7a5 5 0 0 1 10 0v3"/></svg></span>
+          <span class="pillar-nn">04</span>
+          <span class="pillar-info">
+            <span class="pillar-title" id="i18n-p4-name"></span>
+            <span class="pillar-tag" id="i18n-p4-tag"></span>
+          </span>
+          <span class="pillar-badge" id="i18n-p4-cons"></span>
+          <span class="pillar-chev"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+        </button>
+        <div class="pillar-body" id="body-4">
+          <div class="pb-grid">
+            <div class="pb-col">
+              <p class="pb-label" id="i18n-p4-def-lbl"></p>
+              <p class="pb-def" id="i18n-p4-def"></p>
+              <p class="pb-label" id="i18n-p4-sub-lbl"></p>
+              <ul class="pb-subs"><li id="i18n-p4-s1"></li><li id="i18n-p4-s2"></li><li id="i18n-p4-s3"></li><li id="i18n-p4-s4"></li><li id="i18n-p4-s5"></li></ul>
+            </div>
+            <div class="pb-col">
+              <p class="pb-label" id="i18n-p4-cov-lbl"></p>
+              <div class="fw-list"><div class="fw-row"><span class="fw-nm">GDPR + EU AI</span><div class="fw-bg"><div class="fw-fi lf" style="width:100%"></div></div><span class="fw-lv lf">Mandatory</span></div><div class="fw-row"><span class="fw-nm">Law 25 QC</span><div class="fw-bg"><div class="fw-fi lf" style="width:95%"></div></div><span class="fw-lv lf">Mandatory</span></div><div class="fw-row"><span class="fw-nm">OECD</span><div class="fw-bg"><div class="fw-fi lf" style="width:92%"></div></div><span class="fw-lv lf">Full</span></div><div class="fw-row"><span class="fw-nm">UNESCO</span><div class="fw-bg"><div class="fw-fi lf" style="width:90%"></div></div><span class="fw-lv lf">Full</span></div><div class="fw-row"><span class="fw-nm">ISO 42001</span><div class="fw-bg"><div class="fw-fi lf" style="width:88%"></div></div><span class="fw-lv lf">Full</span></div><div class="fw-row"><span class="fw-nm">Canada SAD</span><div class="fw-bg"><div class="fw-fi lf" style="width:90%"></div></div><span class="fw-lv lf">Mandatory</span></div><div class="fw-row"><span class="fw-nm">Microsoft RAI</span><div class="fw-bg"><div class="fw-fi lf" style="width:92%"></div></div><span class="fw-lv lf">Standard</span></div><div class="fw-row"><span class="fw-nm">China CAC</span><div class="fw-bg"><div class="fw-fi lf" style="width:85%"></div></div><span class="fw-lv lf">Mandatory</span></div></div>
+              <p class="pb-label" id="i18n-p4-req-lbl"></p>
+              <div class="reqs"><div class="req-item" id="i18n-p4-o1"></div><div class="req-item" id="i18n-p4-o2"></div><div class="req-item" id="i18n-p4-o3"></div></div>
+              <p class="pb-label tens-lbl" id="i18n-p4-tens-lbl"></p>
+              <p class="pb-tens" id="i18n-p4-tens"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pillar-card" id="pillar-5" style="--pc:#d97706;--pl:#fffbeb;">
+        <button class="pillar-hd" onclick="togglePillar(5)">
+          <span class="pillar-ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></span>
+          <span class="pillar-nn">05</span>
+          <span class="pillar-info">
+            <span class="pillar-title" id="i18n-p5-name"></span>
+            <span class="pillar-tag" id="i18n-p5-tag"></span>
+          </span>
+          <span class="pillar-badge" id="i18n-p5-cons"></span>
+          <span class="pillar-chev"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+        </button>
+        <div class="pillar-body" id="body-5">
+          <div class="pb-grid">
+            <div class="pb-col">
+              <p class="pb-label" id="i18n-p5-def-lbl"></p>
+              <p class="pb-def" id="i18n-p5-def"></p>
+              <p class="pb-label" id="i18n-p5-sub-lbl"></p>
+              <ul class="pb-subs"><li id="i18n-p5-s1"></li><li id="i18n-p5-s2"></li><li id="i18n-p5-s3"></li><li id="i18n-p5-s4"></li><li id="i18n-p5-s5"></li></ul>
+            </div>
+            <div class="pb-col">
+              <p class="pb-label" id="i18n-p5-cov-lbl"></p>
+              <div class="fw-list"><div class="fw-row"><span class="fw-nm">EU AI Act</span><div class="fw-bg"><div class="fw-fi lf" style="width:100%"></div></div><span class="fw-lv lf">Mandatory</span></div><div class="fw-row"><span class="fw-nm">ISO 42001</span><div class="fw-bg"><div class="fw-fi lf" style="width:100%"></div></div><span class="fw-lv lf">Full</span></div><div class="fw-row"><span class="fw-nm">NIST AI RMF</span><div class="fw-bg"><div class="fw-fi lf" style="width:100%"></div></div><span class="fw-lv lf">Full</span></div><div class="fw-row"><span class="fw-nm">OECD</span><div class="fw-bg"><div class="fw-fi lf" style="width:100%"></div></div><span class="fw-lv lf">Full</span></div><div class="fw-row"><span class="fw-nm">UNESCO</span><div class="fw-bg"><div class="fw-fi lf" style="width:100%"></div></div><span class="fw-lv lf">Full</span></div><div class="fw-row"><span class="fw-nm">Canada SAD</span><div class="fw-bg"><div class="fw-fi lf" style="width:100%"></div></div><span class="fw-lv lf">Mandatory</span></div><div class="fw-row"><span class="fw-nm">Microsoft RAI</span><div class="fw-bg"><div class="fw-fi lf" style="width:100%"></div></div><span class="fw-lv lf">Standard</span></div><div class="fw-row"><span class="fw-nm">CoE Treaty</span><div class="fw-bg"><div class="fw-fi lf" style="width:100%"></div></div><span class="fw-lv lf">Treaty</span></div></div>
+              <p class="pb-label" id="i18n-p5-req-lbl"></p>
+              <div class="reqs"><div class="req-item" id="i18n-p5-o1"></div><div class="req-item" id="i18n-p5-o2"></div><div class="req-item" id="i18n-p5-o3"></div></div>
+              <p class="pb-label tens-lbl" id="i18n-p5-tens-lbl"></p>
+              <p class="pb-tens" id="i18n-p5-tens"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pillar-card" id="pillar-6" style="--pc:#0891b2;--pl:#ecfeff;">
+        <button class="pillar-hd" onclick="togglePillar(6)">
+          <span class="pillar-ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg></span>
+          <span class="pillar-nn">06</span>
+          <span class="pillar-info">
+            <span class="pillar-title" id="i18n-p6-name"></span>
+            <span class="pillar-tag" id="i18n-p6-tag"></span>
+          </span>
+          <span class="pillar-badge" id="i18n-p6-cons"></span>
+          <span class="pillar-chev"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+        </button>
+        <div class="pillar-body" id="body-6">
+          <div class="pb-grid">
+            <div class="pb-col">
+              <p class="pb-label" id="i18n-p6-def-lbl"></p>
+              <p class="pb-def" id="i18n-p6-def"></p>
+              <p class="pb-label" id="i18n-p6-sub-lbl"></p>
+              <ul class="pb-subs"><li id="i18n-p6-s1"></li><li id="i18n-p6-s2"></li><li id="i18n-p6-s3"></li><li id="i18n-p6-s4"></li><li id="i18n-p6-s5"></li></ul>
+            </div>
+            <div class="pb-col">
+              <p class="pb-label" id="i18n-p6-cov-lbl"></p>
+              <div class="fw-list"><div class="fw-row"><span class="fw-nm">EU AI Act</span><div class="fw-bg"><div class="fw-fi lf" style="width:100%"></div></div><span class="fw-lv lf">Mandatory</span></div><div class="fw-row"><span class="fw-nm">UNESCO</span><div class="fw-bg"><div class="fw-fi lf" style="width:95%"></div></div><span class="fw-lv lf">Full</span></div><div class="fw-row"><span class="fw-nm">OECD</span><div class="fw-bg"><div class="fw-fi lf" style="width:90%"></div></div><span class="fw-lv lf">Full</span></div><div class="fw-row"><span class="fw-nm">Canada SAD</span><div class="fw-bg"><div class="fw-fi lf" style="width:95%"></div></div><span class="fw-lv lf">Mandatory</span></div><div class="fw-row"><span class="fw-nm">CoE Treaty</span><div class="fw-bg"><div class="fw-fi lf" style="width:92%"></div></div><span class="fw-lv lf">Treaty</span></div><div class="fw-row"><span class="fw-nm">NIST AI RMF</span><div class="fw-bg"><div class="fw-fi lf" style="width:85%"></div></div><span class="fw-lv lf">Full</span></div><div class="fw-row"><span class="fw-nm">DoD AI</span><div class="fw-bg"><div class="fw-fi lf" style="width:90%"></div></div><span class="fw-lv lf">Mandatory</span></div><div class="fw-row"><span class="fw-nm">Google/MS</span><div class="fw-bg"><div class="fw-fi lp" style="width:70%"></div></div><span class="fw-lv lp">Partial</span></div></div>
+              <p class="pb-label" id="i18n-p6-req-lbl"></p>
+              <div class="reqs"><div class="req-item" id="i18n-p6-o1"></div><div class="req-item" id="i18n-p6-o2"></div><div class="req-item" id="i18n-p6-o3"></div></div>
+              <p class="pb-label tens-lbl" id="i18n-p6-tens-lbl"></p>
+              <p class="pb-tens" id="i18n-p6-tens"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pillar-card" id="pillar-7" style="--pc:#15803d;--pl:#f0fdf4;">
+        <button class="pillar-hd" onclick="togglePillar(7)">
+          <span class="pillar-ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 20h10"/><path d="M10 20c5.5-2.5.8-6.4 3-10"/><path d="M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4 0 5.5.8z"/><path d="M14.1 6a7 7 0 0 1 1.1 4.8c-1.6.6-3.2.8-4.6.5.1-1.5.7-3.1 1.9-4.2.9-.8 2.1-1.3 3.5-1.5z"/></svg></span>
+          <span class="pillar-nn">07</span>
+          <span class="pillar-info">
+            <span class="pillar-title" id="i18n-p7-name"></span>
+            <span class="pillar-tag" id="i18n-p7-tag"></span>
+          </span>
+          <span class="pillar-badge" id="i18n-p7-cons"></span>
+          <span class="pillar-chev"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+        </button>
+        <div class="pillar-body" id="body-7">
+          <div class="pb-grid">
+            <div class="pb-col">
+              <p class="pb-label" id="i18n-p7-def-lbl"></p>
+              <p class="pb-def" id="i18n-p7-def"></p>
+              <p class="pb-label" id="i18n-p7-sub-lbl"></p>
+              <ul class="pb-subs"><li id="i18n-p7-s1"></li><li id="i18n-p7-s2"></li><li id="i18n-p7-s3"></li><li id="i18n-p7-s4"></li><li id="i18n-p7-s5"></li></ul>
+            </div>
+            <div class="pb-col">
+              <p class="pb-label" id="i18n-p7-cov-lbl"></p>
+              <div class="fw-list"><div class="fw-row"><span class="fw-nm">UNESCO</span><div class="fw-bg"><div class="fw-fi lf" style="width:90%"></div></div><span class="fw-lv lf">Full</span></div><div class="fw-row"><span class="fw-nm">EU AI Act GPAI</span><div class="fw-bg"><div class="fw-fi lp" style="width:65%"></div></div><span class="fw-lv lp">Partial</span></div><div class="fw-row"><span class="fw-nm">OECD 2024</span><div class="fw-bg"><div class="fw-fi lp" style="width:60%"></div></div><span class="fw-lv lp">Emerging</span></div><div class="fw-row"><span class="fw-nm">Paris Decl.</span><div class="fw-bg"><div class="fw-fi lf" style="width:80%"></div></div><span class="fw-lv lf">Commitment</span></div><div class="fw-row"><span class="fw-nm">NIST AI RMF</span><div class="fw-bg"><div class="fw-fi ln" style="width:25%"></div></div><span class="fw-lv ln">Absent</span></div><div class="fw-row"><span class="fw-nm">ISO 42001</span><div class="fw-bg"><div class="fw-fi ln" style="width:20%"></div></div><span class="fw-lv ln">Absent</span></div><div class="fw-row"><span class="fw-nm">Google/MS</span><div class="fw-bg"><div class="fw-fi lp" style="width:45%"></div></div><span class="fw-lv lp">Partial</span></div></div>
+              <p class="pb-label" id="i18n-p7-req-lbl"></p>
+              <div class="reqs"><div class="req-item" id="i18n-p7-o1"></div><div class="req-item" id="i18n-p7-o2"></div></div>
+              <p class="pb-label tens-lbl" id="i18n-p7-tens-lbl"></p>
+              <p class="pb-tens" id="i18n-p7-tens"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pillar-card" id="pillar-8" style="--pc:#9d174d;--pl:#fdf2f8;">
+        <button class="pillar-hd" onclick="togglePillar(8)">
+          <span class="pillar-ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m11 17 2 2a1 1 0 1 0 3-3"/><path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4"/><path d="m21 3 1 11h-2"/><path d="M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3"/><path d="M3 4h8"/></svg></span>
+          <span class="pillar-nn">08</span>
+          <span class="pillar-info">
+            <span class="pillar-title" id="i18n-p8-name"></span>
+            <span class="pillar-tag" id="i18n-p8-tag"></span>
+          </span>
+          <span class="pillar-badge" id="i18n-p8-cons"></span>
+          <span class="pillar-chev"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+        </button>
+        <div class="pillar-body" id="body-8">
+          <div class="pb-grid">
+            <div class="pb-col">
+              <p class="pb-label" id="i18n-p8-def-lbl"></p>
+              <p class="pb-def" id="i18n-p8-def"></p>
+              <p class="pb-label" id="i18n-p8-sub-lbl"></p>
+              <ul class="pb-subs"><li id="i18n-p8-s1"></li><li id="i18n-p8-s2"></li><li id="i18n-p8-s3"></li><li id="i18n-p8-s4"></li><li id="i18n-p8-s5"></li></ul>
+            </div>
+            <div class="pb-col">
+              <p class="pb-label" id="i18n-p8-cov-lbl"></p>
+              <div class="fw-list"><div class="fw-row"><span class="fw-nm">UNESCO</span><div class="fw-bg"><div class="fw-fi lf" style="width:100%"></div></div><span class="fw-lv lf">Full</span></div><div class="fw-row"><span class="fw-nm">OECD</span><div class="fw-bg"><div class="fw-fi lf" style="width:90%"></div></div><span class="fw-lv lf">Full</span></div><div class="fw-row"><span class="fw-nm">Google AI</span><div class="fw-bg"><div class="fw-fi lf" style="width:85%"></div></div><span class="fw-lv lf">Commitment</span></div><div class="fw-row"><span class="fw-nm">Microsoft RAI</span><div class="fw-bg"><div class="fw-fi lf" style="width:88%"></div></div><span class="fw-lv lf">Standard</span></div><div class="fw-row"><span class="fw-nm">EU AI Act</span><div class="fw-bg"><div class="fw-fi lp" style="width:65%"></div></div><span class="fw-lv lp">Partial</span></div><div class="fw-row"><span class="fw-nm">UN Res. 2024</span><div class="fw-bg"><div class="fw-fi lf" style="width:80%"></div></div><span class="fw-lv lf">Resolution</span></div><div class="fw-row"><span class="fw-nm">NIST AI RMF</span><div class="fw-bg"><div class="fw-fi lp" style="width:70%"></div></div><span class="fw-lv lp">Partial</span></div><div class="fw-row"><span class="fw-nm">ISO 42001</span><div class="fw-bg"><div class="fw-fi lp" style="width:40%"></div></div><span class="fw-lv lp">Limited</span></div></div>
+              <p class="pb-label" id="i18n-p8-req-lbl"></p>
+              <div class="reqs"><div class="req-item" id="i18n-p8-o1"></div><div class="req-item" id="i18n-p8-o2"></div></div>
+              <p class="pb-label tens-lbl" id="i18n-p8-tens-lbl"></p>
+              <p class="pb-tens" id="i18n-p8-tens"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pillar-card" id="pillar-9" style="--pc:#1e3a8a;--pl:#eff6ff;">
+        <button class="pillar-hd" onclick="togglePillar(9)">
+          <span class="pillar-ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="22" x2="21" y2="22"/><line x1="6" y1="18" x2="6" y2="11"/><line x1="10" y1="18" x2="10" y2="11"/><line x1="14" y1="18" x2="14" y2="11"/><line x1="18" y1="18" x2="18" y2="11"/><polygon points="12 2 20 7 4 7"/></svg></span>
+          <span class="pillar-nn">09</span>
+          <span class="pillar-info">
+            <span class="pillar-title" id="i18n-p9-name"></span>
+            <span class="pillar-tag" id="i18n-p9-tag"></span>
+          </span>
+          <span class="pillar-badge" id="i18n-p9-cons"></span>
+          <span class="pillar-chev"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+        </button>
+        <div class="pillar-body" id="body-9">
+          <div class="pb-grid">
+            <div class="pb-col">
+              <p class="pb-label" id="i18n-p9-def-lbl"></p>
+              <p class="pb-def" id="i18n-p9-def"></p>
+              <p class="pb-label" id="i18n-p9-sub-lbl"></p>
+              <ul class="pb-subs"><li id="i18n-p9-s1"></li><li id="i18n-p9-s2"></li><li id="i18n-p9-s3"></li><li id="i18n-p9-s4"></li><li id="i18n-p9-s5"></li></ul>
+            </div>
+            <div class="pb-col">
+              <p class="pb-label" id="i18n-p9-cov-lbl"></p>
+              <div class="fw-list"><div class="fw-row"><span class="fw-nm">ISO 42001</span><div class="fw-bg"><div class="fw-fi lf" style="width:100%"></div></div><span class="fw-lv lf">Central</span></div><div class="fw-row"><span class="fw-nm">NIST AI RMF</span><div class="fw-bg"><div class="fw-fi lf" style="width:100%"></div></div><span class="fw-lv lf">Central</span></div><div class="fw-row"><span class="fw-nm">EU AI Act</span><div class="fw-bg"><div class="fw-fi lf" style="width:95%"></div></div><span class="fw-lv lf">Mandatory</span></div><div class="fw-row"><span class="fw-nm">Microsoft RAI</span><div class="fw-bg"><div class="fw-fi lf" style="width:100%"></div></div><span class="fw-lv lf">Central</span></div><div class="fw-row"><span class="fw-nm">Canada SAD</span><div class="fw-bg"><div class="fw-fi lf" style="width:90%"></div></div><span class="fw-lv lf">Mandatory</span></div><div class="fw-row"><span class="fw-nm">MAS Guidelines</span><div class="fw-bg"><div class="fw-fi lf" style="width:95%"></div></div><span class="fw-lv lf">Mandatory</span></div><div class="fw-row"><span class="fw-nm">OSFI Canada</span><div class="fw-bg"><div class="fw-fi lf" style="width:88%"></div></div><span class="fw-lv lf">Mandatory</span></div><div class="fw-row"><span class="fw-nm">G7 Hiroshima</span><div class="fw-bg"><div class="fw-fi lf" style="width:75%"></div></div><span class="fw-lv lf">Commitment</span></div></div>
+              <p class="pb-label" id="i18n-p9-req-lbl"></p>
+              <div class="reqs"><div class="req-item" id="i18n-p9-o1"></div><div class="req-item" id="i18n-p9-o2"></div><div class="req-item" id="i18n-p9-o3"></div><div class="req-item" id="i18n-p9-o4"></div></div>
+              <p class="pb-label tens-lbl" id="i18n-p9-tens-lbl"></p>
+              <p class="pb-tens" id="i18n-p9-tens"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+  </section>
 
-  <!-- PILIER 2 -->
-  <div class="pillar-card" style="--p-color: var(--p2);" id="pillar-2">
-    <div class="pillar-header" onclick="togglePillar(this)">
-      <div class="pillar-num">02</div>
-      <div class="pillar-title-wrap">
-        <div class="pillar-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M7 21H17"/><path d="M12 3v18"/><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/></svg></div>
-        <div class="pillar-title" id="i18n-p2-name">Équité & Non-discrimination</div>
-        <div class="pillar-tagline" id="i18n-p2-tag">Les systèmes IA ne doivent pas reproduire ni amplifier les biais discriminatoires</div>
+  <!-- MATRIX -->
+  <section id="matrix" class="section">
+    <p class="matrix-intro" id="i18n-mx-title"></p>
+    <div class="matrix-legend" id="i18n-mx-sub"></div>
+    <div class="mx-wrap">
+      <table><thead><tr><th></th><th>EU AI Act</th><th>NIST RMF</th><th>ISO 42001</th><th>OECD</th><th>UNESCO</th><th>Canada SAD</th><th>Law 25 QC</th><th>Google AI</th><th>Microsoft</th><th>Anthropic</th></tr></thead><tbody><tr><td class="mx-pillar" id="i18n-mx-p1" style="border-left:3px solid #c0392b"></td><td class="cf">●</td><td class="cf">●</td><td class="cf">●</td><td class="cf">●</td><td class="cf">●</td><td class="cf">●</td><td class="cf">●</td><td class="cf">●</td><td class="cf">●</td><td class="cf">●</td></tr><tr><td class="mx-pillar" id="i18n-mx-p2" style="border-left:3px solid #2563eb"></td><td class="cf">●</td><td class="cf">●</td><td class="cp">◐</td><td class="cf">●</td><td class="cf">●</td><td class="cp">◐</td><td class="cf">●</td><td class="cf">●</td><td class="cf">●</td><td class="cp">◐</td></tr><tr><td class="mx-pillar" id="i18n-mx-p3" style="border-left:3px solid #16a34a"></td><td class="cf">●</td><td class="cf">●</td><td class="cf">●</td><td class="cf">●</td><td class="cp">◐</td><td class="cp">◐</td><td class="cp">◐</td><td class="cf">●</td><td class="cf">●</td><td class="cf">●</td></tr><tr><td class="mx-pillar" id="i18n-mx-p4" style="border-left:3px solid #7c3aed"></td><td class="cf">●</td><td class="cf">●</td><td class="cf">●</td><td class="cf">●</td><td class="cf">●</td><td class="cf">●</td><td class="cf">●</td><td class="cf">●</td><td class="cf">●</td><td class="cp">◐</td></tr><tr><td class="mx-pillar" id="i18n-mx-p5" style="border-left:3px solid #d97706"></td><td class="cf">●</td><td class="cf">●</td><td class="cf">●</td><td class="cf">●</td><td class="cf">●</td><td class="cf">●</td><td class="cf">●</td><td class="cf">●</td><td class="cf">●</td><td class="cf">●</td></tr><tr><td class="mx-pillar" id="i18n-mx-p6" style="border-left:3px solid #0891b2"></td><td class="cf">●</td><td class="cf">●</td><td class="cp">◐</td><td class="cf">●</td><td class="cf">●</td><td class="cf">●</td><td class="cp">◐</td><td class="cp">◐</td><td class="cp">◐</td><td class="cf">●</td></tr><tr><td class="mx-pillar" id="i18n-mx-p7" style="border-left:3px solid #15803d"></td><td class="cp">◐</td><td class="cn">○</td><td class="cn">○</td><td class="cp">◐</td><td class="cf">●</td><td class="cn">○</td><td class="cn">○</td><td class="cn">○</td><td class="cn">○</td><td class="cn">○</td></tr><tr><td class="mx-pillar" id="i18n-mx-p8" style="border-left:3px solid #9d174d"></td><td class="cp">◐</td><td class="cp">◐</td><td class="cn">○</td><td class="cf">●</td><td class="cf">●</td><td class="cp">◐</td><td class="cp">◐</td><td class="cf">●</td><td class="cf">●</td><td class="cp">◐</td></tr><tr><td class="mx-pillar" id="i18n-mx-p9" style="border-left:3px solid #1e3a8a"></td><td class="cf">●</td><td class="cf">●</td><td class="cf">●</td><td class="cp">◐</td><td class="cp">◐</td><td class="cf">●</td><td class="cf">●</td><td class="cp">◐</td><td class="cf">●</td><td class="cp">◐</td></tr></tbody></table>
+    </div>
+    <div class="mx-note">
+      <div class="mx-note-col">
+        <h4 id="i18n-mx-strat-title"></h4>
+        <div id="i18n-mx-strat1"></div>
       </div>
-      <div class="pillar-meta-right">
-        <span class="p-consensus" id="i18n-p2-cons">Consensus universel · 95%</span>
-        <span class="p-frameworks-count" id="i18n-p2-count">Présent dans 52+ cadres</span>
-        <span class="p-chevron">▼</span>
+      <div class="mx-note-col">
+        <div id="i18n-mx-strat2"></div>
       </div>
     </div>
-    <div class="pillar-body">
-      <div class="pillar-body-grid">
-        <div>
-          <div class="pb-section-title" id="i18n-p2-def-lbl">Définition & portée</div>
-          <div class="pb-def" id="i18n-p2-def">L'équité dans les systèmes IA vise à garantir que les décisions, recommandations et prédictions ne désavantagent pas systématiquement certains groupes de personnes en raison de caractéristiques protégées (genre, origine ethnique, âge, handicap, orientation sexuelle, etc.). Elle recouvre à la fois l'équité algorithmique (dans le modèle) et l'équité procédurale (dans le processus).</div>
-          <div class="pb-section-title" id="i18n-p2-sub-lbl">Sous-principes clés</div>
-          <ul class="sub-principles">
-            <li class="sub-principle" id="i18n-p2-s1"><span class="sub-dot"></span><strong>Détection et atténuation des biais</strong> — Tests systématiques de fairness sur les données d'entraînement, les modèles et les sorties, avec mécanismes de correction.</li>
-            <li class="sub-principle" id="i18n-p2-s2"><span class="sub-dot"></span><strong>Représentativité des données</strong> — Jeux de données diversifiés et représentatifs pour éviter les biais de sélection et de sous-représentation.</li>
-            <li class="sub-principle" id="i18n-p2-s3"><span class="sub-dot"></span><strong>Équité de groupe vs individuelle</strong> — Distinguer parité démographique, égalité des chances et calibration selon le contexte d'usage.</li>
-            <li class="sub-principle" id="i18n-p2-s4"><span class="sub-dot"></span><strong>Audits de biais obligatoires</strong> — NYC Local Law 144 impose des audits annuels pour les outils IA en RH. Modèle qui se répand.</li>
-            <li class="sub-principle" id="i18n-p2-s5"><span class="sub-dot"></span><strong>Interdiction de discrimination algorithmique</strong> — EU AI Act interdit les systèmes d'IA exploitant des vulnérabilités pour induire des comportements préjudiciables.</li>
-          </ul>
-        </div>
-        <div>
-          <div class="pb-section-title" id="i18n-p2-cov-lbl">Couverture par cadre de référence</div>
-          <div class="fw-coverage">
-            <div class="fw-row"><span class="fw-name">EU AI Act</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:100%"></div></div><span class="fw-level lvl-full">Obligatoire</span></div>
-            <div class="fw-row"><span class="fw-name">OCDE</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:95%"></div></div><span class="fw-level lvl-full">Complet</span></div>
-            <div class="fw-row"><span class="fw-name">UNESCO</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:95%"></div></div><span class="fw-level lvl-full">Complet</span></div>
-            <div class="fw-row"><span class="fw-name">NIST AI RMF</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:90%"></div></div><span class="fw-level lvl-full">Complet</span></div>
-            <div class="fw-row"><span class="fw-name">Google AI</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:92%"></div></div><span class="fw-level lvl-full">Engagement</span></div>
-            <div class="fw-row"><span class="fw-name">Microsoft RAI</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:92%"></div></div><span class="fw-level lvl-full">Standard</span></div>
-            <div class="fw-row"><span class="fw-name">NYC Local Law 144</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:100%"></div></div><span class="fw-level lvl-full">Obligatoire</span></div>
-            <div class="fw-row"><span class="fw-name">ISO 42001</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:70%"></div></div><span class="fw-level lvl-part">Partiel</span></div>
-            <div class="fw-row"><span class="fw-name">MAS FEAT</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:88%"></div></div><span class="fw-level lvl-full">Complet</span></div>
-          </div>
-          <div class="pb-section-title" style="margin-top:1.5rem;">Exigences pratiques</div>
-          <div class="obligations">
-            <div class="obligation" id="i18n-p2-o1"><strong>Fairness testing</strong> — Tests de performance segmentés par groupes démographiques avant déploiement.</div>
-            <div class="obligation" id="i18n-p2-o2"><strong>Audit de biais</strong> — Évaluation annuelle par un tiers indépendant pour les systèmes à haut risque (RH, crédit, justice).</div>
-            <div class="obligation" id="i18n-p2-o3"><strong>Correction continue</strong> — Mécanismes de surveillance post-déploiement avec processus de remédiation des dérives.</div>
-          </div>
-        </div>
-        <div class="tensions">
-          <div class="tensions-title">⚡ Tensions & défis d'implémentation</div>
-          <p id="i18n-p2-tens">Les définitions de l'équité sont mathématiquement incompatibles entre elles (théorème d'impossibilité de Chouldechova). Le choix d'une métrique d'équité dépend du contexte éthique et juridique. De plus, corriger les biais peut réduire la précision globale du modèle, créant un arbitrage performance/équité.</p>
-        </div>
-      </div>
-    </div>
-  </div>
+  </section>
 
-  <!-- PILIER 3 -->
-  <div class="pillar-card" style="--p-color: var(--p3);" id="pillar-3">
-    <div class="pillar-header" onclick="togglePillar(this)">
-      <div class="pillar-num">03</div>
-      <div class="pillar-title-wrap">
-        <div class="pillar-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg></div>
-        <div class="pillar-title" id="i18n-p3-name">Sécurité & Robustesse</div>
-        <div class="pillar-tagline" id="i18n-p3-tag">Les systèmes IA doivent fonctionner de manière fiable, sûre et résistante aux défaillances</div>
-      </div>
-      <div class="pillar-meta-right">
-        <span class="p-consensus" id="i18n-p3-cons">Consensus universel · 96%</span>
-        <span class="p-frameworks-count" id="i18n-p3-count">Présent dans 53+ cadres</span>
-        <span class="p-chevron">▼</span>
-      </div>
-    </div>
-    <div class="pillar-body">
-      <div class="pillar-body-grid">
-        <div>
-          <div class="pb-section-title" id="i18n-p3-def-lbl">Définition & portée</div>
-          <div class="pb-def" id="i18n-p3-def">La sécurité des systèmes IA recouvre deux dimensions complémentaires : la <em>safety</em> (absence de comportements dangereux involontaires, fiabilité dans les conditions nominales et dégradées) et la <em>security</em> (résistance aux attaques malveillantes, adversariales ou aux manipulations). La robustesse désigne la capacité à maintenir des performances acceptables face à des données hors-distribution, des environnements changeants ou des perturbations.</div>
-          <div class="pb-section-title" id="i18n-p3-sub-lbl">Sous-principes clés</div>
-          <ul class="sub-principles">
-            <li class="sub-principle" id="i18n-p3-s1"><span class="sub-dot"></span><strong>Safety by design</strong> — Intégration de mécanismes de sécurité dès la conception : fail-safe, kill switches, limites de déploiement.</li>
-            <li class="sub-principle" id="i18n-p3-s2"><span class="sub-dot"></span><strong>Résistance aux attaques adversariales</strong> — Tests de robustesse face aux inputs adversariaux, empoisonnement des données, attaques de prompt injection.</li>
-            <li class="sub-principle" id="i18n-p3-s3"><span class="sub-dot"></span><strong>Gestion des modèles frontières</strong> — Responsible Scaling Policies (Anthropic), Preparedness Framework (OpenAI) pour les modèles à capacités potentiellement catastrophiques.</li>
-            <li class="sub-principle" id="i18n-p3-s4"><span class="sub-dot"></span><strong>Tests de performance et validation</strong> — Benchmarks standardisés (MLCommons AI Safety), évaluations red team avant déploiement.</li>
-            <li class="sub-principle" id="i18n-p3-s5"><span class="sub-dot"></span><strong>Monitoring post-déploiement</strong> — Surveillance continue des performances, détection de dérives (data drift, concept drift), gestion des incidents.</li>
-          </ul>
-        </div>
-        <div>
-          <div class="pb-section-title" id="i18n-p3-cov-lbl">Couverture par cadre de référence</div>
-          <div class="fw-coverage">
-            <div class="fw-row"><span class="fw-name">EU AI Act</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:100%"></div></div><span class="fw-level lvl-full">Obligatoire</span></div>
-            <div class="fw-row"><span class="fw-name">NIST AI RMF</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:95%"></div></div><span class="fw-level lvl-full">Complet</span></div>
-            <div class="fw-row"><span class="fw-name">ISO 42001</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:90%"></div></div><span class="fw-level lvl-full">Complet</span></div>
-            <div class="fw-row"><span class="fw-name">OCDE</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:90%"></div></div><span class="fw-level lvl-full">Complet</span></div>
-            <div class="fw-row"><span class="fw-name">Anthropic RSP</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:100%"></div></div><span class="fw-level lvl-full">Central</span></div>
-            <div class="fw-row"><span class="fw-name">OpenAI Preparedness</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:100%"></div></div><span class="fw-level lvl-full">Central</span></div>
-            <div class="fw-row"><span class="fw-name">CSA Singapore</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:95%"></div></div><span class="fw-level lvl-full">Complet</span></div>
-            <div class="fw-row"><span class="fw-name">DoD AI Ethics</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:95%"></div></div><span class="fw-level lvl-full">Obligatoire</span></div>
-            <div class="fw-row"><span class="fw-name">FDA SaMD</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:98%"></div></div><span class="fw-level lvl-full">Obligatoire</span></div>
-          </div>
-          <div class="pb-section-title" style="margin-top:1.5rem;">Exigences pratiques</div>
-          <div class="obligations">
-            <div class="obligation" id="i18n-p3-o1"><strong>Red teaming</strong> — Tests adversariaux obligatoires avant déploiement des modèles à haut risque.</div>
-            <div class="obligation" id="i18n-p3-o2"><strong>Gestion des incidents IA</strong> — Processus formalisé de détection, notification et remédiation des défaillances.</div>
-            <div class="obligation" id="i18n-p3-o3"><strong>Évaluations de sécurité tiers</strong> — Audits externes pour les modèles de fondation (exigé par EU AI Act pour GPAI à risque systémique).</div>
-          </div>
-        </div>
-        <div class="tensions">
-          <div class="tensions-title">⚡ Tensions & défis d'implémentation</div>
-          <p id="i18n-p3-tens">La sécurité des systèmes IA introduit une nouvelle couche distincte de la cybersécurité classique. Les attaques spécifiques à l'IA (prompt injection, jailbreaking, model inversion, data poisoning) nécessitent des compétences et des outils dédiés qui font encore défaut dans la plupart des organisations. Le domaine de l'AI Safety pour les modèles frontières reste en grande partie non résolu.</p>
-        </div>
-      </div>
-    </div>
-  </div>
 
-  <!-- PILIER 4 -->
-  <div class="pillar-card" style="--p-color: var(--p4);" id="pillar-4">
-    <div class="pillar-header" onclick="togglePillar(this)">
-      <div class="pillar-num">04</div>
-      <div class="pillar-title-wrap">
-        <div class="pillar-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="16" r="1"/><rect x="3" y="10" width="18" height="12" rx="2"/><path d="M7 10V7a5 5 0 0 1 10 0v3"/></svg></div>
-        <div class="pillar-title" id="i18n-p4-name">Vie privée & Protection des données</div>
-        <div class="pillar-tagline" id="i18n-p4-tag">Respecter les droits à la vie privée tout au long du cycle de vie des systèmes IA</div>
-      </div>
-      <div class="pillar-meta-right">
-        <span class="p-consensus" id="i18n-p4-cons">Consensus universel · 97%</span>
-        <span class="p-frameworks-count" id="i18n-p4-count">Présent dans 53+ cadres</span>
-        <span class="p-chevron">▼</span>
+  <!-- LIFECYCLE MATRIX -->
+  <section id="lifecycle" class="section">
+    <div class="lc-header">
+      <p class="lc-title" id="lc-title"></p>
+      <p class="lc-sub" id="lc-sub"></p>
+      <div class="lc-legend">
+        <span class="lc-full">●</span> <span id="lc-leg-full"></span>
+        &nbsp;&nbsp;
+        <span class="lc-part">◐</span> <span id="lc-leg-part"></span>
+        &nbsp;&nbsp;
+        <span class="lc-none-sym">○</span> <span id="lc-leg-none"></span>
       </div>
     </div>
-    <div class="pillar-body">
-      <div class="pillar-body-grid">
-        <div>
-          <div class="pb-section-title" id="i18n-p4-def-lbl">Définition & portée</div>
-          <div class="pb-def" id="i18n-p4-def">Ce pilier recouvre le respect des droits fondamentaux à la vie privée à toutes les étapes du cycle de vie d'un système IA : collecte et préparation des données, entraînement des modèles, inférence et déploiement. Il impose l'application des principes de <em>Privacy by Design</em> à l'écosystème IA, avec des considérations spécifiques liées à la mémorisation des données d'entraînement et aux risques de ré-identification.</div>
-          <div class="pb-section-title" id="i18n-p4-sub-lbl">Sous-principes clés</div>
-          <ul class="sub-principles">
-            <li class="sub-principle" id="i18n-p4-s1"><span class="sub-dot"></span><strong>Privacy by Design</strong> — Intégration des exigences de vie privée dès la conception architecturale du système IA, minimisation des données.</li>
-            <li class="sub-principle" id="i18n-p4-s2"><span class="sub-dot"></span><strong>Consentement éclairé</strong> — Base légale pour l'utilisation des données personnelles dans l'entraînement ; droits d'opposition à l'usage IA (RGPD Art. 22).</li>
-            <li class="sub-principle" id="i18n-p4-s3"><span class="sub-dot"></span><strong>Risques d'extraction de données</strong> — Les LLMs peuvent mémoriser et restituer des données d'entraînement (membership inference attacks). Gestion spécifique requise.</li>
-            <li class="sub-principle" id="i18n-p4-s4"><span class="sub-dot"></span><strong>Anonymisation & confidentialité différentielle</strong> — Techniques cryptographiques pour préserver la vie privée lors de l'entraînement des modèles.</li>
-            <li class="sub-principle" id="i18n-p4-s5"><span class="sub-dot"></span><strong>Surveillance biométrique</strong> — Restrictions strictes voire interdiction de la reconnaissance faciale en temps réel dans les espaces publics (EU AI Act).</li>
-          </ul>
-        </div>
-        <div>
-          <div class="pb-section-title" id="i18n-p4-cov-lbl">Couverture par cadre de référence</div>
-          <div class="fw-coverage">
-            <div class="fw-row"><span class="fw-name">RGPD + EU AI Act</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:100%"></div></div><span class="fw-level lvl-full">Obligatoire</span></div>
-            <div class="fw-row"><span class="fw-name">Loi 25 (Québec)</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:95%"></div></div><span class="fw-level lvl-full">Obligatoire</span></div>
-            <div class="fw-row"><span class="fw-name">OCDE</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:92%"></div></div><span class="fw-level lvl-full">Complet</span></div>
-            <div class="fw-row"><span class="fw-name">UNESCO</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:90%"></div></div><span class="fw-level lvl-full">Complet</span></div>
-            <div class="fw-row"><span class="fw-name">ISO 42001</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:88%"></div></div><span class="fw-level lvl-full">Complet</span></div>
-            <div class="fw-row"><span class="fw-name">Canada SAD + LIAD</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:90%"></div></div><span class="fw-level lvl-full">Obligatoire</span></div>
-            <div class="fw-row"><span class="fw-name">Microsoft RAI</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:92%"></div></div><span class="fw-level lvl-full">Standard</span></div>
-            <div class="fw-row"><span class="fw-name">Chine (CAC)</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:85%"></div></div><span class="fw-level lvl-full">Obligatoire</span></div>
-          </div>
-          <div class="pb-section-title" style="margin-top:1.5rem;">Exigences pratiques</div>
-          <div class="obligations">
-            <div class="obligation" id="i18n-p4-o1"><strong>Analyse d'impact (DPIA IA)</strong> — Évaluation d'impact sur la vie privée obligatoire avant tout déploiement de système IA traitant des données personnelles à grande échelle.</div>
-            <div class="obligation" id="i18n-p4-o2"><strong>Gestion des droits</strong> — Processus pour exercer les droits d'accès, rectification, effacement et opposition aux décisions automatisées.</div>
-            <div class="obligation" id="i18n-p4-o3"><strong>Sécurité des données d'entraînement</strong> — Chiffrement, contrôle d'accès strict, audit des pipelines d'entraînement des modèles.</div>
-          </div>
-        </div>
-        <div class="tensions">
-          <div class="tensions-title">⚡ Tensions & défis d'implémentation</div>
-          <p id="i18n-p4-tens">L'entraînement des modèles de grande taille nécessite des volumes massifs de données, en tension avec les principes de minimisation. Le droit à l'effacement est techniquement complexe à implémenter dans des modèles pré-entraînés (machine unlearning). La conformité RGPD des LLMs fait l'objet de contentieux actifs devant plusieurs DPA européennes.</p>
-        </div>
-      </div>
+    <div class="lc-wrap">
+      <table class="lc-table">
+        <thead>
+          <tr>
+            <th class="lc-th-pillar" id="lc-pillar-hdr"></th>
+            <th class="lc-th" id="lc-stage-1"></th><th class="lc-th" id="lc-stage-2"></th><th class="lc-th" id="lc-stage-3"></th><th class="lc-th" id="lc-stage-4"></th><th class="lc-th" id="lc-stage-5"></th><th class="lc-th" id="lc-stage-6"></th><th class="lc-th" id="lc-stage-7"></th><th class="lc-th" id="lc-stage-8"></th><th class="lc-th" id="lc-stage-9"></th><th class="lc-th" id="lc-stage-10"></th>
+          </tr>
+        </thead>
+        <tbody><tr>
+      <td class="lc-pillar-cell" style="border-left:3px solid #c0392b">
+        <span class="lc-ico" style="color:#c0392b"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><circle cx="12" cy="12" r="1"/><path d="M5 12s2.5-5 7-5 7 5 7 5-2.5 5-7 5-7-5-7-5"/></svg></span>
+        <span id="i18n-p1-name-lc"></span>
+      </td>
+      <td class="lc-cell lc-part">◐</td><td class="lc-cell lc-part">◐</td><td class="lc-cell lc-part">◐</td><td class="lc-cell lc-full">●</td><td class="lc-cell lc-full">●</td><td class="lc-cell lc-full">●</td><td class="lc-cell lc-full">●</td><td class="lc-cell lc-full">●</td><td class="lc-cell lc-part">◐</td><td class="lc-cell lc-none">○</td>
+    </tr><tr>
+      <td class="lc-pillar-cell" style="border-left:3px solid #2563eb">
+        <span class="lc-ico" style="color:#2563eb"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M7 21H17"/><path d="M12 3v18"/><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/></svg></span>
+        <span id="i18n-p2-name-lc"></span>
+      </td>
+      <td class="lc-cell lc-full">●</td><td class="lc-cell lc-full">●</td><td class="lc-cell lc-full">●</td><td class="lc-cell lc-full">●</td><td class="lc-cell lc-full">●</td><td class="lc-cell lc-full">●</td><td class="lc-cell lc-part">◐</td><td class="lc-cell lc-full">●</td><td class="lc-cell lc-full">●</td><td class="lc-cell lc-none">○</td>
+    </tr><tr>
+      <td class="lc-pillar-cell" style="border-left:3px solid #16a34a">
+        <span class="lc-ico" style="color:#16a34a"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg></span>
+        <span id="i18n-p3-name-lc"></span>
+      </td>
+      <td class="lc-cell lc-full">●</td><td class="lc-cell lc-part">◐</td><td class="lc-cell lc-part">◐</td><td class="lc-cell lc-full">●</td><td class="lc-cell lc-full">●</td><td class="lc-cell lc-full">●</td><td class="lc-cell lc-full">●</td><td class="lc-cell lc-full">●</td><td class="lc-cell lc-full">●</td><td class="lc-cell lc-part">◐</td>
+    </tr><tr>
+      <td class="lc-pillar-cell" style="border-left:3px solid #7c3aed">
+        <span class="lc-ico" style="color:#7c3aed"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="16" r="1"/><rect x="3" y="10" width="18" height="12" rx="2"/><path d="M7 10V7a5 5 0 0 1 10 0v3"/></svg></span>
+        <span id="i18n-p4-name-lc"></span>
+      </td>
+      <td class="lc-cell lc-full">●</td><td class="lc-cell lc-full">●</td><td class="lc-cell lc-full">●</td><td class="lc-cell lc-full">●</td><td class="lc-cell lc-part">◐</td><td class="lc-cell lc-full">●</td><td class="lc-cell lc-full">●</td><td class="lc-cell lc-full">●</td><td class="lc-cell lc-part">◐</td><td class="lc-cell lc-full">●</td>
+    </tr><tr>
+      <td class="lc-pillar-cell" style="border-left:3px solid #d97706">
+        <span class="lc-ico" style="color:#d97706"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></span>
+        <span id="i18n-p5-name-lc"></span>
+      </td>
+      <td class="lc-cell lc-full">●</td><td class="lc-cell lc-part">◐</td><td class="lc-cell lc-part">◐</td><td class="lc-cell lc-part">◐</td><td class="lc-cell lc-full">●</td><td class="lc-cell lc-full">●</td><td class="lc-cell lc-full">●</td><td class="lc-cell lc-full">●</td><td class="lc-cell lc-full">●</td><td class="lc-cell lc-full">●</td>
+    </tr><tr>
+      <td class="lc-pillar-cell" style="border-left:3px solid #0891b2">
+        <span class="lc-ico" style="color:#0891b2"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg></span>
+        <span id="i18n-p6-name-lc"></span>
+      </td>
+      <td class="lc-cell lc-full">●</td><td class="lc-cell lc-none">○</td><td class="lc-cell lc-part">◐</td><td class="lc-cell lc-full">●</td><td class="lc-cell lc-full">●</td><td class="lc-cell lc-full">●</td><td class="lc-cell lc-full">●</td><td class="lc-cell lc-full">●</td><td class="lc-cell lc-full">●</td><td class="lc-cell lc-part">◐</td>
+    </tr><tr>
+      <td class="lc-pillar-cell" style="border-left:3px solid #15803d">
+        <span class="lc-ico" style="color:#15803d"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 20h10"/><path d="M10 20c5.5-2.5.8-6.4 3-10"/><path d="M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4 0 5.5.8z"/><path d="M14.1 6a7 7 0 0 1 1.1 4.8c-1.6.6-3.2.8-4.6.5.1-1.5.7-3.1 1.9-4.2.9-.8 2.1-1.3 3.5-1.5z"/></svg></span>
+        <span id="i18n-p7-name-lc"></span>
+      </td>
+      <td class="lc-cell lc-part">◐</td><td class="lc-cell lc-part">◐</td><td class="lc-cell lc-part">◐</td><td class="lc-cell lc-full">●</td><td class="lc-cell lc-part">◐</td><td class="lc-cell lc-part">◐</td><td class="lc-cell lc-full">●</td><td class="lc-cell lc-full">●</td><td class="lc-cell lc-part">◐</td><td class="lc-cell lc-full">●</td>
+    </tr><tr>
+      <td class="lc-pillar-cell" style="border-left:3px solid #9d174d">
+        <span class="lc-ico" style="color:#9d174d"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m11 17 2 2a1 1 0 1 0 3-3"/><path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4"/><path d="m21 3 1 11h-2"/><path d="M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3"/><path d="M3 4h8"/></svg></span>
+        <span id="i18n-p8-name-lc"></span>
+      </td>
+      <td class="lc-cell lc-full">●</td><td class="lc-cell lc-full">●</td><td class="lc-cell lc-full">●</td><td class="lc-cell lc-part">◐</td><td class="lc-cell lc-full">●</td><td class="lc-cell lc-part">◐</td><td class="lc-cell lc-full">●</td><td class="lc-cell lc-part">◐</td><td class="lc-cell lc-full">●</td><td class="lc-cell lc-none">○</td>
+    </tr><tr>
+      <td class="lc-pillar-cell" style="border-left:3px solid #1e3a8a">
+        <span class="lc-ico" style="color:#1e3a8a"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="22" x2="21" y2="22"/><line x1="6" y1="18" x2="6" y2="11"/><line x1="10" y1="18" x2="10" y2="11"/><line x1="14" y1="18" x2="14" y2="11"/><line x1="18" y1="18" x2="18" y2="11"/><polygon points="12 2 20 7 4 7"/></svg></span>
+        <span id="i18n-p9-name-lc"></span>
+      </td>
+      <td class="lc-cell lc-full">●</td><td class="lc-cell lc-part">◐</td><td class="lc-cell lc-part">◐</td><td class="lc-cell lc-part">◐</td><td class="lc-cell lc-full">●</td><td class="lc-cell lc-full">●</td><td class="lc-cell lc-full">●</td><td class="lc-cell lc-full">●</td><td class="lc-cell lc-full">●</td><td class="lc-cell lc-full">●</td>
+    </tr></tbody>
+      </table>
     </div>
-  </div>
-
-  <!-- PILIER 5 -->
-  <div class="pillar-card" style="--p-color: var(--p5);" id="pillar-5">
-    <div class="pillar-header" onclick="togglePillar(this)">
-      <div class="pillar-num">05</div>
-      <div class="pillar-title-wrap">
-        <div class="pillar-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div>
-        <div class="pillar-title" id="i18n-p5-name">Responsabilité & Imputabilité</div>
-        <div class="pillar-tagline" id="i18n-p5-tag">Des mécanismes clairs d'attribution de responsabilité et de recours pour les personnes affectées</div>
-      </div>
-      <div class="pillar-meta-right">
-        <span class="p-consensus" id="i18n-p5-cons">Consensus absolu · 100%</span>
-        <span class="p-frameworks-count" id="i18n-p5-count">Présent dans 55+ cadres</span>
-        <span class="p-chevron">▼</span>
-      </div>
-    </div>
-    <div class="pillar-body">
-      <div class="pillar-body-grid">
-        <div>
-          <div class="pb-section-title" id="i18n-p5-def-lbl">Définition & portée</div>
-          <div class="pb-def" id="i18n-p5-def">La responsabilité (accountability) est le seul pilier présent à 100% dans tous les cadres analysés. Elle impose qu'une personne physique ou morale identifiable soit responsable du développement, du déploiement et des impacts d'un système IA — et qu'elle puisse être tenue de rendre des comptes. L'imputabilité garantit que les personnes affectées par des décisions IA disposent de voies de recours effectives.</div>
-          <div class="pb-section-title" id="i18n-p5-sub-lbl">Sous-principes clés</div>
-          <ul class="sub-principles">
-            <li class="sub-principle" id="i18n-p5-s1"><span class="sub-dot"></span><strong>Chaîne de responsabilité claire</strong> — Identification du développeur, du déployeur et de l'utilisateur; définition des responsabilités à chaque maillon (EU AI Act Art. 25-27).</li>
-            <li class="sub-principle" id="i18n-p5-s2"><span class="sub-dot"></span><strong>Audits et certifications</strong> — Mécanismes d'évaluation de conformité par tiers pour les systèmes à haut risque; accréditation des organismes notifiés.</li>
-            <li class="sub-principle" id="i18n-p5-s3"><span class="sub-dot"></span><strong>Droits de recours</strong> — Voies de contestation des décisions automatisées; accès à des mécanismes de réparation équitables.</li>
-            <li class="sub-principle" id="i18n-p5-s4"><span class="sub-dot"></span><strong>Impact Assessments</strong> — Évaluations d'impact (RAIA Microsoft, AI Impact Assessment ISO 42005, DPIA) formalisées et documentées.</li>
-            <li class="sub-principle" id="i18n-p5-s5"><span class="sub-dot"></span><strong>Responsabilité civile</strong> — EU AI Liability Directive en cours; régimes de responsabilité pour les dommages causés par les systèmes IA autonomes.</li>
-          </ul>
+    
+    <div class="lc-insights">
+      <div class="lc-insight-title" id="lc-insights-title"></div>
+      <div class="lc-insight-grid">
+        <div class="lc-insight-card" style="border-top-color:#1e3a8a">
+          <div class="lc-ic-label" id="lc-ins1-title"></div>
+          <div class="lc-ic-body" id="lc-ins1-body"></div>
         </div>
-        <div>
-          <div class="pb-section-title" id="i18n-p5-cov-lbl">Couverture par cadre de référence</div>
-          <div class="fw-coverage">
-            <div class="fw-row"><span class="fw-name">EU AI Act</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:100%"></div></div><span class="fw-level lvl-full">Obligatoire</span></div>
-            <div class="fw-row"><span class="fw-name">ISO 42001</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:100%"></div></div><span class="fw-level lvl-full">Complet</span></div>
-            <div class="fw-row"><span class="fw-name">NIST AI RMF</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:100%"></div></div><span class="fw-level lvl-full">Complet</span></div>
-            <div class="fw-row"><span class="fw-name">OCDE</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:100%"></div></div><span class="fw-level lvl-full">Complet</span></div>
-            <div class="fw-row"><span class="fw-name">UNESCO</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:100%"></div></div><span class="fw-level lvl-full">Complet</span></div>
-            <div class="fw-row"><span class="fw-name">Canada SAD</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:100%"></div></div><span class="fw-level lvl-full">Obligatoire</span></div>
-            <div class="fw-row"><span class="fw-name">Microsoft RAI</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:100%"></div></div><span class="fw-level lvl-full">Standard</span></div>
-            <div class="fw-row"><span class="fw-name">Conseil de l'Europe</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:100%"></div></div><span class="fw-level lvl-full">Traité</span></div>
-          </div>
-          <div class="pb-section-title" style="margin-top:1.5rem;">Exigences pratiques</div>
-          <div class="obligations">
-            <div class="obligation" id="i18n-p5-o1"><strong>Registre des systèmes IA</strong> — Inventaire formalisé de tous les systèmes IA en production, avec propriétaire désigné et niveau de risque.</div>
-            <div class="obligation" id="i18n-p5-o2"><strong>Impact Assessment documenté</strong> — Évaluation d'impact formelle avant tout déploiement de système IA à impact significatif.</div>
-            <div class="obligation" id="i18n-p5-o3"><strong>Mécanisme de plainte</strong> — Processus accessible pour contester ou signaler un problème lié à une décision IA.</div>
-          </div>
+        <div class="lc-insight-card" style="border-top-color:#c0392b">
+          <div class="lc-ic-label" id="lc-ins2-title"></div>
+          <div class="lc-ic-body" id="lc-ins2-body"></div>
         </div>
-        <div class="tensions">
-          <div class="tensions-title">⚡ Tensions & défis d'implémentation</div>
-          <p>Avec les systèmes IA autonomes et multi-agents, l'attribution de responsabilité devient diffuse. Qui est responsable quand un agent IA prend une décision non anticipée par son développeur? Les chaînes de valeur IA complexes (API tiers, modèles pré-entraînés, fine-tuning) rendent difficile l'identification du responsable ultime.</p>
+        <div class="lc-insight-card" style="border-top-color:#16a34a">
+          <div class="lc-ic-label" id="lc-ins3-title"></div>
+          <div class="lc-ic-body" id="lc-ins3-body"></div>
+        </div>
+        <div class="lc-insight-card" style="border-top-color:#d97706">
+          <div class="lc-ic-label" id="lc-ins4-title"></div>
+          <div class="lc-ic-body" id="lc-ins4-body"></div>
         </div>
       </div>
     </div>
-  </div>
-
-  <!-- PILIER 6 -->
-  <div class="pillar-card" style="--p-color: var(--p6);" id="pillar-6">
-    <div class="pillar-header" onclick="togglePillar(this)">
-      <div class="pillar-num">06</div>
-      <div class="pillar-title-wrap">
-        <div class="pillar-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg></div>
-        <div class="pillar-title" id="i18n-p6-name">Contrôle humain & Supervision</div>
-        <div class="pillar-tagline" id="i18n-p6-tag">Les humains doivent conserver la capacité de superviser, corriger et arrêter les systèmes IA</div>
-      </div>
-      <div class="pillar-meta-right">
-        <span class="p-consensus" id="i18n-p6-cons">En consolidation · 88%</span>
-        <span class="p-frameworks-count" id="i18n-p6-count">Présent dans 48+ cadres</span>
-        <span class="p-chevron">▼</span>
-      </div>
-    </div>
-    <div class="pillar-body">
-      <div class="pillar-body-grid">
-        <div>
-          <div class="pb-section-title" id="i18n-p6-def-lbl">Définition & portée</div>
-          <div class="pb-def" id="i18n-p6-def">Ce pilier garantit que les humains maintiennent une capacité de supervision, d'intervention et de contrôle final sur les systèmes IA, en particulier pour les décisions à fort impact. Il s'oppose à la délégation totale d'autorité décisionnelle à des machines. Les modèles varient selon le niveau d'autonomie accordé : Human-in-the-Loop (HITL), Human-on-the-Loop (HOTL) et Human-in-Command.</div>
-          <div class="pb-section-title" id="i18n-p6-sub-lbl">Sous-principes clés</div>
-          <ul class="sub-principles">
-            <li class="sub-principle" id="i18n-p6-s1"><span class="sub-dot"></span><strong>Human-in-the-Loop (HITL)</strong> — Validation humaine obligatoire avant l'exécution de décisions critiques; pas de pleine automatisation.</li>
-            <li class="sub-principle" id="i18n-p6-s2"><span class="sub-dot"></span><strong>Kill switches & arrêt d'urgence</strong> — Mécanismes techniques permettant d'interrompre un système IA en cas de comportement anormal.</li>
-            <li class="sub-principle" id="i18n-p6-s3"><span class="sub-dot"></span><strong>Droit à l'examen humain</strong> — EU AI Act Art. 14 : les systèmes IA à haut risque doivent permettre une supervision humaine effective.</li>
-            <li class="sub-principle" id="i18n-p6-s4"><span class="sub-dot"></span><strong>Autonomie progressive</strong> — Le niveau d'autonomie accordé doit être proportionnel aux risques et à la maturité du système, avec révision périodique.</li>
-            <li class="sub-principle" id="i18n-p6-s5"><span class="sub-dot"></span><strong>Prévention de l'automation bias</strong> — Formation des opérateurs humains pour éviter la sur-confiance dans les décisions IA et maintenir leur capacité critique.</li>
-          </ul>
-        </div>
-        <div>
-          <div class="pb-section-title" id="i18n-p6-cov-lbl">Couverture par cadre de référence</div>
-          <div class="fw-coverage">
-            <div class="fw-row"><span class="fw-name">EU AI Act</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:100%"></div></div><span class="fw-level lvl-full">Obligatoire</span></div>
-            <div class="fw-row"><span class="fw-name">UNESCO</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:95%"></div></div><span class="fw-level lvl-full">Complet</span></div>
-            <div class="fw-row"><span class="fw-name">OCDE</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:90%"></div></div><span class="fw-level lvl-full">Complet</span></div>
-            <div class="fw-row"><span class="fw-name">Canada SAD</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:95%"></div></div><span class="fw-level lvl-full">Obligatoire</span></div>
-            <div class="fw-row"><span class="fw-name">Conseil de l'Europe</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:92%"></div></div><span class="fw-level lvl-full">Traité</span></div>
-            <div class="fw-row"><span class="fw-name">NIST AI RMF</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:85%"></div></div><span class="fw-level lvl-full">Complet</span></div>
-            <div class="fw-row"><span class="fw-name">DoD AI Ethics</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:90%"></div></div><span class="fw-level lvl-full">Obligatoire</span></div>
-            <div class="fw-row"><span class="fw-name">Google / Microsoft</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:70%"></div></div><span class="fw-level lvl-part">Partiel</span></div>
-          </div>
-          <div class="pb-section-title" style="margin-top:1.5rem;">Exigences pratiques</div>
-          <div class="obligations">
-            <div class="obligation" id="i18n-p6-o1"><strong>Niveaux d'autonomie définis</strong> — Documentation formelle du niveau de délégation accordé à chaque système IA (décision finale, recommandation, alerte).</div>
-            <div class="obligation" id="i18n-p6-o2"><strong>Formation des opérateurs</strong> — Programme de formation pour maintenir la compétence critique des superviseurs humains face aux systèmes IA.</div>
-            <div class="obligation" id="i18n-p6-o3"><strong>Procédures de révision manuelle</strong> — Processus clairement défini pour déclencher et exécuter une révision humaine des décisions contestées.</div>
-          </div>
-        </div>
-        <div class="tensions">
-          <div class="tensions-title">⚡ Tensions & défis d'implémentation</div>
-          <p id="i18n-p6-tens">L'exigence de supervision humaine entre en tension avec les bénéfices de l'automatisation (vitesse, coût, scalabilité). Dans les systèmes autonomes avancés (agents IA, IA temps réel), une intervention humaine systématique peut être techniquement impraticable. Le risque d'automation bias — où l'opérateur valide sans critique les décisions IA — peut rendre la supervision formelle sans valeur réelle.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- PILIER 7 -->
-  <div class="pillar-card" style="--p-color: var(--p7);" id="pillar-7">
-    <div class="pillar-header" onclick="togglePillar(this)">
-      <div class="pillar-num">07</div>
-      <div class="pillar-title-wrap">
-        <div class="pillar-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 20h10"/><path d="M10 20c5.5-2.5.8-6.4 3-10"/><path d="M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4 0 5.5.8z"/><path d="M14.1 6a7 7 0 0 1 1.1 4.8c-1.6.6-3.2.8-4.6.5.1-1.5.7-3.1 1.9-4.2.9-.8 2.1-1.3 3.5-1.5z"/></svg></div>
-        <div class="pillar-title" id="i18n-p7-name">Durabilité & Impact environnemental</div>
-        <div class="pillar-tagline" id="i18n-p7-tag">Mesurer, limiter et compenser l'empreinte environnementale des systèmes IA</div>
-      </div>
-      <div class="pillar-meta-right">
-        <span class="p-consensus" id="i18n-p7-cons">Pilier émergent · 42%</span>
-        <span class="p-frameworks-count" id="i18n-p7-count">En forte croissance 2024–2025</span>
-        <span class="p-chevron">▼</span>
-      </div>
-    </div>
-    <div class="pillar-body">
-      <div class="pillar-body-grid">
-        <div>
-          <div class="pb-section-title" id="i18n-p7-def-lbl">Définition & portée</div>
-          <div class="pb-def" id="i18n-p7-def">Pilier le plus récent en termes de formalisation, la durabilité environnementale de l'IA émerge dans les cadres de 2023–2025. Elle concerne la consommation énergétique massive de l'entraînement des grands modèles, l'empreinte carbone de l'inférence à grande échelle, la consommation d'eau des datacenters et les impacts sur les matières premières (GPU, rare earths). La Déclaration de Paris (2025) en a fait un axe stratégique.</div>
-          <div class="pb-section-title" id="i18n-p7-sub-lbl">Sous-principes clés</div>
-          <ul class="sub-principles">
-            <li class="sub-principle" id="i18n-p7-s1"><span class="sub-dot"></span><strong>Mesure de l'empreinte carbone</strong> — Quantification des émissions CO₂ liées à l'entraînement et à l'inférence des modèles (scope 1, 2, 3).</li>
-            <li class="sub-principle" id="i18n-p7-s2"><span class="sub-dot"></span><strong>Efficience énergétique by design</strong> — Choix architecturaux et optimisations réduisant la consommation énergétique sans sacrifier les performances.</li>
-            <li class="sub-principle" id="i18n-p7-s3"><span class="sub-dot"></span><strong>Divulgation environnementale</strong> — Obligation de rapporter l'empreinte environnementale des systèmes IA (annoncée dans EU AI Act pour GPAI).</li>
-            <li class="sub-principle" id="i18n-p7-s4"><span class="sub-dot"></span><strong>Énergie renouvelable</strong> — Engagement des opérateurs cloud et datacenters vers 100% d'énergie renouvelable pour les charges de travail IA.</li>
-            <li class="sub-principle" id="i18n-p7-s5"><span class="sub-dot"></span><strong>Sobriété numérique</strong> — Questionnement de la nécessité de déployer des modèles complexes quand des solutions plus légères suffisent.</li>
-          </ul>
-        </div>
-        <div>
-          <div class="pb-section-title" id="i18n-p7-cov-lbl">Couverture par cadre de référence</div>
-          <div class="fw-coverage">
-            <div class="fw-row"><span class="fw-name">UNESCO</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:90%"></div></div><span class="fw-level lvl-full">Complet</span></div>
-            <div class="fw-row"><span class="fw-name">EU AI Act (GPAI)</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:65%"></div></div><span class="fw-level lvl-part">Partiel</span></div>
-            <div class="fw-row"><span class="fw-name">OCDE (rév. 2024)</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:60%"></div></div><span class="fw-level lvl-part">Émergent</span></div>
-            <div class="fw-row"><span class="fw-name">Décl. Paris 2025</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:80%"></div></div><span class="fw-level lvl-full">Engagement</span></div>
-            <div class="fw-row"><span class="fw-name">NIST AI RMF</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:25%"></div></div><span class="fw-level lvl-emerg">Absent</span></div>
-            <div class="fw-row"><span class="fw-name">ISO 42001</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:20%"></div></div><span class="fw-level lvl-emerg">Absent</span></div>
-            <div class="fw-row"><span class="fw-name">Google / Microsoft</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:45%"></div></div><span class="fw-level lvl-part">Partiel</span></div>
-          </div>
-          <div class="pb-section-title" style="margin-top:1.5rem;">Exigences pratiques</div>
-          <div class="obligations">
-            <div class="obligation" id="i18n-p7-o1"><strong>Bilan carbone des modèles</strong> — Estimation et reporting de l'empreinte CO₂ de l'entraînement et du déploiement des modèles IA internes.</div>
-            <div class="obligation" id="i18n-p7-o2"><strong>Critères environnementaux dans les achats IA</strong> — Intégration de critères d'efficience énergétique dans l'évaluation des fournisseurs de modèles et d'infrastructure cloud.</div>
-          </div>
-        </div>
-        <div class="tensions">
-          <div class="tensions-title">⚡ Tensions & défis d'implémentation</div>
-          <p id="i18n-p7-tens">La mesure standardisée de l'empreinte carbone des modèles IA fait encore défaut. Les méthodes de calcul varient considérablement selon les fournisseurs. La course aux modèles toujours plus grands (scaling laws) crée une pression inverse à la sobriété. Ce pilier devrait être l'un des plus dynamiques en 2025–2027 au niveau réglementaire.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- PILIER 8 -->
-  <div class="pillar-card" style="--p-color: var(--p8);" id="pillar-8">
-    <div class="pillar-header" onclick="togglePillar(this)">
-      <div class="pillar-num">08</div>
-      <div class="pillar-title-wrap">
-        <div class="pillar-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m11 17 2 2a1 1 0 1 0 3-3"/><path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4"/><path d="m21 3 1 11h-2"/><path d="M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3"/><path d="M3 4h8"/></svg></div>
-        <div class="pillar-title" id="i18n-p8-name">Inclusion & Accessibilité</div>
-        <div class="pillar-tagline" id="i18n-p8-tag">Les bénéfices de l'IA doivent être distribués équitablement, sans creuser les inégalités</div>
-      </div>
-      <div class="pillar-meta-right">
-        <span class="p-consensus" id="i18n-p8-cons">En consolidation · 75%</span>
-        <span class="p-frameworks-count" id="i18n-p8-count">Présent dans 41+ cadres</span>
-        <span class="p-chevron">▼</span>
-      </div>
-    </div>
-    <div class="pillar-body">
-      <div class="pillar-body-grid">
-        <div>
-          <div class="pb-section-title" id="i18n-p8-def-lbl">Définition & portée</div>
-          <div class="pb-def" id="i18n-p8-def">L'inclusion dans le contexte de l'IA responsable englobe plusieurs dimensions : l'accessibilité technique des systèmes IA aux personnes en situation de handicap, la représentativité des équipes de développement (pour réduire les biais de conception), la disponibilité des bénéfices de l'IA à travers les pays et niveaux socioéconomiques, et la protection des groupes vulnérables contre les usages discriminatoires.</div>
-          <div class="pb-section-title" id="i18n-p8-sub-lbl">Sous-principes clés</div>
-          <ul class="sub-principles">
-            <li class="sub-principle" id="i18n-p8-s1"><span class="sub-dot"></span><strong>Accessibilité universelle</strong> — Les interfaces et sorties des systèmes IA doivent être accessibles aux personnes avec handicaps (WCAG, standards d'accessibilité).</li>
-            <li class="sub-principle" id="i18n-p8-s2"><span class="sub-dot"></span><strong>Diversité des équipes</strong> — Promouvoir la diversité (genre, origine, discipline) dans les équipes développant des systèmes IA pour réduire les biais systémiques.</li>
-            <li class="sub-principle" id="i18n-p8-s3"><span class="sub-dot"></span><strong>Fracture numérique & IA</strong> — Éviter que les systèmes IA n'amplifient les inégalités d'accès entre pays du Nord et du Sud, zones urbaines et rurales.</li>
-            <li class="sub-principle" id="i18n-p8-s4"><span class="sub-dot"></span><strong>Protection des groupes vulnérables</strong> — Protections renforcées pour les mineurs, personnes âgées, personnes en situation de vulnérabilité économique.</li>
-            <li class="sub-principle" id="i18n-p8-s5"><span class="sub-dot"></span><strong>Multilinguisme & multilingualité</strong> — Disponibilité des systèmes IA dans des langues non dominantes; éviter les biais culturels anglocentriques.</li>
-          </ul>
-        </div>
-        <div>
-          <div class="pb-section-title" id="i18n-p8-cov-lbl">Couverture par cadre de référence</div>
-          <div class="fw-coverage">
-            <div class="fw-row"><span class="fw-name">UNESCO</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:100%"></div></div><span class="fw-level lvl-full">Complet</span></div>
-            <div class="fw-row"><span class="fw-name">OCDE</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:90%"></div></div><span class="fw-level lvl-full">Complet</span></div>
-            <div class="fw-row"><span class="fw-name">Google AI</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:85%"></div></div><span class="fw-level lvl-full">Engagement</span></div>
-            <div class="fw-row"><span class="fw-name">Microsoft RAI</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:88%"></div></div><span class="fw-level lvl-full">Standard</span></div>
-            <div class="fw-row"><span class="fw-name">EU AI Act</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:65%"></div></div><span class="fw-level lvl-part">Partiel</span></div>
-            <div class="fw-row"><span class="fw-name">ONU Résolution 2024</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:80%"></div></div><span class="fw-level lvl-full">Résolution</span></div>
-            <div class="fw-row"><span class="fw-name">NIST AI RMF</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:70%"></div></div><span class="fw-level lvl-part">Partiel</span></div>
-            <div class="fw-row"><span class="fw-name">ISO 42001</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:40%"></div></div><span class="fw-level lvl-emerg">Limité</span></div>
-          </div>
-          <div class="pb-section-title" style="margin-top:1.5rem;">Exigences pratiques</div>
-          <div class="obligations">
-            <div class="obligation" id="i18n-p8-o1"><strong>Audit d'accessibilité</strong> — Évaluation de conformité aux standards d'accessibilité (WCAG 2.1 AA minimum) pour toutes les interfaces IA publiques.</div>
-            <div class="obligation" id="i18n-p8-o2"><strong>Consultations communautaires</strong> — Implication des communautés affectées dans la conception des systèmes IA à impact social.</div>
-          </div>
-        </div>
-        <div class="tensions">
-          <div class="tensions-title">⚡ Tensions & défis d'implémentation</div>
-          <p id="i18n-p8-tens">L'inclusion reste souvent traitée comme un objectif aspirationnel plutôt qu'une exigence opérationnelle. La tension entre universalité et personnalisation est structurelle. Les métriques d'inclusion sont difficiles à définir et mesurer. Ce pilier est plus fort dans les cadres internationaux que dans les réglementations contraignantes sectorielles.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- PILIER 9 -->
-  <div class="pillar-card" style="--p-color: var(--p9);" id="pillar-9">
-    <div class="pillar-header" onclick="togglePillar(this)">
-      <div class="pillar-num">09</div>
-      <div class="pillar-title-wrap">
-        <div class="pillar-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="22" x2="21" y2="22"/><line x1="6" y1="18" x2="6" y2="11"/><line x1="10" y1="18" x2="10" y2="11"/><line x1="14" y1="18" x2="14" y2="11"/><line x1="18" y1="18" x2="18" y2="11"/><polygon points="12 2 20 7 4 7"/></svg></div>
-        <div class="pillar-title" id="i18n-p9-name">Gouvernance & Gestion des risques IA</div>
-        <div class="pillar-tagline" id="i18n-p9-tag">Structures organisationnelles, politiques et processus formels pour piloter l'IA de manière responsable</div>
-      </div>
-      <div class="pillar-meta-right">
-        <span class="p-consensus" id="i18n-p9-cons">Consensus universel · 93%</span>
-        <span class="p-frameworks-count" id="i18n-p9-count">Présent dans 51+ cadres</span>
-        <span class="p-chevron">▼</span>
-      </div>
-    </div>
-    <div class="pillar-body">
-      <div class="pillar-body-grid">
-        <div>
-          <div class="pb-section-title" id="i18n-p9-def-lbl">Définition & portée</div>
-          <div class="pb-def" id="i18n-p9-def">Ce pilier représente l'architecture organisationnelle et processuelle qui permet de mettre en œuvre les huit autres piliers. Il couvre la stratégie IA, les structures de gouvernance (comités, fonctions RAI dédiées), les politiques formelles, la gestion du cycle de vie des systèmes IA, la gestion des risques IA intégrée au cadre de risque d'entreprise (ERM) et la conformité réglementaire continue.</div>
-          <div class="pb-section-title" id="i18n-p9-sub-lbl">Sous-principes clés</div>
-          <ul class="sub-principles">
-            <li class="sub-principle" id="i18n-p9-s1"><span class="sub-dot"></span><strong>Système de management IA (AIMS)</strong> — ISO 42001 : structure formelle de gestion de l'IA intégrée aux systèmes de management existants (ISO 27001, ISO 9001).</li>
-            <li class="sub-principle" id="i18n-p9-s2"><span class="sub-dot"></span><strong>Fonctions RAI dédiées</strong> — Rôles organisationnels spécifiques : Chief AI Officer, Responsible AI Officer, comités éthique IA (ex: AETHER chez Microsoft).</li>
-            <li class="sub-principle" id="i18n-p9-s3"><span class="sub-dot"></span><strong>Cycle de vie IA structuré</strong> — Processus formalisés pour chaque phase : design, développement, test, déploiement, monitoring, retrait.</li>
-            <li class="sub-principle" id="i18n-p9-s4"><span class="sub-dot"></span><strong>Registre des risques IA</strong> — Identification, évaluation et traitement des risques spécifiques aux systèmes IA, intégrés au registre des risques d'entreprise.</li>
-            <li class="sub-principle" id="i18n-p9-s5"><span class="sub-dot"></span><strong>Gestion des fournisseurs IA (AI TPRM)</strong> — Extension du TPRM aux risques spécifiques aux fournisseurs de modèles IA, APIs tiers et services cloud IA.</li>
-          </ul>
-        </div>
-        <div>
-          <div class="pb-section-title" id="i18n-p9-cov-lbl">Couverture par cadre de référence</div>
-          <div class="fw-coverage">
-            <div class="fw-row"><span class="fw-name">ISO 42001</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:100%"></div></div><span class="fw-level lvl-full">Central</span></div>
-            <div class="fw-row"><span class="fw-name">NIST AI RMF</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:100%"></div></div><span class="fw-level lvl-full">Central</span></div>
-            <div class="fw-row"><span class="fw-name">EU AI Act</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:95%"></div></div><span class="fw-level lvl-full">Obligatoire</span></div>
-            <div class="fw-row"><span class="fw-name">Microsoft RAI</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:100%"></div></div><span class="fw-level lvl-full">Central</span></div>
-            <div class="fw-row"><span class="fw-name">Canada SAD + LIAD</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:90%"></div></div><span class="fw-level lvl-full">Obligatoire</span></div>
-            <div class="fw-row"><span class="fw-name">MAS AI Guidelines</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:95%"></div></div><span class="fw-level lvl-full">Obligatoire</span></div>
-            <div class="fw-row"><span class="fw-name">OSFI Canada</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:88%"></div></div><span class="fw-level lvl-full">Obligatoire</span></div>
-            <div class="fw-row"><span class="fw-name">G7 Hiroshima</span><div class="fw-bar-bg"><div class="fw-bar-fill" style="width:75%"></div></div><span class="fw-level lvl-full">Engagement</span></div>
-          </div>
-          <div class="pb-section-title" style="margin-top:1.5rem;">Exigences pratiques</div>
-          <div class="obligations">
-            <div class="obligation" id="i18n-p9-o1"><strong>Inventaire & classification IA</strong> — Registre complet de tous les systèmes IA en production avec niveau de risque assigné (critique, élevé, moyen, faible).</div>
-            <div class="obligation" id="i18n-p9-o2"><strong>Politique RAI formelle</strong> — Politique d'IA responsable approuvée par la direction, déclinée en procédures opérationnelles par équipe.</div>
-            <div class="obligation" id="i18n-p9-o3"><strong>AI TPRM</strong> — Extension du programme TPRM existant aux risques spécifiques des fournisseurs et services IA tiers (modèles, APIs, données).</div>
-            <div class="obligation" id="i18n-p9-o4"><strong>Formation obligatoire</strong> — Programme de sensibilisation et formation RAI pour tous les employés utilisant ou développant des systèmes IA.</div>
-          </div>
-        </div>
-        <div class="tensions">
-          <div class="tensions-title">⚡ Tensions & défis d'implémentation</div>
-          <p id="i18n-p9-tens">La gouvernance IA doit être intégrée aux structures existantes (GRC, cybersécurité, conformité) sans créer un silo parallèle. La vitesse de déploiement de l'IA dépasse souvent la capacité des processus de gouvernance à suivre. Le pilier 9 est le méta-pilier : sans lui, les 8 autres restent des intentions sans mécanisme d'application.</p>
-        </div>
-      </div>
-    </div>
-  </div>
+  </section>
 
 </div>
-</section>
-
-<!-- ══════════════════════════════════════════
-     MATRICE
-══════════════════════════════════════════ -->
-<section id="matrix" class="section">
-  <div style="margin-bottom:1.5rem;">
-    <div class="consensus-title" id="i18n-mx-title">Matrice de couverture — Piliers × Cadres principaux</div>
-    <div class="consensus-sub" id="i18n-mx-sub">● Traitement complet & explicite &nbsp;◐ Partiel / en émergence &nbsp;○ Absent ou non traité</div>
-  </div>
-  <div class="matrix-container">
-    <table>
-      <thead>
-        <tr>
-          <th>Pilier</th>
-          <th>EU AI Act</th>
-          <th>NIST RMF</th>
-          <th>ISO 42001</th>
-          <th>OCDE</th>
-          <th>UNESCO</th>
-          <th>Canada SAD</th>
-          <th>Loi 25 QC</th>
-          <th>Google AI</th>
-          <th>Microsoft</th>
-          <th>Anthropic</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td id="i18n-mx-p1"><span style="color:var(--p1);">●</span> Transparence</td>
-          <td class="cell-full">●</td><td class="cell-full">●</td><td class="cell-full">●</td><td class="cell-full">●</td><td class="cell-full">●</td><td class="cell-full">●</td><td class="cell-full">●</td><td class="cell-full">●</td><td class="cell-full">●</td><td class="cell-full">●</td>
-        </tr>
-        <tr>
-          <td id="i18n-mx-p2"><span style="color:var(--p2);">●</span> Équité</td>
-          <td class="cell-full">●</td><td class="cell-full">●</td><td class="cell-part">◐</td><td class="cell-full">●</td><td class="cell-full">●</td><td class="cell-part">◐</td><td class="cell-full">●</td><td class="cell-full">●</td><td class="cell-full">●</td><td class="cell-part">◐</td>
-        </tr>
-        <tr>
-          <td id="i18n-mx-p3"><span style="color:var(--p3);">●</span> Sécurité & Robustesse</td>
-          <td class="cell-full">●</td><td class="cell-full">●</td><td class="cell-full">●</td><td class="cell-full">●</td><td class="cell-part">◐</td><td class="cell-part">◐</td><td class="cell-part">◐</td><td class="cell-full">●</td><td class="cell-full">●</td><td class="cell-full">●</td>
-        </tr>
-        <tr>
-          <td id="i18n-mx-p4"><span style="color:var(--p4);">●</span> Vie privée</td>
-          <td class="cell-full">●</td><td class="cell-full">●</td><td class="cell-full">●</td><td class="cell-full">●</td><td class="cell-full">●</td><td class="cell-full">●</td><td class="cell-full">●</td><td class="cell-full">●</td><td class="cell-full">●</td><td class="cell-part">◐</td>
-        </tr>
-        <tr>
-          <td id="i18n-mx-p5"><span style="color:var(--p5);">●</span> Responsabilité</td>
-          <td class="cell-full">●</td><td class="cell-full">●</td><td class="cell-full">●</td><td class="cell-full">●</td><td class="cell-full">●</td><td class="cell-full">●</td><td class="cell-full">●</td><td class="cell-full">●</td><td class="cell-full">●</td><td class="cell-full">●</td>
-        </tr>
-        <tr>
-          <td id="i18n-mx-p6"><span style="color:var(--p6);">●</span> Contrôle humain</td>
-          <td class="cell-full">●</td><td class="cell-full">●</td><td class="cell-part">◐</td><td class="cell-full">●</td><td class="cell-full">●</td><td class="cell-full">●</td><td class="cell-part">◐</td><td class="cell-part">◐</td><td class="cell-part">◐</td><td class="cell-full">●</td>
-        </tr>
-        <tr>
-          <td id="i18n-mx-p7"><span style="color:var(--p7);">●</span> Durabilité</td>
-          <td class="cell-part">◐</td><td class="cell-none">○</td><td class="cell-none">○</td><td class="cell-part">◐</td><td class="cell-full">●</td><td class="cell-none">○</td><td class="cell-none">○</td><td class="cell-none">○</td><td class="cell-none">○</td><td class="cell-none">○</td>
-        </tr>
-        <tr>
-          <td id="i18n-mx-p8"><span style="color:var(--p8);">●</span> Inclusion</td>
-          <td class="cell-part">◐</td><td class="cell-part">◐</td><td class="cell-none">○</td><td class="cell-full">●</td><td class="cell-full">●</td><td class="cell-part">◐</td><td class="cell-part">◐</td><td class="cell-full">●</td><td class="cell-full">●</td><td class="cell-part">◐</td>
-        </tr>
-        <tr>
-          <td id="i18n-mx-p9"><span style="color:var(--p9);">●</span> Gouvernance & Risques</td>
-          <td class="cell-full">●</td><td class="cell-full">●</td><td class="cell-full">●</td><td class="cell-part">◐</td><td class="cell-part">◐</td><td class="cell-full">●</td><td class="cell-full">●</td><td class="cell-part">◐</td><td class="cell-full">●</td><td class="cell-part">◐</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div style="margin-top:2.5rem; background:var(--ink); color:var(--paper); padding:2rem;">
-    <div style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:700;margin-bottom:1rem;color:#e8c87a;" id="i18n-mx-strat-title">Lecture stratégique pour le contexte canadien</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;font-size:0.82rem;line-height:1.7;color:rgba(255,255,255,0.75);">
-      <div>
-        <span id="i18n-mx-strat1"><strong style="color:var(--paper);">Conformité réglementaire immédiate</strong><br>
-        Pour les organisations québécoises, la <strong style="color:#e8c87a;">Loi 25</strong> est d'application immédiate sur les piliers Vie privée, Transparence et Responsabilité. La <strong style="color:#e8c87a;">Directive SAD fédérale</strong> s'impose pour toute interaction avec le gouvernement fédéral. L'<strong style="color:#e8c87a;">EU AI Act</strong> s'applique extra-territorialement aux organisations commercialisant en Europe.
-      </div>
-      <div>
-        <strong style="color:var(--paper);"></span>
-        <span id="i18n-mx-strat2"><strong style="color:var(--paper);">Priorités d'investissement RAI recommandées</strong><br>
-        1. <strong style="color:#e8c87a;">ISO 42001</strong> comme ossature de gouvernance (certifiable, compatible ISO 27001)<br>
-        2. <strong style="color:#e8c87a;">NIST AI RMF</strong> pour l'opérationnalisation (playbook actionnable)<br>
-        3. Extension du <strong style="color:#e8c87a;">TPRM</strong> aux fournisseurs IA<br>
-        4. Programme de formation RAI pour les équipes</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-</main>
 
 <footer>
-  <span id="i18n-footer1">Responsible AI — Synthèse des piliers · Analyse de 55+ cadres · Mars 2026</span>
-  <span id="i18n-footer2">EU AI Act · NIST · ISO 42001 · OCDE · UNESCO · Canada · Big Tech</span>
+  <div class="footer-top"><span id="i18n-footer1"></span><span id="i18n-footer2"></span></div>
+  <span class="footer-oss">🔓 Open Source &nbsp;·&nbsp; MIT License &nbsp;·&nbsp; Made with ❤️ &amp; ☕ by Wavestone &nbsp;·&nbsp; 🤖 Powered by Claude</span>
 </footer>
 
-<script>
-function showSection(id, btn) {
-  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  btn.classList.add('active');
-}
-
-function togglePillar(header) {
-  const card = header.parentElement;
-  card.classList.toggle('open');
-}
-
-function goToPillar(n) {
-  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('pillars').classList.add('active');
-  document.getElementById('i18n-nav2').classList.add('active');
-  setTimeout(() => {
-    const card = document.getElementById('pillar-' + n);
-    card.classList.add('open');
-    card.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }, 100);
-}
-
-// init on load
-document.addEventListener('DOMContentLoaded', () => { applyLang(); });
-</script>
-
+<!-- ── i18n data ── -->
 <script id="i18n-data">
 const LANG = {
   fr: {
@@ -1572,6 +1370,25 @@ const LANG = {
     // ── footer
     footer1:"Responsible AI — Synthèse des piliers · Analyse de 55+ cadres · Mars 2026",
     footer2:"EU AI Act · NIST · ISO 42001 · OCDE · UNESCO · Canada · Big Tech",
+
+    // ── lifecycle tab
+    nav4: "Cycle de vie IA",
+    lc_title: "Matrice Piliers RAI × Cycle de vie IA",
+    lc_sub: "Intensité d'applicabilité de chaque pilier à chacune des 10 étapes du cycle de vie des systèmes IA.",
+    lc_pillar_hdr: "Pilier RAI",
+    lc_leg_full: "Essentiel",
+    lc_leg_part: "Applicable",
+    lc_leg_none: "Marginal",
+    lc_stages: ["Cadrage","Collecte données","Prép. données","Conception modèle","Évaluation","Revue risques","Déploiement","Monitoring","Retour & Amélio.","Fin de vie"],
+    lc_ins_title: "Observations clés",
+    lc_ins1_title: "Étapes les plus critiques",
+    lc_ins1_body: "Évaluation et Déploiement sont les étapes où le plus grand nombre de piliers s'appliquent simultanément — points de contrôle RAI obligatoires.",
+    lc_ins2_title: "Pilier le plus transversal",
+    lc_ins2_body: "La Gouvernance (P9) et la Responsabilité (P5) s'appliquent à presque toutes les étapes — ils sont le fil conducteur du lifecycle.",
+    lc_ins3_title: "Étape souvent négligée",
+    lc_ins3_body: "La Fin de vie est critique pour la vie privée (effacement), la durabilité (matériel) et la responsabilité (archivage), mais rarement couverte dans les politiques RAI.",
+    lc_ins4_title: "Fenêtre d'action Équité",
+    lc_ins4_body: "L'Équité (P2) doit être adressée dès le Cadrage et la Collecte de données — corriger les biais après l'entraînement est coûteux et souvent insuffisant.",
     // ── buttons
     langBtn:"🌐 EN", themeBtn:"☀️ Light",
     themeOff:"🌙 Dark", langOff:"🌐 FR",
@@ -1711,101 +1528,139 @@ const LANG = {
     mx_strat2:"<strong style=\"color:var(--paper);\">Recommended RAI investment priorities</strong><br>1. <strong style=\"color:#e8c87a;\">ISO 42001</strong> as governance backbone (certifiable, compatible with ISO 27001)<br>2. <strong style=\"color:#e8c87a;\">NIST AI RMF</strong> for operationalisation (actionable playbook)<br>3. Extension of <strong style=\"color:#e8c87a;\">TPRM</strong> to AI vendors<br>4. RAI training programme for teams",
     footer1:"Responsible AI — Pillars Synthesis · Analysis of 55+ frameworks · March 2026",
     footer2:"EU AI Act · NIST · ISO 42001 · OECD · UNESCO · Canada · Big Tech",
+
+    // ── lifecycle tab
+    nav4: "AI Lifecycle",
+    lc_title: "RAI Pillars × AI Lifecycle Matrix",
+    lc_sub: "Applicability intensity of each pillar across the 10 stages of the AI system lifecycle.",
+    lc_pillar_hdr: "RAI Pillar",
+    lc_leg_full: "Essential",
+    lc_leg_part: "Applicable",
+    lc_leg_none: "Marginal",
+    lc_stages: ["Scoping","Data Collection","Data Prep.","Model Design","Evaluation","Risk Review","Deployment","Monitoring","Feedback & Improve","Retirement"],
+    lc_ins_title: "Key observations",
+    lc_ins1_title: "Most critical stages",
+    lc_ins1_body: "Evaluation and Deployment are where the largest number of pillars apply simultaneously — mandatory RAI checkpoints.",
+    lc_ins2_title: "Most cross-cutting pillars",
+    lc_ins2_body: "Governance (P9) and Accountability (P5) apply to almost every stage — they are the thread running through the entire lifecycle.",
+    lc_ins3_title: "Most overlooked stage",
+    lc_ins3_body: "Retirement is critical for privacy (data erasure), sustainability (hardware), and accountability (archiving), yet rarely addressed in RAI policies.",
+    lc_ins4_title: "Fairness action window",
+    lc_ins4_body: "Fairness (P2) must be addressed from Scoping and Data Collection — correcting bias after training is costly and often insufficient.",
     langBtn:"🌐 FR", themeBtn:"☀️ Light",
     themeOff:"🌙 Dark", langOff:"🌐 EN",
   }
-};
+}
+</script>
 
+<!-- ── APP LOGIC ── -->
+<script>
 let currentLang = 'en';
-let currentTheme = 'dark';
+let currentTheme = 'light';
+
+function showTab(id, btn) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+
+function togglePillar(n) {
+  const card = document.getElementById('pillar-' + n);
+  card.classList.toggle('open');
+}
+
+function goToPillar(n) {
+  showTab('pillars', document.getElementById('i18n-nav2'));
+  setTimeout(() => {
+    const card = document.getElementById('pillar-' + n);
+    card.classList.add('open');
+    card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 80);
+}
 
 function toggleLang() {
-  currentLang = currentLang === 'fr' ? 'en' : 'fr';
+  currentLang = currentLang === 'en' ? 'fr' : 'en';
   applyLang();
 }
 
 function toggleTheme() {
-  currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
-  document.body.classList.toggle('light', currentTheme === 'light');
-  const t = LANG[currentLang];
-  document.getElementById('themeBtn').textContent = currentTheme === 'light' ? t.themeOff : t.themeBtn;
+  currentTheme = currentTheme === 'light' ? 'dark' : 'light';
+  document.body.classList.toggle('dark', currentTheme === 'dark');
+  const sunIcon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>`;
+  const moonIcon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>`;
+  document.getElementById('themeBtn').innerHTML = (currentTheme === 'dark' ? sunIcon : moonIcon) + ' <span id="themeLabel">' + (currentTheme === 'dark' ? 'Light' : 'Dark') + '</span>';
 }
+
+function set(id, html) { const el = document.getElementById(id); if(el) el.innerHTML = html; }
 
 function applyLang() {
   const t = LANG[currentLang];
   document.documentElement.lang = currentLang;
   document.title = t.title;
 
-  // ── helpers
-  function set(id, html) { const el = document.getElementById(id); if(el) el.innerHTML = html; }
-  function setText(id, txt) { const el = document.getElementById(id); if(el) el.textContent = txt; }
-
-  // meta / header
-  set('i18n-kicker', t.kicker);
-  set('i18n-h1line1', t.h1line1);
-  set('i18n-h1em', t.h1em);
+  // header / hero
+  set('i18n-kicker', '— ' + t.kicker);
+  set('i18n-h1line1', t.h1line1 + ' <strong>' + t.h1em + '</strong>');
   set('i18n-subtitle', t.subtitle);
   set('i18n-stat1', t.stat1); set('i18n-stat2', t.stat2); set('i18n-stat3', t.stat3);
-  // nav
+  // tabs
   set('i18n-nav1', t.nav1); set('i18n-nav2', t.nav2); set('i18n-nav3', t.nav3);
   // overview
-  set('i18n-ov-title', t.ov_title); set('i18n-ov-sub', t.ov_sub);
+  set('i18n-ov-title', t.ov_title);
+  set('i18n-ov-sub', t.ov_sub);
   set('i18n-intro-p1', t.introP1); set('i18n-intro-p2', t.introP2);
   set('i18n-intro-p3', t.introP3); set('i18n-intro-p4', t.introP4);
-  set('i18n-pull-quote', t.pullQuote); set('i18n-pull-cite', t.pullCite);
-  // consensus cards
-  for(let i=1;i<=9;i++){
+
+  for(let i=1;i<=9;i++) {
     set('i18n-c'+i+'-name', t['p'+i+'name']);
     set('i18n-c'+i+'-score', t['c'+i+'score']);
     set('i18n-p'+i+'-name', t['p'+i+'name']);
     set('i18n-p'+i+'-tag', t['p'+i+'tag']);
     set('i18n-p'+i+'-cons', t['p'+i+'cons']);
-    set('i18n-p'+i+'-count', t['p'+i+'count']);
-    // body sections
     set('i18n-p'+i+'-def-lbl', t.sec_def);
     set('i18n-p'+i+'-sub-lbl', t.sec_sub);
     set('i18n-p'+i+'-cov-lbl', t.sec_cov);
     set('i18n-p'+i+'-req-lbl', t.sec_req);
     set('i18n-p'+i+'-tens-lbl', t.sec_tens);
     set('i18n-p'+i+'-def', t['p'+i+'def']);
-    set('i18n-p'+i+'-s1', t['p'+i+'s1']); set('i18n-p'+i+'-s2', t['p'+i+'s2']);
-    set('i18n-p'+i+'-s3', t['p'+i+'s3']); set('i18n-p'+i+'-s4', t['p'+i+'s4']);
-    set('i18n-p'+i+'-s5', t['p'+i+'s5']);
-    set('i18n-p'+i+'-o1', t['p'+i+'o1']); set('i18n-p'+i+'-o2', t['p'+i+'o2']);
-    set('i18n-p'+i+'-o3', t['p'+i+'o3']);
+    for(let j=1;j<=5;j++) set('i18n-p'+i+'-s'+j, t['p'+i+'s'+j]);
+    for(let j=1;j<=4;j++) set('i18n-p'+i+'-o'+j, t['p'+i+'o'+j]||'');
     set('i18n-p'+i+'-tens', t['p'+i+'tens']);
+    // matrix row
+    const mxEl = document.getElementById('i18n-mx-p'+i);
+    if(mxEl) mxEl.textContent = t['p'+i+'name'];
   }
-  // pillar 9 has o4
-  set('i18n-p9-o4', t.p9o4);
 
-  // matrix
-  set('i18n-mx-title', t.mx_title); set('i18n-mx-sub', t.mx_sub);
+  set('i18n-mx-title', t.mx_title);
+  set('i18n-mx-sub', t.mx_sub);
   set('i18n-mx-strat-title', t.mx_strat_title);
-  set('i18n-mx-strat1', t.mx_strat1); set('i18n-mx-strat2', t.mx_strat2);
-  // footer
-  set('i18n-footer1', t.footer1); set('i18n-footer2', t.footer2);
-  // buttons
-  document.getElementById('langBtn').textContent = t.langBtn;
-  const themeIsLight = currentTheme === 'light';
-  document.getElementById('themeBtn').textContent = themeIsLight ? t.themeOff : t.themeBtn;
+  set('i18n-mx-strat1', t.mx_strat1);
+  set('i18n-mx-strat2', t.mx_strat2);
+  set('i18n-footer1', t.footer1);
+  set('i18n-footer2', t.footer2);
+
+  // ── lifecycle tab
+  set('i18n-nav4', t.nav4);
+  set('lc-title', t.lc_title);
+  set('lc-sub', t.lc_sub);
+  set('lc-pillar-hdr', t.lc_pillar_hdr);
+  set('lc-leg-full', t.lc_leg_full);
+  set('lc-leg-part', t.lc_leg_part);
+  set('lc-leg-none', t.lc_leg_none);
+  set('lc-insights-title', t.lc_ins_title);
+  set('lc-ins1-title', t.lc_ins1_title); set('lc-ins1-body', t.lc_ins1_body);
+  set('lc-ins2-title', t.lc_ins2_title); set('lc-ins2-body', t.lc_ins2_body);
+  set('lc-ins3-title', t.lc_ins3_title); set('lc-ins3-body', t.lc_ins3_body);
+  set('lc-ins4-title', t.lc_ins4_title); set('lc-ins4-body', t.lc_ins4_body);
+  t.lc_stages.forEach((s, i) => set('lc-stage-' + (i+1), s));
+  for(let i=1;i<=9;i++) set('i18n-p'+i+'-name-lc', t['p'+i+'name']);
+
+  // lang button label
+  document.getElementById('langLabel').textContent = currentLang === 'en' ? 'FR' : 'EN';
 }
 
-// matrix row pillar names (use same as pillar names)
-function applyMatrixPillarNames(){
-  const t = LANG[currentLang];
-  for(let i=1;i<=9;i++){
-    const el = document.getElementById('i18n-mx-p'+i);
-    if(el) el.innerHTML = '<span style="color:var(--p'+i+');">●</span> ' + t['p'+i+'name'];
-  }
-}
-
-const _origApply = applyLang;
-window.applyLang = function(){
-  _origApply();
-  applyMatrixPillarNames();
-};
+document.addEventListener('DOMContentLoaded', applyLang);
 </script>
-
 </body>
 </html>
-
