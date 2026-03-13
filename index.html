@@ -756,6 +756,28 @@ body.dark .lc-table tbody tr:hover .lc-cell { background: rgba(255,255,255,0.02)
   line-height: 1.6;
 }
 
+.lc-stage-details {
+  margin-top: 1.5rem;
+}
+
+.lc-stage-card .pillar-hd {
+  border-left-color: var(--pc);
+}
+
+.lc-stage-card .pillar-body {
+  padding-top: 1rem;
+}
+
+.lc-stage-desc {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.lc-stage-list {
+  margin-top: 0.75rem;
+}
+
 @media (max-width: 800px) {
   .lc-insight-grid { grid-template-columns: 1fr 1fr; }
 }
@@ -1359,6 +1381,35 @@ body.dark .fw-voluntary {
           <div class="lc-ic-body" id="lc-ins4-body"></div>
         </div>
       </div>
+    </div>
+
+    <div class="lc-stage-details">
+      <div class="lc-insight-title" id="lc-steps-title"></div>
+
+      <div class="pillar-card lc-stage-card" id="lc-step-1" style="--pc:#1e3a8a;--pl:#eff6ff;">
+        <button class="pillar-hd" onclick="toggleLifecycleStep(1)">
+          <span class="pillar-nn">01</span>
+          <span class="pillar-info">
+            <span class="pillar-title" id="lc-step-1-title"></span>
+            <span class="pillar-tag" id="lc-step-1-tag"></span>
+          </span>
+          <span class="pillar-chev"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+        </button>
+        <div class="pillar-body">
+          <div class="lc-stage-desc" id="lc-step-1-desc"></div>
+          <ul class="pb-subs lc-stage-list"><li id="lc-step-1-focus"></li></ul>
+        </div>
+      </div>
+
+      <div class="pillar-card lc-stage-card" id="lc-step-2" style="--pc:#2563eb;--pl:#eff6ff;"><button class="pillar-hd" onclick="toggleLifecycleStep(2)"><span class="pillar-nn">02</span><span class="pillar-info"><span class="pillar-title" id="lc-step-2-title"></span><span class="pillar-tag" id="lc-step-2-tag"></span></span><span class="pillar-chev"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span></button><div class="pillar-body"><div class="lc-stage-desc" id="lc-step-2-desc"></div><ul class="pb-subs lc-stage-list"><li id="lc-step-2-focus"></li></ul></div></div>
+      <div class="pillar-card lc-stage-card" id="lc-step-3" style="--pc:#0ea5e9;--pl:#f0f9ff;"><button class="pillar-hd" onclick="toggleLifecycleStep(3)"><span class="pillar-nn">03</span><span class="pillar-info"><span class="pillar-title" id="lc-step-3-title"></span><span class="pillar-tag" id="lc-step-3-tag"></span></span><span class="pillar-chev"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span></button><div class="pillar-body"><div class="lc-stage-desc" id="lc-step-3-desc"></div><ul class="pb-subs lc-stage-list"><li id="lc-step-3-focus"></li></ul></div></div>
+      <div class="pillar-card lc-stage-card" id="lc-step-4" style="--pc:#7c3aed;--pl:#f5f3ff;"><button class="pillar-hd" onclick="toggleLifecycleStep(4)"><span class="pillar-nn">04</span><span class="pillar-info"><span class="pillar-title" id="lc-step-4-title"></span><span class="pillar-tag" id="lc-step-4-tag"></span></span><span class="pillar-chev"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span></button><div class="pillar-body"><div class="lc-stage-desc" id="lc-step-4-desc"></div><ul class="pb-subs lc-stage-list"><li id="lc-step-4-focus"></li></ul></div></div>
+      <div class="pillar-card lc-stage-card" id="lc-step-5" style="--pc:#16a34a;--pl:#f0fdf4;"><button class="pillar-hd" onclick="toggleLifecycleStep(5)"><span class="pillar-nn">05</span><span class="pillar-info"><span class="pillar-title" id="lc-step-5-title"></span><span class="pillar-tag" id="lc-step-5-tag"></span></span><span class="pillar-chev"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span></button><div class="pillar-body"><div class="lc-stage-desc" id="lc-step-5-desc"></div><ul class="pb-subs lc-stage-list"><li id="lc-step-5-focus"></li></ul></div></div>
+      <div class="pillar-card lc-stage-card" id="lc-step-6" style="--pc:#15803d;--pl:#f0fdf4;"><button class="pillar-hd" onclick="toggleLifecycleStep(6)"><span class="pillar-nn">06</span><span class="pillar-info"><span class="pillar-title" id="lc-step-6-title"></span><span class="pillar-tag" id="lc-step-6-tag"></span></span><span class="pillar-chev"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span></button><div class="pillar-body"><div class="lc-stage-desc" id="lc-step-6-desc"></div><ul class="pb-subs lc-stage-list"><li id="lc-step-6-focus"></li></ul></div></div>
+      <div class="pillar-card lc-stage-card" id="lc-step-7" style="--pc:#d97706;--pl:#fffbeb;"><button class="pillar-hd" onclick="toggleLifecycleStep(7)"><span class="pillar-nn">07</span><span class="pillar-info"><span class="pillar-title" id="lc-step-7-title"></span><span class="pillar-tag" id="lc-step-7-tag"></span></span><span class="pillar-chev"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span></button><div class="pillar-body"><div class="lc-stage-desc" id="lc-step-7-desc"></div><ul class="pb-subs lc-stage-list"><li id="lc-step-7-focus"></li></ul></div></div>
+      <div class="pillar-card lc-stage-card" id="lc-step-8" style="--pc:#ea580c;--pl:#fff7ed;"><button class="pillar-hd" onclick="toggleLifecycleStep(8)"><span class="pillar-nn">08</span><span class="pillar-info"><span class="pillar-title" id="lc-step-8-title"></span><span class="pillar-tag" id="lc-step-8-tag"></span></span><span class="pillar-chev"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span></button><div class="pillar-body"><div class="lc-stage-desc" id="lc-step-8-desc"></div><ul class="pb-subs lc-stage-list"><li id="lc-step-8-focus"></li></ul></div></div>
+      <div class="pillar-card lc-stage-card" id="lc-step-9" style="--pc:#dc2626;--pl:#fef2f2;"><button class="pillar-hd" onclick="toggleLifecycleStep(9)"><span class="pillar-nn">09</span><span class="pillar-info"><span class="pillar-title" id="lc-step-9-title"></span><span class="pillar-tag" id="lc-step-9-tag"></span></span><span class="pillar-chev"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span></button><div class="pillar-body"><div class="lc-stage-desc" id="lc-step-9-desc"></div><ul class="pb-subs lc-stage-list"><li id="lc-step-9-focus"></li></ul></div></div>
+      <div class="pillar-card lc-stage-card" id="lc-step-10" style="--pc:#374151;--pl:#f3f4f6;"><button class="pillar-hd" onclick="toggleLifecycleStep(10)"><span class="pillar-nn">10</span><span class="pillar-info"><span class="pillar-title" id="lc-step-10-title"></span><span class="pillar-tag" id="lc-step-10-tag"></span></span><span class="pillar-chev"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span></button><div class="pillar-body"><div class="lc-stage-desc" id="lc-step-10-desc"></div><ul class="pb-subs lc-stage-list"><li id="lc-step-10-focus"></li></ul></div></div>
     </div>
   </section>
 
@@ -2129,6 +2180,19 @@ const LANG = {
     lc_ins3_body: "La Fin de vie est critique pour la vie privée (effacement), la durabilité (matériel) et la responsabilité (archivage), mais rarement couverte dans les politiques RAI.",
     lc_ins4_title: "Fenêtre d'action Équité",
     lc_ins4_body: "L'Équité (P2) doit être adressée dès le Cadrage et la Collecte de données — corriger les biais après l'entraînement est coûteux et souvent insuffisant.",
+    lc_steps_title: "Phases du AI Lifecycle — détails",
+    lc_steps: [
+      { title: "Cadrage", tag: "Objectifs, périmètre et cas d'usage", desc: "Cette phase définit la finalité métier et l'impact attendu du système IA. Les équipes cadrent le contexte d'usage, les utilisateurs concernés, les risques initiaux et les critères de succès.", focus: "Point d'attention: aligner objectifs business, contraintes réglementaires et impacts humains dès le départ." },
+      { title: "Collecte de données", tag: "Sources, droits et représentativité", desc: "Les données sont identifiées puis collectées selon des bases légales claires. La qualité, la couverture des populations et les biais potentiels doivent être évalués avant toute modélisation.", focus: "Point d'attention: documenter la provenance des données et vérifier les risques de discrimination." },
+      { title: "Préparation des données", tag: "Nettoyage, transformation et qualité", desc: "Les données sont nettoyées, labellisées, transformées et structurées pour l'entraînement. Cette étape influence fortement la performance, l'équité et la robustesse du modèle final.", focus: "Point d'attention: conserver la traçabilité des transformations et des choix de variables." },
+      { title: "Conception du modèle", tag: "Architecture et choix techniques", desc: "Les équipes choisissent les méthodes algorithmiques, l'architecture, les contraintes de performance et les mécanismes de sécurité. Les arbitrages précision-explicabilité sont souvent faits ici.", focus: "Point d'attention: intégrer des exigences d'explicabilité, de sécurité et de vie privée by design." },
+      { title: "Évaluation", tag: "Validation fonctionnelle, éthique et risque", desc: "Le modèle est testé sur des métriques techniques, métiers et RAI: performance, robustesse, biais, sécurité et qualité des explications. Cette phase confirme si le système est prêt à passer en production.", focus: "Point d'attention: tester sur des scénarios réels et des cas limites, pas seulement sur des jeux de test standards." },
+      { title: "Revue des risques", tag: "Go / No-Go de gouvernance", desc: "Une revue formelle valide la conformité réglementaire, les contrôles en place et le niveau de risque résiduel. Les responsabilités et plans de mitigation sont actés avant déploiement.", focus: "Point d'attention: formaliser la décision et les conditions de mise en production dans un registre de risques." },
+      { title: "Déploiement", tag: "Mise en production contrôlée", desc: "Le système IA est intégré dans l'environnement opérationnel avec des garde-fous techniques et organisationnels. Documentation utilisateur, supervision humaine et plans de rollback sont essentiels.", focus: "Point d'attention: déployer progressivement et activer des mécanismes d'arrêt/repli en cas d'incident." },
+      { title: "Monitoring", tag: "Surveillance continue et alertes", desc: "Après lancement, les performances, dérives de données, incidents et impacts utilisateurs sont surveillés en continu. Cette phase garantit la maîtrise du risque dans le temps.", focus: "Point d'attention: définir des seuils d'alerte clairs et des processus de remédiation rapides." },
+      { title: "Feedback & amélioration", tag: "Boucle d'apprentissage continue", desc: "Les retours des utilisateurs, équipes opérationnelles et audits servent à corriger le système. Les améliorations sont priorisées pour renforcer équité, sécurité et utilité métier.", focus: "Point d'attention: intégrer les retours terrain dans une roadmap structurée et gouvernée." },
+      { title: "Fin de vie", tag: "Retrait, archivage et décommissionnement", desc: "Quand un système devient obsolète ou non conforme, il doit être retiré de façon maîtrisée. Cela inclut la suppression ou l'archivage des données, la continuité opérationnelle et la traçabilité des décisions.", focus: "Point d'attention: prévoir des procédures d'effacement, d'archivage et de communication aux parties prenantes." }
+    ],
     // ── buttons
     langBtn:"🌐 EN", themeBtn:"☀️ Light",
     themeOff:"🌙 Dark", langOff:"🌐 FR",
@@ -2288,6 +2352,19 @@ const LANG = {
     lc_ins3_body: "Retirement is critical for privacy (data erasure), sustainability (hardware), and accountability (archiving), yet rarely addressed in RAI policies.",
     lc_ins4_title: "Fairness action window",
     lc_ins4_body: "Fairness (P2) must be addressed from Scoping and Data Collection — correcting bias after training is costly and often insufficient.",
+    lc_steps_title: "AI Lifecycle phases — details",
+    lc_steps: [
+      { title: "Scoping", tag: "Objectives, scope and use cases", desc: "This phase defines the business purpose and expected impact of the AI system. Teams clarify context of use, affected users, initial risks, and success criteria.", focus: "Focus: align business goals, regulatory constraints, and human impacts from the beginning." },
+      { title: "Data Collection", tag: "Sources, rights and representativeness", desc: "Data sources are identified and collected under clear legal bases. Quality, population coverage, and potential biases must be assessed before modeling starts.", focus: "Focus: document data provenance and proactively evaluate discrimination risks." },
+      { title: "Data Preparation", tag: "Cleaning, transformation and quality", desc: "Data is cleaned, labeled, transformed, and structured for training. This stage strongly shapes model performance, fairness, and robustness.", focus: "Focus: keep full traceability of transformations and feature engineering decisions." },
+      { title: "Model Design", tag: "Architecture and technical choices", desc: "Teams select algorithms, architecture, performance constraints, and safety mechanisms. Key trade-offs, including accuracy versus explainability, are made here.", focus: "Focus: embed explainability, security, and privacy-by-design requirements." },
+      { title: "Evaluation", tag: "Functional, ethical and risk validation", desc: "The model is tested on technical, business, and RAI metrics: performance, robustness, bias, safety, and explanation quality. This stage determines production readiness.", focus: "Focus: test on real-world scenarios and edge cases, not only standard benchmark sets." },
+      { title: "Risk Review", tag: "Governance go/no-go checkpoint", desc: "A formal review validates regulatory compliance, control effectiveness, and residual risk level. Responsibilities and mitigation plans are confirmed before deployment.", focus: "Focus: record decision rationale and deployment conditions in the AI risk register." },
+      { title: "Deployment", tag: "Controlled production release", desc: "The AI system is integrated into operations with technical and organizational safeguards. User documentation, human oversight, and rollback plans are critical.", focus: "Focus: deploy progressively and enable clear stop/fallback mechanisms for incidents." },
+      { title: "Monitoring", tag: "Continuous oversight and alerts", desc: "After launch, teams continuously track performance, drift, incidents, and user impact. This ensures long-term risk control and system reliability.", focus: "Focus: define clear alert thresholds and fast remediation workflows." },
+      { title: "Feedback & Improvement", tag: "Continuous learning loop", desc: "Feedback from users, operations teams, and audits is used to improve the system. Enhancements are prioritized to strengthen fairness, safety, and business value.", focus: "Focus: translate field feedback into a structured, governed improvement roadmap." },
+      { title: "Retirement", tag: "Decommissioning, archiving and transition", desc: "When a system becomes obsolete or non-compliant, it must be retired in a controlled manner. This includes data deletion or archiving, operational continuity, and decision traceability.", focus: "Focus: prepare clear procedures for erasure, archiving, and stakeholder communication." }
+    ],
     langBtn:"🌐 FR", themeBtn:"☀️ Light",
     themeOff:"🌙 Dark", langOff:"🌐 EN",
   }
@@ -2309,6 +2386,11 @@ function showTab(id, btn) {
 function togglePillar(n) {
   const card = document.getElementById('pillar-' + n);
   card.classList.toggle('open');
+}
+
+function toggleLifecycleStep(n) {
+  const card = document.getElementById('lc-step-' + n);
+  if (card) card.classList.toggle('open');
 }
 
 function goToPillar(n) {
@@ -2398,6 +2480,16 @@ function applyLang() {
   set('lc-ins3-title', t.lc_ins3_title); set('lc-ins3-body', t.lc_ins3_body);
   set('lc-ins4-title', t.lc_ins4_title); set('lc-ins4-body', t.lc_ins4_body);
   t.lc_stages.forEach((s, i) => set('lc-stage-' + (i+1), s));
+  set('lc-steps-title', t.lc_steps_title);
+  if (Array.isArray(t.lc_steps)) {
+    t.lc_steps.forEach((step, i) => {
+      const idx = i + 1;
+      set(`lc-step-${idx}-title`, step.title);
+      set(`lc-step-${idx}-tag`, step.tag);
+      set(`lc-step-${idx}-desc`, step.desc);
+      set(`lc-step-${idx}-focus`, step.focus);
+    });
+  }
   for(let i=1;i<=9;i++) set('i18n-p'+i+'-name-lc', t['p'+i+'name']);
 
   // lang button label
