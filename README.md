@@ -73,6 +73,7 @@ This README follows the **Awesome List** spirit and is organized into 4 chapters
 - [ISO/IEC 24027 — Bias in AI systems and AI-aided decision making](https://www.iso.org/search.html?q=ISO%2FIEC%2024027)
 - [ISO/IEC 25059 — Quality model for AI systems](https://www.iso.org/search.html?q=ISO%2FIEC%2025059)
 - [ISO/IEC 5259 series (parts 1 to 4) — Data quality for analytics and machine learning](https://www.iso.org/search.html?q=ISO%2FIEC%205259)
+- [NIST AI 600-1 — Artificial Intelligence Risk Management Framework: Generative Artificial Intelligence Profile](https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.600-1.pdf)
 
 ### Industry frameworks
 
