@@ -176,6 +176,7 @@ This README follows the **Awesome List** spirit and is organized into 4 chapters
 - [ ] Responsible benchmarks (beyond accuracy)
 - [ ] AI red teaming
 - [ ] Continuous monitoring (drift, degradation, emerging risks)
+- [NIST — New Report Challenges in Monitoring Deployed AI Systems (2026)](https://www.nist.gov/news-events/news/2026/03/new-report-challenges-monitoring-deployed-ai-systems)
 
 ### Culture and training
 
