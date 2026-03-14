@@ -797,6 +797,131 @@ body.dark .lc-table tbody tr:hover .lc-cell { background: rgba(255,255,255,0.02)
 }
 
 
+/* ── ROADMAP TAB (from rai-roadmap main content) ── */
+#roadmap {
+  --surface: var(--bg);
+  --ink: var(--text);
+  --navy: #0f2040;
+  --a1: #1e40af;
+  --a1l: #dbeafe;
+  --a2: #065f46;
+  --a2l: #d1fae5;
+  --a3: #7c2d12;
+  --a3l: #ffedd5;
+  --a4: #581c87;
+  --a4l: #f3e8ff;
+  --ph1: #0ea5e9;
+  --ph2: #f59e0b;
+  --ph3: #10b981;
+}
+
+#roadmap .timeline-strip {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 1.2rem 3rem;
+}
+#roadmap .tl-inner { max-width: 1100px; margin: 0 auto; }
+#roadmap .tl-label {
+  font-family: 'Fira Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  margin-bottom: 0.8rem;
+}
+#roadmap .tl-track {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 0;
+  row-gap: 6px;
+}
+#roadmap .tl-axis-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--ink);
+  padding-right: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  white-space: nowrap;
+}
+#roadmap .tl-axis-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+#roadmap .tl-bar-row { display: grid; grid-template-columns: 1fr 1.3fr 1fr; gap: 3px; }
+#roadmap .tl-seg {
+  height: 20px;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Fira Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.04em;
+  color: rgba(255,255,255,0.9);
+  font-weight: 500;
+  transition: opacity 0.2s;
+}
+#roadmap .tl-seg:hover { opacity: 0.85; }
+#roadmap .tl-ph-labels {
+  grid-column: 2;
+  display: grid;
+  grid-template-columns: 1fr 1.3fr 1fr;
+  gap: 3px;
+  margin-bottom: 4px;
+}
+#roadmap .tl-ph-label {
+  font-family: 'Fira Mono', monospace;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  text-align: center;
+}
+
+#roadmap .main { max-width: 1100px; margin: 0 auto; padding: 2rem 3rem 4rem; }
+#roadmap .axis-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-bottom: 2rem; }
+#roadmap .axis-card { background: var(--surface); border: 1px solid var(--border); border-top: 4px solid var(--ac); border-radius: 6px; overflow: hidden; }
+#roadmap .axis-header { padding: 1.1rem 1.25rem 0.9rem; border-bottom: 1px solid var(--border); background: color-mix(in srgb, var(--acl) 40%, white); }
+#roadmap .axis-num { font-family: 'Fira Mono', monospace; font-size: 10px; color: var(--ac); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.2rem; display: flex; align-items: center; gap: 0.5rem; }
+#roadmap .axis-num::after { content: ''; flex: 1; height: 1px; background: var(--ac); opacity: 0.2; }
+#roadmap .axis-title { font-size: 15px; font-weight: 700; color: var(--ink); letter-spacing: -0.02em; margin-bottom: 0.2rem; }
+#roadmap .axis-tag { font-size: 11px; color: var(--ac); font-weight: 500; }
+#roadmap .axis-phases { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0; }
+#roadmap .phase-col { padding: 1rem 1rem; border-right: 1px solid var(--border); position: relative; }
+#roadmap .phase-col:last-child { border-right: none; }
+#roadmap .phase-label { font-family: 'Fira Mono', monospace; font-size: 9px; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 0.5rem; padding-bottom: 0.4rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 0.35rem; }
+#roadmap .ph-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+#roadmap .phase-timeline { font-family: 'Fira Mono', monospace; font-size: 9px; color: var(--muted); margin-bottom: 0.6rem; }
+#roadmap .phase-items { list-style: none; display: flex; flex-direction: column; gap: 0.35rem; }
+#roadmap .phase-item { font-size: 11.5px; color: #374151; line-height: 1.45; padding-left: 0.75rem; position: relative; }
+#roadmap .phase-item::before { content: '–'; position: absolute; left: 0; color: var(--ac); font-weight: 700; }
+#roadmap .phase-deliverable { margin-top: 0.6rem; padding: 0.4rem 0.6rem; background: color-mix(in srgb, var(--acl) 50%, white); border-left: 2px solid var(--ac); font-size: 10.5px; color: var(--ac); font-weight: 600; border-radius: 0 3px 3px 0; }
+#roadmap .deliverable-label { font-family: 'Fira Mono', monospace; font-size: 8.5px; text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.7; margin-bottom: 0.15rem; }
+#roadmap .inter-section { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 1.25rem; margin-bottom: 1.25rem; }
+#roadmap .inter-title { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 1rem; font-family: 'Fira Mono', monospace; }
+#roadmap .inter-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem; }
+#roadmap .inter-card { border: 1px solid var(--border); border-radius: 5px; padding: 0.85rem; position: relative; }
+#roadmap .inter-card-num { font-family: 'Fira Mono', monospace; font-size: 9px; color: var(--muted); margin-bottom: 0.3rem; }
+#roadmap .inter-card-title { font-size: 12px; font-weight: 700; color: var(--ink); margin-bottom: 0.5rem; }
+#roadmap .inter-card-body { font-size: 11px; color: var(--muted); line-height: 1.55; }
+#roadmap .metrics-section { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 1.5rem; margin-bottom: 1.25rem; }
+#roadmap .metrics-title { font-family: 'Fira Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.15em; color: var(--muted); margin-bottom: 1rem; }
+#roadmap .metrics-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; }
+#roadmap .metric-item { padding: 0 1.5rem; border-right: 1px solid var(--border); text-align: center; }
+#roadmap .metric-item:first-child { padding-left: 0; }
+#roadmap .metric-item:last-child { border-right: none; padding-right: 0; }
+#roadmap .metric-horizon { font-family: 'Fira Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 0.5rem; }
+#roadmap .metric-val { font-size: 1.6rem; font-weight: 800; color: var(--text); line-height: 1; margin-bottom: 0.3rem; }
+#roadmap .metric-kpi { font-size: 11px; color: var(--muted); font-weight: 400; line-height: 1.4; }
+body.dark #roadmap .phase-item { color: #c9d1d9; }
+@media (max-width: 900px) {
+  #roadmap .timeline-strip, #roadmap .main { padding-left: 1.25rem; padding-right: 1.25rem; }
+  #roadmap .axis-grid { grid-template-columns: 1fr; }
+  #roadmap .inter-grid, #roadmap .metrics-grid { grid-template-columns: 1fr 1fr; }
+  #roadmap .axis-phases { grid-template-columns: 1fr; }
+  #roadmap .phase-col { border-right: none; border-bottom: 1px solid var(--border); }
+  #roadmap .tl-track { grid-template-columns: 110px 1fr; }
+}
+
 /* ── RESOURCES TAB ── */
 .res-header {
   display: flex;
@@ -963,6 +1088,7 @@ body.dark .fw-voluntary {
     <button class="tab" id="i18n-nav3" onclick="showTab('matrix',this)"></button>
     <button class="tab" id="i18n-nav4" onclick="showTab('lifecycle',this)"></button>
     <button class="tab" id="i18n-nav5" onclick="showTab('resources',this)"></button>
+    <button class="tab" id="i18n-nav6" onclick="showTab('roadmap',this)"></button>
   </div>
   <div class="ctrl-group">
     <button class="ctrl" id="langBtn" onclick="toggleLang()"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg> <span id="langLabel">FR</span></button>
@@ -1425,6 +1551,332 @@ body.dark .fw-voluntary {
       <div class="pillar-card lc-stage-card" id="lc-step-9" style="--pc:#dc2626;--pl:#fef2f2;"><button class="pillar-hd" onclick="toggleLifecycleStep(9)"><span class="pillar-nn">09</span><span class="pillar-info"><span class="pillar-title" id="lc-step-9-title"></span><span class="pillar-tag" id="lc-step-9-tag"></span></span><span class="pillar-chev"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span></button><div class="pillar-body"><div class="lc-stage-desc" id="lc-step-9-desc"></div><ul class="pb-subs lc-stage-list"><li id="lc-step-9-focus"></li></ul></div></div>
       <div class="pillar-card lc-stage-card" id="lc-step-10" style="--pc:#374151;--pl:#f3f4f6;"><button class="pillar-hd" onclick="toggleLifecycleStep(10)"><span class="pillar-nn">10</span><span class="pillar-info"><span class="pillar-title" id="lc-step-10-title"></span><span class="pillar-tag" id="lc-step-10-tag"></span></span><span class="pillar-chev"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span></button><div class="pillar-body"><div class="lc-stage-desc" id="lc-step-10-desc"></div><ul class="pb-subs lc-stage-list"><li id="lc-step-10-focus"></li></ul></div></div>
     </div>
+  </section>
+
+
+  <!-- ROADMAP -->
+  <section id="roadmap" class="section">
+<div class="timeline-strip">
+  <div class="tl-inner">
+    <div class="tl-label" id="t-tl-label">Programme timeline — parallel tracks</div>
+    <div class="tl-track">
+      <div></div>
+      <div class="tl-ph-labels">
+        <div class="tl-ph-label" id="t-ph1-label">Phase 1 · Foundation<br>M1–M6</div>
+        <div class="tl-ph-label" id="t-ph2-label">Phase 2 · Implementation<br>M7–M13</div>
+        <div class="tl-ph-label" id="t-ph3-label">Phase 3 · Maturity<br>M14–M18</div>
+      </div>
+
+      <div class="tl-axis-label"><div class="tl-axis-dot" style="background:var(--a1)"></div><span id="t-a1-short">ISO 42001</span></div>
+      <div class="tl-bar-row">
+        <div class="tl-seg" style="background:color-mix(in srgb,var(--a1) 85%,#000)" id="t-a1-p1">Gap Analysis + Policy Design</div>
+        <div class="tl-seg" style="background:var(--a1)" id="t-a1-p2">AIMS Build + Internal Audit</div>
+        <div class="tl-seg" style="background:color-mix(in srgb,var(--a1) 70%,#000)" id="t-a1-p3">Certification Audit</div>
+      </div>
+
+      <div class="tl-axis-label"><div class="tl-axis-dot" style="background:var(--a2)"></div><span id="t-a2-short">NIST AI RMF</span></div>
+      <div class="tl-bar-row">
+        <div class="tl-seg" style="background:color-mix(in srgb,var(--a2) 85%,#000)" id="t-a2-p1">AI Inventory + Risk Scoring</div>
+        <div class="tl-seg" style="background:var(--a2)" id="t-a2-p2">Playbook Deployment</div>
+        <div class="tl-seg" style="background:color-mix(in srgb,var(--a2) 70%,#000)" id="t-a2-p3">Continuous Monitoring</div>
+      </div>
+
+      <div class="tl-axis-label"><div class="tl-axis-dot" style="background:var(--a3)"></div><span id="t-a3-short">AI TPRM</span></div>
+      <div class="tl-bar-row">
+        <div class="tl-seg" style="background:color-mix(in srgb,var(--a3) 85%,#000)" id="t-a3-p1">Vendor Mapping + Criteria</div>
+        <div class="tl-seg" style="background:var(--a3)" id="t-a3-p2">Assessments + Contracts</div>
+        <div class="tl-seg" style="background:color-mix(in srgb,var(--a3) 70%,#000)" id="t-a3-p3">Annual Review Cycle</div>
+      </div>
+
+      <div class="tl-axis-label"><div class="tl-axis-dot" style="background:var(--a4)"></div><span id="t-a4-short">RAI Training</span></div>
+      <div class="tl-bar-row">
+        <div class="tl-seg" style="background:color-mix(in srgb,var(--a4) 85%,#000)" id="t-a4-p1">Needs Analysis + Design</div>
+        <div class="tl-seg" style="background:var(--a4)" id="t-a4-p2">Rollout by Audience</div>
+        <div class="tl-seg" style="background:color-mix(in srgb,var(--a4) 70%,#000)" id="t-a4-p3">Integration + Culture</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- ── AXIS CARDS ── -->
+  <div class="axis-grid">
+
+    <!-- AXIS 1 — ISO 42001 -->
+    <div class="axis-card" style="--ac:var(--a1);--acl:var(--a1l)">
+      <div class="axis-header">
+        <div class="axis-num" id="t-a1-num">Axis 01 · Governance Backbone</div>
+        <div class="axis-title" id="t-a1-title">ISO/IEC 42001 — AI Management System</div>
+        <div class="axis-tag" id="t-a1-tag">Certifiable structure · Compatible with ISO 27001</div>
+      </div>
+      <div class="axis-phases">
+        <div class="phase-col">
+          <div class="phase-label"><div class="ph-dot" style="background:var(--ph1)"></div><span id="t-p1">Foundation</span></div>
+          <div class="phase-timeline">M1 – M6</div>
+          <ul class="phase-items">
+            <li class="phase-item" id="t-a1-p1-i1">Gap analysis vs. ISO 42001 requirements</li>
+            <li class="phase-item" id="t-a1-p1-i2">Scope definition and context of the organisation</li>
+            <li class="phase-item" id="t-a1-p1-i3">Stakeholder identification and requirements mapping</li>
+            <li class="phase-item" id="t-a1-p1-i4">Draft AI Policy (signed by executive leadership)</li>
+            <li class="phase-item" id="t-a1-p1-i5">AI roles and responsibilities matrix (RACI)</li>
+          </ul>
+          <div class="phase-deliverable">
+            <div class="deliverable-label" id="t-del">Key Deliverable</div>
+            <div id="t-a1-d1">ISO 42001 Gap Report + AI Policy</div>
+          </div>
+        </div>
+        <div class="phase-col">
+          <div class="phase-label"><div class="ph-dot" style="background:var(--ph2)"></div><span id="t-p2">Implementation</span></div>
+          <div class="phase-timeline">M7 – M13</div>
+          <ul class="phase-items">
+            <li class="phase-item" id="t-a1-p2-i1">AI system inventory and risk classification</li>
+            <li class="phase-item" id="t-a1-p2-i2">AI Impact Assessment procedures (aligned ISO 42005)</li>
+            <li class="phase-item" id="t-a1-p2-i3">Operational controls per risk level</li>
+            <li class="phase-item" id="t-a1-p2-i4">Internal audit programme setup</li>
+            <li class="phase-item" id="t-a1-p2-i5">Management review process</li>
+          </ul>
+          <div class="phase-deliverable">
+            <div class="deliverable-label" id="t-del2">Key Deliverable</div>
+            <div id="t-a1-d2">AIMS Documentation Package</div>
+          </div>
+        </div>
+        <div class="phase-col">
+          <div class="phase-label"><div class="ph-dot" style="background:var(--ph3)"></div><span id="t-p3">Maturity</span></div>
+          <div class="phase-timeline">M14 – M18</div>
+          <ul class="phase-items">
+            <li class="phase-item" id="t-a1-p3-i1">Internal pre-certification audit</li>
+            <li class="phase-item" id="t-a1-p3-i2">Corrective actions and remediation</li>
+            <li class="phase-item" id="t-a1-p3-i3">Stage 1 + Stage 2 certification audit</li>
+            <li class="phase-item" id="t-a1-p3-i4">Continuous improvement cycle (PDCA)</li>
+          </ul>
+          <div class="phase-deliverable">
+            <div class="deliverable-label" id="t-del3">Key Deliverable</div>
+            <div id="t-a1-d3">ISO 42001 Certificate</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AXIS 2 — NIST AI RMF -->
+    <div class="axis-card" style="--ac:var(--a2);--acl:var(--a2l)">
+      <div class="axis-header">
+        <div class="axis-num" id="t-a2-num">Axis 02 · Operational Risk Management</div>
+        <div class="axis-title" id="t-a2-title">NIST AI RMF — Govern · Map · Measure · Manage</div>
+        <div class="axis-tag" id="t-a2-tag">Actionable playbook · System-level risk controls</div>
+      </div>
+      <div class="axis-phases">
+        <div class="phase-col">
+          <div class="phase-label"><div class="ph-dot" style="background:var(--ph1)"></div><span>Foundation</span></div>
+          <div class="phase-timeline">M1 – M6</div>
+          <ul class="phase-items">
+            <li class="phase-item" id="t-a2-p1-i1">Complete AI system inventory (all environments)</li>
+            <li class="phase-item" id="t-a2-p1-i2">Risk scoring model (impact × likelihood × bias)</li>
+            <li class="phase-item" id="t-a2-p1-i3">Mapping to NIST AI RMF functions (GOVERN)</li>
+            <li class="phase-item" id="t-a2-p1-i4">Define risk tolerance thresholds by system category</li>
+          </ul>
+          <div class="phase-deliverable">
+            <div class="deliverable-label">Key Deliverable</div>
+            <div id="t-a2-d1">AI Risk Register + Scoring Matrix</div>
+          </div>
+        </div>
+        <div class="phase-col">
+          <div class="phase-label"><div class="ph-dot" style="background:var(--ph2)"></div><span>Implementation</span></div>
+          <div class="phase-timeline">M7 – M13</div>
+          <ul class="phase-items">
+            <li class="phase-item" id="t-a2-p2-i1">Deploy RMF Playbook actions (MAP + MEASURE)</li>
+            <li class="phase-item" id="t-a2-p2-i2">Fairness, robustness and explainability testing</li>
+            <li class="phase-item" id="t-a2-p2-i3">AI incident response playbook</li>
+            <li class="phase-item" id="t-a2-p2-i4">Integration into existing GRC tooling</li>
+            <li class="phase-item" id="t-a2-p2-i5">Red team / adversarial testing for high-risk systems</li>
+          </ul>
+          <div class="phase-deliverable">
+            <div class="deliverable-label">Key Deliverable</div>
+            <div id="t-a2-d2">AI Controls Library + Incident Playbook</div>
+          </div>
+        </div>
+        <div class="phase-col">
+          <div class="phase-label"><div class="ph-dot" style="background:var(--ph3)"></div><span>Maturity</span></div>
+          <div class="phase-timeline">M14 – M18</div>
+          <ul class="phase-items">
+            <li class="phase-item" id="t-a2-p3-i1">Automated risk monitoring dashboards</li>
+            <li class="phase-item" id="t-a2-p3-i2">Post-deployment drift detection pipelines</li>
+            <li class="phase-item" id="t-a2-p3-i3">Quarterly risk review cadence</li>
+            <li class="phase-item" id="t-a2-p3-i4">Metrics reporting to executive committee</li>
+          </ul>
+          <div class="phase-deliverable">
+            <div class="deliverable-label">Key Deliverable</div>
+            <div id="t-a2-d3">Continuous AI Risk Dashboard</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AXIS 3 — AI TPRM -->
+    <div class="axis-card" style="--ac:var(--a3);--acl:var(--a3l)">
+      <div class="axis-header">
+        <div class="axis-num" id="t-a3-num">Axis 03 · Third-Party AI Risk</div>
+        <div class="axis-title" id="t-a3-title">AI TPRM — Vendor & Supply Chain Risk Management</div>
+        <div class="axis-tag" id="t-a3-tag">Extension of existing TPRM programme · AI-specific criteria</div>
+      </div>
+      <div class="axis-phases">
+        <div class="phase-col">
+          <div class="phase-label"><div class="ph-dot" style="background:var(--ph1)"></div><span>Foundation</span></div>
+          <div class="phase-timeline">M1 – M6</div>
+          <ul class="phase-items">
+            <li class="phase-item" id="t-a3-p1-i1">Map all AI vendor relationships (models, APIs, data)</li>
+            <li class="phase-item" id="t-a3-p1-i2">Define AI-specific risk assessment criteria</li>
+            <li class="phase-item" id="t-a3-p1-i3">Classify vendors by risk tier (critical, high, medium)</li>
+            <li class="phase-item" id="t-a3-p1-i4">AI vendor questionnaire design (security, fairness, privacy)</li>
+          </ul>
+          <div class="phase-deliverable">
+            <div class="deliverable-label">Key Deliverable</div>
+            <div id="t-a3-d1">AI Vendor Registry + Risk Taxonomy</div>
+          </div>
+        </div>
+        <div class="phase-col">
+          <div class="phase-label"><div class="ph-dot" style="background:var(--ph2)"></div><span>Implementation</span></div>
+          <div class="phase-timeline">M7 – M13</div>
+          <ul class="phase-items">
+            <li class="phase-item" id="t-a3-p2-i1">Conduct assessments for critical-tier vendors</li>
+            <li class="phase-item" id="t-a3-p2-i2">AI clauses integration in vendor contracts</li>
+            <li class="phase-item" id="t-a3-p2-i3">Data processing agreements update for AI use</li>
+            <li class="phase-item" id="t-a3-p2-i4">Concentration risk analysis (cloud AI providers)</li>
+            <li class="phase-item" id="t-a3-p2-i5">Escalation and remediation process</li>
+          </ul>
+          <div class="phase-deliverable">
+            <div class="deliverable-label">Key Deliverable</div>
+            <div id="t-a3-d2">Vendor Assessment Reports + AI Contract Clauses</div>
+          </div>
+        </div>
+        <div class="phase-col">
+          <div class="phase-label"><div class="ph-dot" style="background:var(--ph3)"></div><span>Maturity</span></div>
+          <div class="phase-timeline">M14 – M18</div>
+          <ul class="phase-items">
+            <li class="phase-item" id="t-a3-p3-i1">Annual AI vendor reassessment cycle</li>
+            <li class="phase-item" id="t-a3-p3-i2">Continuous monitoring of vendor AI incidents</li>
+            <li class="phase-item" id="t-a3-p3-i3">AI supply chain risk in Board reporting</li>
+            <li class="phase-item" id="t-a3-p3-i4">Alignment with EU AI Act supply chain requirements</li>
+          </ul>
+          <div class="phase-deliverable">
+            <div class="deliverable-label">Key Deliverable</div>
+            <div id="t-a3-d3">AI TPRM Annual Review Programme</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AXIS 4 — RAI Training -->
+    <div class="axis-card" style="--ac:var(--a4);--acl:var(--a4l)">
+      <div class="axis-header">
+        <div class="axis-num" id="t-a4-num">Axis 04 · Capability Building</div>
+        <div class="axis-title" id="t-a4-title">RAI Training — Three-level Awareness Programme</div>
+        <div class="axis-tag" id="t-a4-tag">All employees · Technical teams · Risk & Compliance leaders</div>
+      </div>
+      <div class="axis-phases">
+        <div class="phase-col">
+          <div class="phase-label"><div class="ph-dot" style="background:var(--ph1)"></div><span>Foundation</span></div>
+          <div class="phase-timeline">M1 – M6</div>
+          <ul class="phase-items">
+            <li class="phase-item" id="t-a4-p1-i1">Training needs analysis by role and business unit</li>
+            <li class="phase-item" id="t-a4-p1-i2">Design 3-tier curriculum (awareness / practitioner / expert)</li>
+            <li class="phase-item" id="t-a4-p1-i3">Identify internal subject matter experts</li>
+            <li class="phase-item" id="t-a4-p1-i4">Select / develop e-learning and workshop content</li>
+          </ul>
+          <div class="phase-deliverable">
+            <div class="deliverable-label">Key Deliverable</div>
+            <div id="t-a4-d1">RAI Training Curriculum + Content</div>
+          </div>
+        </div>
+        <div class="phase-col">
+          <div class="phase-label"><div class="ph-dot" style="background:var(--ph2)"></div><span>Implementation</span></div>
+          <div class="phase-timeline">M7 – M13</div>
+          <ul class="phase-items">
+            <li class="phase-item" id="t-a4-p2-i1">Tier 1: All-staff RAI awareness (e-learning, 1h)</li>
+            <li class="phase-item" id="t-a4-p2-i2">Tier 2: Practitioner workshop — AI/Data/Product teams</li>
+            <li class="phase-item" id="t-a4-p2-i3">Tier 3: Expert certification — Risk, CISO, Legal</li>
+            <li class="phase-item" id="t-a4-p2-i4">Case-based learning from internal AI incidents</li>
+            <li class="phase-item" id="t-a4-p2-i5">Compliance tracking and completion reporting</li>
+          </ul>
+          <div class="phase-deliverable">
+            <div class="deliverable-label">Key Deliverable</div>
+            <div id="t-a4-d2">Training Completion Report (all 3 tiers)</div>
+          </div>
+        </div>
+        <div class="phase-col">
+          <div class="phase-label"><div class="ph-dot" style="background:var(--ph3)"></div><span>Maturity</span></div>
+          <div class="phase-timeline">M14 – M18</div>
+          <ul class="phase-items">
+            <li class="phase-item" id="t-a4-p3-i1">RAI integrated into onboarding process</li>
+            <li class="phase-item" id="t-a4-p3-i2">Annual refresher programme (regulatory updates)</li>
+            <li class="phase-item" id="t-a4-p3-i3">Internal RAI community of practice</li>
+            <li class="phase-item" id="t-a4-p3-i4">Culture measurement (RAI maturity survey)</li>
+          </ul>
+          <div class="phase-deliverable">
+            <div class="deliverable-label">Key Deliverable</div>
+            <div id="t-a4-d3">Embedded RAI Culture Programme</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /axis-grid -->
+
+  <!-- ── INTERDEPENDENCIES ── -->
+  <div class="inter-section">
+    <div class="inter-title" id="t-inter-title">Why this order matters — axis interdependencies</div>
+    <div class="inter-grid">
+      <div class="inter-card" style="border-color:var(--a1)">
+        <div class="inter-card-num">01 → All</div>
+        <div class="inter-card-title" id="t-int1-title">ISO 42001 first</div>
+        <div class="inter-card-body" id="t-int1-body">Creates the formal structure, policies, roles and artefacts that all other axes depend on. Without it, the other axes lack governance anchoring.</div>
+      </div>
+      <div class="inter-card" style="border-color:var(--a2)">
+        <div class="inter-card-num">02 feeds 03</div>
+        <div class="inter-card-title" id="t-int2-title">NIST RMF operationalises</div>
+        <div class="inter-card-body" id="t-int2-body">The AI inventory and risk scoring from Axis 2 directly feeds the vendor classification in Axis 3 — no vendor risk programme without knowing which systems use them.</div>
+      </div>
+      <div class="inter-card" style="border-color:var(--a3)">
+        <div class="inter-card-num">03 unlocks 04</div>
+        <div class="inter-card-title" id="t-int3-title">TPRM reveals gaps</div>
+        <div class="inter-card-body" id="t-int3-body">Vendor assessments expose the specific risks employees need to understand. Training content becomes concrete and credible because it is grounded in real supplier findings.</div>
+      </div>
+      <div class="inter-card" style="border-color:var(--a4)">
+        <div class="inter-card-num">04 sustains all</div>
+        <div class="inter-card-title" id="t-int4-title">Training sustains everything</div>
+        <div class="inter-card-body" id="t-int4-body">Governance documents and risk registers are only effective if the teams using them understand why they exist. Training converts policies into behaviours.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SUCCESS METRICS ── -->
+  <div class="metrics-section">
+    <div class="metrics-title" id="t-metrics-title">Success milestones by horizon</div>
+    <div class="metrics-grid">
+      <div class="metric-item">
+        <div class="metric-horizon" id="t-m1-h">M6 · Foundation complete</div>
+        <div class="metric-val">100%</div>
+        <div class="metric-kpi" id="t-m1-kpi">AI systems inventoried and risk-classified · AI Policy signed · Vendor map complete</div>
+      </div>
+      <div class="metric-item">
+        <div class="metric-horizon" id="t-m2-h">M12 · Implementation</div>
+        <div class="metric-val">80%</div>
+        <div class="metric-kpi" id="t-m2-kpi">Staff trained (Tier 1) · Top-tier vendors assessed · Controls deployed for high-risk systems</div>
+      </div>
+      <div class="metric-item">
+        <div class="metric-horizon" id="t-m3-h">M18 · Maturity</div>
+        <div class="metric-val">ISO</div>
+        <div class="metric-kpi" id="t-m3-kpi">42001 certification achieved · Continuous monitoring live · RAI embedded in culture</div>
+      </div>
+      <div class="metric-item">
+        <div class="metric-horizon" id="t-m4-h">Ongoing · Steady State</div>
+        <div class="metric-val">∞</div>
+        <div class="metric-kpi" id="t-m4-kpi">Annual audit cycle · Regulatory watch · Quarterly Board reporting on AI risk</div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /main -->
   </section>
 
 
@@ -2178,6 +2630,7 @@ const LANG = {
     // ── lifecycle tab
     nav4: "Cycle de vie IA",
     nav5: "Bibliothèque",
+    nav6: "Roadmap",
     lc_title: "Matrice Piliers RAI × Cycle de vie IA",
     lc_sub: "Intensité d'applicabilité de chaque pilier à chacune des 10 étapes du cycle de vie des systèmes IA.",
     lc_pillar_hdr: "Pilier RAI",
@@ -2195,6 +2648,31 @@ const LANG = {
     lc_ins4_title: "Fenêtre d'action Équité",
     lc_ins4_body: "L'Équité (P2) doit être adressée dès le Cadrage et la Collecte de données — corriger les biais après l'entraînement est coûteux et souvent insuffisant.",
     lc_steps_title: "Phases du AI Lifecycle — détails",
+    rm_title: "Roadmap d’implémentation RAI (AI Lifecycle)",
+    rm_sub: "Adaptation de la roadmap d’exemple intégrée dans le thème IBM de la page principale.",
+    rm_phase1_title: "Phase 1 — Foundation",
+    rm_phase1_window: "M0–M3",
+    rm_phase1_body: "Mettre en place la gouvernance IA, le registre des cas d’usage et les exigences minimales de conformité.",
+    rm_phase2_title: "Phase 2 — Implementation",
+    rm_phase2_window: "M3–M9",
+    rm_phase2_body: "Industrialiser les contrôles sur le cycle de vie: données, validation, sécurité, supervision humaine et documentation.",
+    rm_phase3_title: "Phase 3 — Maturity",
+    rm_phase3_window: "M9+",
+    rm_phase3_body: "Généraliser l’amélioration continue, la mesure d’impact et l’auditabilité sur l’ensemble du portefeuille IA.",
+    rm_th_workstream: "Axe de travail",
+    rm_th_p1: "Foundation",
+    rm_th_p2: "Implementation",
+    rm_th_p3: "Maturity",
+    rm_w1: "Gouvernance & politiques",
+    rm_w1_sub: "Modèle opérationnel, rôles et standards",
+    rm_w2: "Cycle de vie modèle",
+    rm_w2_sub: "Qualité des données, validation, monitoring",
+    rm_w3: "Conformité & assurance",
+    rm_w3_sub: "Preuves, audits, obligations réglementaires",
+    rm_w4: "Adoption & compétences",
+    rm_w4_sub: "Formation, outillage et conduite du changement",
+    rm_legend1: "Priorité forte",
+    rm_legend2: "Priorité progressive",
     lc_steps: [
       { title: "Cadrage", tag: "Objectifs, périmètre et cas d'usage", desc: "Cette phase définit la finalité métier et l'impact attendu du système IA. Les équipes cadrent le contexte d'usage, les utilisateurs concernés, les risques initiaux et les critères de succès.", focus: "Point d'attention: aligner objectifs business, contraintes réglementaires et impacts humains dès le départ." },
       { title: "Collecte de données", tag: "Sources, droits et représentativité", desc: "Les données sont identifiées puis collectées selon des bases légales claires. La qualité, la couverture des populations et les biais potentiels doivent être évalués avant toute modélisation.", focus: "Point d'attention: documenter la provenance des données et vérifier les risques de discrimination." },
@@ -2350,6 +2828,7 @@ const LANG = {
     // ── lifecycle tab
     nav4: "AI Lifecycle",
     nav5: "Library",
+    nav6: "Roadmap",
     lc_title: "RAI Pillars × AI Lifecycle Matrix",
     lc_sub: "Applicability intensity of each pillar across the 10 stages of the AI system lifecycle.",
     lc_pillar_hdr: "RAI Pillar",
@@ -2367,6 +2846,31 @@ const LANG = {
     lc_ins4_title: "Fairness action window",
     lc_ins4_body: "Fairness (P2) must be addressed from Scoping and Data Collection — correcting bias after training is costly and often insufficient.",
     lc_steps_title: "AI Lifecycle phases — details",
+    rm_title: "RAI Implementation Roadmap (AI Lifecycle)",
+    rm_sub: "Adapted from the roadmap example and integrated into the existing IBM-style theme.",
+    rm_phase1_title: "Phase 1 — Foundation",
+    rm_phase1_window: "M0–M3",
+    rm_phase1_body: "Establish AI governance, use-case intake, and minimum compliance controls.",
+    rm_phase2_title: "Phase 2 — Implementation",
+    rm_phase2_window: "M3–M9",
+    rm_phase2_body: "Industrialize lifecycle controls for data, validation, security, human oversight, and documentation.",
+    rm_phase3_title: "Phase 3 — Maturity",
+    rm_phase3_window: "M9+",
+    rm_phase3_body: "Scale continuous improvement, impact measurement, and auditability across the AI portfolio.",
+    rm_th_workstream: "Workstream",
+    rm_th_p1: "Foundation",
+    rm_th_p2: "Implementation",
+    rm_th_p3: "Maturity",
+    rm_w1: "Governance & policies",
+    rm_w1_sub: "Operating model, ownership and standards",
+    rm_w2: "Model lifecycle",
+    rm_w2_sub: "Data quality, validation, monitoring",
+    rm_w3: "Compliance & assurance",
+    rm_w3_sub: "Evidence, audits, regulatory obligations",
+    rm_w4: "Adoption & capabilities",
+    rm_w4_sub: "Training, tooling and change management",
+    rm_legend1: "High priority",
+    rm_legend2: "Progressive priority",
     lc_steps: [
       { title: "Scoping", tag: "Objectives, scope and use cases", desc: "This phase defines the business purpose and expected impact of the AI system. Teams clarify context of use, affected users, initial risks, and success criteria.", focus: "Focus: align business goals, regulatory constraints, and human impacts from the beginning." },
       { title: "Data Collection", tag: "Sources, rights and representativeness", desc: "Data sources are identified and collected under clear legal bases. Quality, population coverage, and potential biases must be assessed before modeling starts.", focus: "Focus: document data provenance and proactively evaluate discrimination risks." },
@@ -2485,6 +2989,7 @@ function applyLang() {
   // ── lifecycle tab
   set('i18n-nav4', t.nav4);
   set('i18n-nav5', t.nav5);
+  set('i18n-nav6', t.nav6);
   // resources tab lang switch
   applyResourcesLang(currentLang);
   set('lc-title', t.lc_title);
@@ -2500,6 +3005,31 @@ function applyLang() {
   set('lc-ins4-title', t.lc_ins4_title); set('lc-ins4-body', t.lc_ins4_body);
   t.lc_stages.forEach((s, i) => set('lc-stage-' + (i+1), s));
   set('lc-steps-title', t.lc_steps_title);
+  set('rm-title', t.rm_title);
+  set('rm-sub', t.rm_sub);
+  set('rm-phase1-title', t.rm_phase1_title);
+  set('rm-phase1-window', t.rm_phase1_window);
+  set('rm-phase1-body', t.rm_phase1_body);
+  set('rm-phase2-title', t.rm_phase2_title);
+  set('rm-phase2-window', t.rm_phase2_window);
+  set('rm-phase2-body', t.rm_phase2_body);
+  set('rm-phase3-title', t.rm_phase3_title);
+  set('rm-phase3-window', t.rm_phase3_window);
+  set('rm-phase3-body', t.rm_phase3_body);
+  set('rm-th-workstream', t.rm_th_workstream);
+  set('rm-th-p1', t.rm_th_p1);
+  set('rm-th-p2', t.rm_th_p2);
+  set('rm-th-p3', t.rm_th_p3);
+  set('rm-w1', t.rm_w1);
+  set('rm-w1-sub', t.rm_w1_sub);
+  set('rm-w2', t.rm_w2);
+  set('rm-w2-sub', t.rm_w2_sub);
+  set('rm-w3', t.rm_w3);
+  set('rm-w3-sub', t.rm_w3_sub);
+  set('rm-w4', t.rm_w4);
+  set('rm-w4-sub', t.rm_w4_sub);
+  set('rm-legend1', t.rm_legend1);
+  set('rm-legend2', t.rm_legend2);
   if (Array.isArray(t.lc_steps)) {
     t.lc_steps.forEach((step, i) => {
       const idx = i + 1;
