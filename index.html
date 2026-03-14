@@ -889,9 +889,16 @@ body.dark .lc-table tbody tr:hover .lc-cell { background: rgba(255,255,255,0.02)
 }
 
 #roadmap .main { max-width: 1100px; margin: 0 auto; padding: 2rem 3rem 4rem; }
-#roadmap .axis-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-bottom: 2rem; }
-#roadmap .axis-card { background: var(--surface); border: 1px solid var(--border); border-top: 4px solid var(--ac); border-radius: 6px; overflow: hidden; }
-#roadmap .axis-header { padding: 1.1rem 1.25rem 0.9rem; border-bottom: 1px solid var(--border); background: color-mix(in srgb, var(--acl) 40%, white); }
+#roadmap .roadmap-filters { display:flex; justify-content:center; margin:0 auto 1rem; }
+#roadmap .roadmap-filter-wrap { display:flex; gap:2px; background:var(--bg2); border:1px solid var(--border); border-radius:6px; padding:3px; }
+#roadmap .roadmap-filter-btn { padding:0.3rem 1rem; font-size:13px; font-weight:500; border:none; background:none; color:var(--muted); cursor:pointer; border-radius:4px; transition:all 0.15s; white-space:nowrap; }
+#roadmap .roadmap-filter-btn:hover { color:var(--text); }
+#roadmap .roadmap-filter-btn.active { background:var(--bg); color:var(--text); box-shadow:0 1px 3px rgba(0,0,0,0.1); }
+body.dark #roadmap .roadmap-filter-btn.active { box-shadow:0 1px 3px rgba(0,0,0,0.4); }
+#roadmap .phase-col.hidden-by-filter { display:none; }
+#roadmap .axis-grid { display: grid; grid-template-columns: 1fr; gap: 0.75rem; margin-bottom: 2rem; }
+#roadmap .axis-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+#roadmap .axis-header { padding: 0.85rem 1rem; border-bottom: 1px solid var(--border); border-left: 3px solid var(--ac); background: color-mix(in srgb, var(--acl) 20%, white); }
 #roadmap .axis-num { font-family: 'Fira Mono', monospace; font-size: 10px; color: var(--ac); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.2rem; display: flex; align-items: center; gap: 0.5rem; }
 #roadmap .axis-num::after { content: ''; flex: 1; height: 1px; background: var(--ac); opacity: 0.2; }
 #roadmap .axis-title { font-size: 15px; font-weight: 700; color: var(--ink); letter-spacing: -0.02em; margin-bottom: 0.2rem; }
@@ -926,7 +933,6 @@ body.dark .lc-table tbody tr:hover .lc-cell { background: rgba(255,255,255,0.02)
 body.dark #roadmap .phase-item { color: #c9d1d9; }
 @media (max-width: 900px) {
   #roadmap .timeline-strip, #roadmap .main { padding-left: 1.25rem; padding-right: 1.25rem; }
-  #roadmap .axis-grid { grid-template-columns: 1fr; }
   #roadmap .inter-grid, #roadmap .metrics-grid { grid-template-columns: 1fr 1fr; }
   #roadmap .axis-phases { grid-template-columns: 1fr; }
   #roadmap .phase-col { border-right: none; border-bottom: 1px solid var(--border); }
@@ -1611,6 +1617,14 @@ body.dark .fw-voluntary {
 
 <div class="main">
 
+  <div class="roadmap-filters" aria-label="Roadmap implementation priority filters">
+    <div class="roadmap-filter-wrap">
+      <button class="roadmap-filter-btn active" data-priority-toggle="foundation" onclick="toggleRoadmapPriority('foundation', this)">Foundation</button>
+      <button class="roadmap-filter-btn active" data-priority-toggle="implementation" onclick="toggleRoadmapPriority('implementation', this)">Implementation</button>
+      <button class="roadmap-filter-btn active" data-priority-toggle="maturity" onclick="toggleRoadmapPriority('maturity', this)">Maturity</button>
+    </div>
+  </div>
+
   <!-- ── AXIS CARDS ── -->
   <div class="axis-grid">
 
@@ -1622,7 +1636,7 @@ body.dark .fw-voluntary {
         <div class="axis-tag" id="t-a1-tag">Certifiable structure · Compatible with ISO 27001</div>
       </div>
       <div class="axis-phases">
-        <div class="phase-col">
+        <div class="phase-col" data-priority="foundation">
           <div class="phase-label"><div class="ph-dot" style="background:var(--ph1)"></div><span id="t-p1">Foundation</span></div>
           <div class="phase-timeline">M1 – M6</div>
           <ul class="phase-items">
@@ -1637,7 +1651,7 @@ body.dark .fw-voluntary {
             <div id="t-a1-d1">ISO 42001 Gap Report + AI Policy</div>
           </div>
         </div>
-        <div class="phase-col">
+        <div class="phase-col" data-priority="implementation">
           <div class="phase-label"><div class="ph-dot" style="background:var(--ph2)"></div><span id="t-p2">Implementation</span></div>
           <div class="phase-timeline">M7 – M13</div>
           <ul class="phase-items">
@@ -1652,7 +1666,7 @@ body.dark .fw-voluntary {
             <div id="t-a1-d2">AIMS Documentation Package</div>
           </div>
         </div>
-        <div class="phase-col">
+        <div class="phase-col" data-priority="maturity">
           <div class="phase-label"><div class="ph-dot" style="background:var(--ph3)"></div><span id="t-p3">Maturity</span></div>
           <div class="phase-timeline">M14 – M18</div>
           <ul class="phase-items">
@@ -1677,7 +1691,7 @@ body.dark .fw-voluntary {
         <div class="axis-tag" id="t-a2-tag">Actionable playbook · System-level risk controls</div>
       </div>
       <div class="axis-phases">
-        <div class="phase-col">
+        <div class="phase-col" data-priority="foundation">
           <div class="phase-label"><div class="ph-dot" style="background:var(--ph1)"></div><span>Foundation</span></div>
           <div class="phase-timeline">M1 – M6</div>
           <ul class="phase-items">
@@ -1691,7 +1705,7 @@ body.dark .fw-voluntary {
             <div id="t-a2-d1">AI Risk Register + Scoring Matrix</div>
           </div>
         </div>
-        <div class="phase-col">
+        <div class="phase-col" data-priority="implementation">
           <div class="phase-label"><div class="ph-dot" style="background:var(--ph2)"></div><span>Implementation</span></div>
           <div class="phase-timeline">M7 – M13</div>
           <ul class="phase-items">
@@ -1706,7 +1720,7 @@ body.dark .fw-voluntary {
             <div id="t-a2-d2">AI Controls Library + Incident Playbook</div>
           </div>
         </div>
-        <div class="phase-col">
+        <div class="phase-col" data-priority="maturity">
           <div class="phase-label"><div class="ph-dot" style="background:var(--ph3)"></div><span>Maturity</span></div>
           <div class="phase-timeline">M14 – M18</div>
           <ul class="phase-items">
@@ -1731,7 +1745,7 @@ body.dark .fw-voluntary {
         <div class="axis-tag" id="t-a3-tag">Extension of existing TPRM programme · AI-specific criteria</div>
       </div>
       <div class="axis-phases">
-        <div class="phase-col">
+        <div class="phase-col" data-priority="foundation">
           <div class="phase-label"><div class="ph-dot" style="background:var(--ph1)"></div><span>Foundation</span></div>
           <div class="phase-timeline">M1 – M6</div>
           <ul class="phase-items">
@@ -1745,7 +1759,7 @@ body.dark .fw-voluntary {
             <div id="t-a3-d1">AI Vendor Registry + Risk Taxonomy</div>
           </div>
         </div>
-        <div class="phase-col">
+        <div class="phase-col" data-priority="implementation">
           <div class="phase-label"><div class="ph-dot" style="background:var(--ph2)"></div><span>Implementation</span></div>
           <div class="phase-timeline">M7 – M13</div>
           <ul class="phase-items">
@@ -1760,7 +1774,7 @@ body.dark .fw-voluntary {
             <div id="t-a3-d2">Vendor Assessment Reports + AI Contract Clauses</div>
           </div>
         </div>
-        <div class="phase-col">
+        <div class="phase-col" data-priority="maturity">
           <div class="phase-label"><div class="ph-dot" style="background:var(--ph3)"></div><span>Maturity</span></div>
           <div class="phase-timeline">M14 – M18</div>
           <ul class="phase-items">
@@ -1785,7 +1799,7 @@ body.dark .fw-voluntary {
         <div class="axis-tag" id="t-a4-tag">All employees · Technical teams · Risk & Compliance leaders</div>
       </div>
       <div class="axis-phases">
-        <div class="phase-col">
+        <div class="phase-col" data-priority="foundation">
           <div class="phase-label"><div class="ph-dot" style="background:var(--ph1)"></div><span>Foundation</span></div>
           <div class="phase-timeline">M1 – M6</div>
           <ul class="phase-items">
@@ -1799,7 +1813,7 @@ body.dark .fw-voluntary {
             <div id="t-a4-d1">RAI Training Curriculum + Content</div>
           </div>
         </div>
-        <div class="phase-col">
+        <div class="phase-col" data-priority="implementation">
           <div class="phase-label"><div class="ph-dot" style="background:var(--ph2)"></div><span>Implementation</span></div>
           <div class="phase-timeline">M7 – M13</div>
           <ul class="phase-items">
@@ -1814,7 +1828,7 @@ body.dark .fw-voluntary {
             <div id="t-a4-d2">Training Completion Report (all 3 tiers)</div>
           </div>
         </div>
-        <div class="phase-col">
+        <div class="phase-col" data-priority="maturity">
           <div class="phase-label"><div class="ph-dot" style="background:var(--ph3)"></div><span>Maturity</span></div>
           <div class="phase-timeline">M14 – M18</div>
           <ul class="phase-items">
@@ -2922,6 +2936,46 @@ function toggleLifecycleStep(n) {
   if (card) card.classList.toggle('open');
 }
 
+
+const roadmapPriorityVisibility = {
+  foundation: true,
+  implementation: true,
+  maturity: true
+};
+
+function refreshRoadmapPriorityView() {
+  document.querySelectorAll('#roadmap .axis-phases').forEach(phases => {
+    let activeCount = 0;
+    phases.querySelectorAll('.phase-col').forEach(col => {
+      const priority = col.dataset.priority;
+      const isVisible = priority ? roadmapPriorityVisibility[priority] !== false : true;
+      col.classList.toggle('hidden-by-filter', !isVisible);
+      if (isVisible) activeCount += 1;
+    });
+    phases.style.gridTemplateColumns = activeCount > 0 ? `repeat(${activeCount}, 1fr)` : '1fr';
+  });
+}
+
+function toggleRoadmapPriority(priority, btn) {
+  if (!(priority in roadmapPriorityVisibility)) return;
+  roadmapPriorityVisibility[priority] = !roadmapPriorityVisibility[priority];
+  if (btn) {
+    btn.classList.toggle('active', roadmapPriorityVisibility[priority]);
+    btn.setAttribute('aria-pressed', String(roadmapPriorityVisibility[priority]));
+  }
+  refreshRoadmapPriorityView();
+}
+
+function initRoadmapPriorityFilters() {
+  document.querySelectorAll('#roadmap .roadmap-filter-btn').forEach(btn => {
+    const priority = btn.dataset.priorityToggle;
+    if (!priority) return;
+    btn.classList.toggle('active', roadmapPriorityVisibility[priority] !== false);
+    btn.setAttribute('aria-pressed', String(roadmapPriorityVisibility[priority] !== false));
+  });
+  refreshRoadmapPriorityView();
+}
+
 function goToPillar(n) {
   showTab('pillars', document.getElementById('i18n-nav2'));
   setTimeout(() => {
@@ -3073,7 +3127,10 @@ function applyResourcesLang(lang) {
   if(stat)  stat.textContent  = lang === 'en' ? 'frameworks' : 'cadres';
 }
 
-document.addEventListener('DOMContentLoaded', applyLang);
+document.addEventListener('DOMContentLoaded', () => {
+  initRoadmapPriorityFilters();
+  applyLang();
+});
 </script>
 </body>
 </html>
