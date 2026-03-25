@@ -2919,6 +2919,13 @@ const LANG = {
 let currentLang = 'en';
 let currentTheme = 'light';
 
+function detectBrowserLanguage() {
+  const browserLangs = Array.isArray(navigator.languages) && navigator.languages.length
+    ? navigator.languages
+    : [navigator.language || navigator.userLanguage || 'en'];
+  return browserLangs.some(lang => String(lang).toLowerCase().startsWith('fr')) ? 'fr' : 'en';
+}
+
 function showTab(id, btn) {
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
@@ -3128,6 +3135,7 @@ function applyResourcesLang(lang) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  currentLang = detectBrowserLanguage();
   initRoadmapPriorityFilters();
   applyLang();
 });
