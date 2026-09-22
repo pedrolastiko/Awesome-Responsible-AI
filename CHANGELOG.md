@@ -6,6 +6,7 @@ All notable changes to this repository are documented in this file.
 
 ### Added
 
+- Allowly Screening Decisions Profile in the reusable governance templates.
 - New domain-oriented repository scaffold for legislation, frameworks, pillars, tools, research, use cases, and community.
 - Comprehensive contribution guide with framework/tool/legislation workflows.
 - Standard framework template at `frameworks/TEMPLATE.md`.
